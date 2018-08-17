@@ -1,23 +1,19 @@
 package me.retrodaredevil.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+public interface ControllerManager {
+	/**
+	 *
+	 * @param controller The controller to add. controller.getParent() should be null
+	 * @return true if the passed controller wasn't already added, false otherwise
+	 */
+	boolean addController(ControllerInput controller);
 
-public class ControllerManager {
+	/**
+	 *
+	 * @param controller The controller to remove
+	 * @return true if the passed controller was removed, false if it wasn't added to begin with
+	 */
+	boolean removeController(ControllerInput controller);
 
-	private ControlConfig config;
-	private List<ControllerInput> controllers = new ArrayList<>();
-
-	public ControllerManager(){
-		config = new ControlConfig();
-	}
-	public void addController(ControllerInput controller){
-		this.controllers.add(controller);
-	}
-	public void update(){
-		for(ControllerInput controller : controllers){
-			assert controller.getParent() == null;
-			controller.update(this.config);
-		}
-	}
+	void update();
 }
