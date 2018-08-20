@@ -38,7 +38,7 @@ public class TwoWayInput extends AutoCachingInputPart {
 		this.part2 = part2;
 //		part1.setParent(this);
 //		part2.setParent(this);
-        addChildren(Arrays.asList(part1, part2), false, true);
+		addChildren(Arrays.asList(part1, part2), false, true);
 	}
 	public InputPart getPart1(){
 		return part1;
