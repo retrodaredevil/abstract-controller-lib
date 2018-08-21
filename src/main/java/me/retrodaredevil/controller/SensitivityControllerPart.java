@@ -8,5 +8,15 @@ public interface SensitivityControllerPart extends ControllerPart {
 	double getMinSensitivity();
 
 	double getSensitivity();
+
+	/**
+	 * NOTE: In some implementations, a sensitivity of 0 may be in range, but may still be invalid
+	 * @param sensitivity The sensitivity
+	 * @throws IllegalArgumentException if sensitivity is out of range
+	 */
 	void setSensitivity(double sensitivity);
+
+	double getDefaultSensitivity();
+
+	void setToDefaultSensitivity();
 }
