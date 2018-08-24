@@ -1,6 +1,8 @@
 package me.retrodaredevil.controller.options;
 
 public final class OptionValues {
+	private OptionValues(){}
+
 	public static OptionValueObject createBooleanOptionValue(boolean isTrueByDefault){
 		return new SimpleOption(false, 0, 1, isTrueByDefault ? 1 : 0);
 	}
@@ -68,7 +70,7 @@ public final class OptionValues {
 				throw new IllegalArgumentException("value: " + newValue + " is out of range: [" + min + ", " + max + "].");
 			}
 
-			this.value = value;
+			this.value = newValue;
 		}
 
 		@Override

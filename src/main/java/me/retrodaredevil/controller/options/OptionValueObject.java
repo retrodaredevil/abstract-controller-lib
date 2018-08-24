@@ -17,7 +17,11 @@ public interface OptionValueObject {
 	double getMaxOptionValue();
 
 	/**
+	 * If {@link #isOptionAnalog()} == true, passing a value that's not a whole number may be rounded
+	 * or in worse case, floored. Sometimes it won't even round or floor it - depends on implementation.
+	 *
 	 * @param value The option value to set it to
+	 * @throws IllegalArgumentException if value is out of range. This is not required to be thrown
 	 */
 	void setOptionValue(double value);
 	/** @return the current option value */
@@ -36,10 +40,11 @@ public interface OptionValueObject {
 	/**
 	 * Can only be called if {@link #isOptionValueBoolean()}
 	 * @return The boolean option value. If {@link #getOptionValue()} == 1, this will return true
+	 * @throws UnsupportedOperationException if {@link #isOptionValueBoolean()} == false
 	 */
 	default boolean getBooleanOptionValue(){
 		if(!isOptionValueBoolean()){
-			throw new IllegalStateException("Cannot get a boolean value if the option value is not boolean");
+			throw new UnsupportedOperationException("Cannot get a boolean value if the option value is not boolean");
 		}
 		return getOptionValue() == 1;
 	}

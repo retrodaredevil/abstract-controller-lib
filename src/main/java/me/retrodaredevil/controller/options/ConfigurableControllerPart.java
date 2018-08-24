@@ -13,5 +13,5 @@ public interface ConfigurableControllerPart extends ControllerPart {
 	 * @return A Collection of ControlOptions that should not be mutated. This is normally ordered
 	 * 			when iterating over it.
 	 */
-	Collection<ControlOption> getControlOptions();
+	Collection<? extends ControlOption> getControlOptions();
 }
