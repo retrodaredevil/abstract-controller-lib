@@ -17,15 +17,10 @@ public class ControlOption {
 	 * @param optionValue The OptionValueObject that can be mutated by calling its set methods
 	 */
 	public ControlOption(String label, String description, String category, OptionValueObject optionValue){
-		this.label = label;
-		this.description = description;
-		this.category = category;
-		this.optionValue = optionValue;
-
-		Objects.requireNonNull(label);
-		Objects.requireNonNull(description);
-		Objects.requireNonNull(category);
-		Objects.requireNonNull(optionValue);
+		this.label = Objects.requireNonNull(label);
+		this.description = Objects.requireNonNull(description);
+		this.category = Objects.requireNonNull(category);
+		this.optionValue = Objects.requireNonNull(optionValue);
 	}
 	public String getLabel(){
 		return label;
