@@ -33,13 +33,14 @@ public class ControlOption {
 	}
 
 	/**
-	 *
+	 * This is not intended to be displayed on screen. It can be used as a save key or in a map and
+	 * is recommended to be used over just the label or category
 	 * @return By default returns category + "." + label
 	 */
 	public String getKey(){
 		return category + "." + label;
 	}
-	public OptionValue getOptionValueObject(){
+	public OptionValue getOptionValue(){
 		return optionValue;
 	}
 }

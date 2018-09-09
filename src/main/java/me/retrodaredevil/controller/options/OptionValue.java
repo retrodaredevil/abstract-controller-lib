@@ -40,7 +40,10 @@ public interface OptionValue {
 	 * @throws IllegalArgumentException if value is out of range. This is not required to be thrown
 	 */
 	default void setOptionValue(int value){ setOptionValue((double) value); }
-	/** @return the current option value */
+	/**
+	 * If {@link #isOptionAnalog()} == true, this should be a whole number and should be able to be casted to int without problems
+	 * @return the current option value.
+	 * */
 	double getOptionValue();
 
 	/** @return the default option value */

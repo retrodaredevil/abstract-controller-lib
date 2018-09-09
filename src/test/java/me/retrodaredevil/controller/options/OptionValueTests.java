@@ -77,4 +77,20 @@ final class OptionValueTests {
 		assertTrue(optionValue.isOptionValueRadio());
 		assertThrows(IllegalArgumentException.class, () -> optionValue.setOptionValue(-1));
 	}
+
+	@Test
+	void testImmutableOptionValues(){
+		final OptionValue booleanOptionValue = OptionValues.createImmutableBooleanOptionValue(true);
+		for(OptionValue optionValue : Arrays.asList(OptionValues.createImmutableAnalogRangedOptionValue(.5),
+				OptionValues.createImmutableDigitalRangedOptionValue(2), booleanOptionValue)){
+			optionValue.setToDefaultOptionValue();
+			optionValue.setOptionValue(optionValue.getDefaultOptionValue());
+			assertThrows(UnsupportedOperationException.class, () -> optionValue.setOptionValue(1234));
+		}
+		booleanOptionValue.getBooleanOptionValue();
+		booleanOptionValue.setBooleanOptionValue(true);
+		assertThrows(UnsupportedOperationException.class, () -> booleanOptionValue.setBooleanOptionValue(false));
+		assertTrue(booleanOptionValue.isOptionValueBoolean());
+		assertTrue(booleanOptionValue.getBooleanOptionValue());
+	}
 }
