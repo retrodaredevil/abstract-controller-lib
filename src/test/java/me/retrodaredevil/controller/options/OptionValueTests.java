@@ -66,13 +66,13 @@ final class OptionValueTests {
 
 	@Test
 	void testRadioOptionValue(){
-		final OptionValue optionValue = OptionValues.createRadioOptionValue(Arrays.asList("option 1", "option 2", "option 3"), 1);
+		final OptionValue optionValue = OptionValues.createRadioOptionValueWithStrings(Arrays.asList("option 1", "option 2", "option 3"), 1);
 		assertEquals(optionValue.getOptionValue(), optionValue.getDefaultOptionValue());
 		assertEquals(0, optionValue.getMinOptionValue());
 		assertEquals(optionValue.getRadioOptions().size() - 1, optionValue.getMaxOptionValue());
-		assertEquals("option 2", optionValue.getRadioOptions().get((int) optionValue.getOptionValue()));
+		assertEquals("option 2", optionValue.getRadioOptions().get((int) optionValue.getOptionValue()).getRadioOptionName());
 		optionValue.setOptionValue(2);
-		assertEquals("option 3", optionValue.getRadioOptions().get((int) optionValue.getOptionValue()));
+		assertEquals("option 3", optionValue.getRadioOptions().get((int) optionValue.getOptionValue()).getRadioOptionName());
 
 		assertTrue(optionValue.isOptionValueRadio());
 		assertThrows(IllegalArgumentException.class, () -> optionValue.setOptionValue(-1));

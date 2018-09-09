@@ -60,10 +60,10 @@ public interface OptionValue {
 	 * <p>
 	 * NOTE: You should not mutate the returned list, as that might cause bugs or immutability is
 	 * enforced (may throw errors if you try to add to it)
-	 * @return an empty list if this option value is not a radio option otherwise, will return a list of strings representing
+	 * @return an empty list if this option value is not a radio option otherwise, will return a list of RadioOptions representing
 	 * 			each radio option.
 	 */
-	List<String> getRadioOptions();
+	List<? extends RadioOption> getRadioOptions();
 
 	/**
 	 * If this is true, then {@link #isOptionAnalog()} should be false and {@link #isOptionValueBoolean()} should

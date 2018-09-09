@@ -1,5 +1,6 @@
 package me.retrodaredevil.controller.options;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,8 +33,15 @@ public final class OptionValues {
 		return createImmutableDigitalRangedOptionValue(value, value, value);
 	}
 
-	public static OptionValue createRadioOptionValue(List<String> options, int defaultOption){
+	public static OptionValue createRadioOptionValue(List<? extends RadioOption> options, int defaultOption){
 		return new SimpleRadioOption(options, defaultOption);
+	}
+	public static OptionValue createRadioOptionValueWithStrings(List<String> options, int defaultOption){
+		List<RadioOption> radioOptions = new ArrayList<>();
+		for(final String s : options){
+			radioOptions.add(() -> s);
+		}
+		return new SimpleRadioOption(radioOptions, defaultOption);
 	}
 
 	private static final class SimpleOption implements OptionValue {
@@ -88,7 +96,7 @@ public final class OptionValues {
 		public double getOptionValue() { return value; }
 
 		@Override
-		public List<String> getRadioOptions() { return Collections.emptyList(); }
+		public List<? extends RadioOption> getRadioOptions() { return Collections.emptyList(); }
 		@Override
 		public boolean isOptionValueRadio() { return false; }
 	}
@@ -121,7 +129,7 @@ public final class OptionValues {
 		public double getOptionValue() { return value; }
 
 		@Override
-		public List<String> getRadioOptions() { return Collections.emptyList(); }
+		public List<? extends RadioOption> getRadioOptions() { return Collections.emptyList(); }
 		@Override
 		public boolean isOptionValueRadio() { return false; }
 
@@ -137,11 +145,11 @@ public final class OptionValues {
 		public void setToDefaultOptionValue() {} // we shouldn't need to change the value
 	}
 	private static final class SimpleRadioOption implements OptionValue {
-		private final List<String> options; // an unmodifiable list
+		private final List<RadioOption> options; // an unmodifiable list
 		private final int defaultOptionIndex;
 		private int optionIndex;
 
-		SimpleRadioOption(List<String> optionsList, int defaultOptionIndex){
+		SimpleRadioOption(List<? extends RadioOption> optionsList, int defaultOptionIndex){
 			this.options = Collections.unmodifiableList(optionsList);
 			this.defaultOptionIndex = defaultOptionIndex;
 			if(defaultOptionIndex < 0 || defaultOptionIndex >= options.size()){
@@ -194,7 +202,7 @@ public final class OptionValues {
 		}
 
 		@Override
-		public List<String> getRadioOptions() {
+		public List<? extends RadioOption> getRadioOptions() {
 			return options;
 		}
 
