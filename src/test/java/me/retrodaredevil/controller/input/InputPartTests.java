@@ -20,7 +20,7 @@ final class InputPartTests {
 	private InputPartTests(){}
 
 	@Test
-	void testConstantInputParts(){
+	void testDummyInputPart(){
 		final InputPart part = new DummyInputPart(1, false);
 		final AxisType type = part.getAxisType();
 		assertFalse(type.isFull());
@@ -40,7 +40,7 @@ final class InputPartTests {
 	}
 
 	@Test
-	void testDummyInputPart(){
+	void testDummyInputPartPresses(){
 		DummyInputPart dummy = new DummyInputPart(-.51, true);
 
 		dummy.update(config);
