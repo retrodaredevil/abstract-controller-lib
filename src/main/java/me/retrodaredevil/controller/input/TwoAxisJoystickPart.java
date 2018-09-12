@@ -1,7 +1,5 @@
 package me.retrodaredevil.controller.input;
 
-import java.util.Arrays;
-
 /**
  * A single joystick with two axis. If the two axi that this handles have the same parent, this
  * may not be updated correctly. It is recommended that the two axi this is handling don't have
@@ -30,7 +28,7 @@ public class TwoAxisJoystickPart extends SimpleJoystickPart {
 				autoCorrectToDetectSquareInput && !(x.getAxisType().isRangeOver() || y.getAxisType().isRangeOver()));
 		this.xAxis = x;
 		this.yAxis = y;
-		this.addChildren(Arrays.asList(xAxis, yAxis), true, true);
+		this.addChildren(true, true, xAxis, yAxis);
 	}
 
 	/**

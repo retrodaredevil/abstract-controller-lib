@@ -4,6 +4,10 @@ import java.util.Collection;
 
 /**
  * Represents part of a controller such as a button or joystick
+ * <p>
+ * When inheriting, it is recommended to use {@link SimpleControllerPart}. If you do not end up using
+ * that, make sure you look at the source of that when implementing children and parents so your
+ * code is compatible with them and doesn't result in a stack overflow
  */
 public interface ControllerPart {
 	/**
@@ -18,6 +22,8 @@ public interface ControllerPart {
 	 * automatically
 	 * <p>
 	 * This is expected to call parent.addChild() only if old parent != parent
+	 * <p>
+	 * After this method is called, {@link #getParent()} should return parent
 	 * @param parent The parent to set
 	 * @throws IllegalArgumentException thrown if parent == this
 	 */
@@ -47,6 +53,9 @@ public interface ControllerPart {
 	 * parent should not be changed.
 	 * <p>
 	 * Calling this method will also (obviously) remove part as a child so part will not be contained in getChildren()
+	 * <p>
+	 * While this method is being called, part#{@link #getParent()} may not be correct but after this
+	 * is called it should be correct
 	 * @param part The part to remove a child
 	 * @return true if the part was removed
 	 */

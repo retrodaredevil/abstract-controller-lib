@@ -24,7 +24,7 @@ public class DummyInputPart extends AutoCachingInputPart {
 		if(!type.isRangeOver() && Math.abs(position) > 1){
 			throw new IllegalArgumentException("Must be range over if abs(position) > 1");
 		}
-		if(!type.isFull() && position < 1){
+		if(!type.isFull() && position < 0){
 			throw new IllegalArgumentException("Must be full if position < 1");
 		}
 		if(!type.isAnalog() && position != Math.floor(position)){

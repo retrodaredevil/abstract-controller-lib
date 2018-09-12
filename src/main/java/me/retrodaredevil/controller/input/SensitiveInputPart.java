@@ -1,6 +1,5 @@
 package me.retrodaredevil.controller.input;
 
-import java.util.Collections;
 import java.util.Objects;
 
 import me.retrodaredevil.controller.options.OptionValue;
@@ -11,6 +10,11 @@ public class SensitiveInputPart extends AutoCachingInputPart {
 	private final OptionValue sensitivityMultiplier;
 	private final OptionValue invertOption; // nullable
 
+	/**
+	 * @param inputPart The input part to adjust the sensitivity of. If this doesn't already have a parent, it will be added as a child to this instance
+	 * @param sensitivityMultiplier The sensitivity OptionValue that the position from inputPart will be multiplied by
+	 * @param invertOption null or a boolean OptionValue representing if the position should be multiplied by -1
+	 */
 	public SensitiveInputPart(InputPart inputPart, OptionValue sensitivityMultiplier, OptionValue invertOption){
 		super(autoAxisTypeHelper(inputPart, sensitivityMultiplier, invertOption != null), true);
 		this.inputPart = Objects.requireNonNull(inputPart);
@@ -19,7 +23,7 @@ public class SensitiveInputPart extends AutoCachingInputPart {
 		if(invertOption != null && !invertOption.isOptionValueBoolean()){
 			throw new IllegalArgumentException("invertOption must be a boolean option value");
 		}
-		addChildren(Collections.singleton(inputPart), true, true);
+		addChildren(false, true, inputPart);
 	}
 	public SensitiveInputPart(InputPart inputPart, OptionValue sensitivityMultiplier){
 		this(inputPart, sensitivityMultiplier, null);

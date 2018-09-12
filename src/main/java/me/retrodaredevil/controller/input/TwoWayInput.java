@@ -1,7 +1,5 @@
 package me.retrodaredevil.controller.input;
 
-import java.util.Arrays;
-
 /**
  * Represents a "full" InputPart so that you are able to use two other InputParts where one is
  * positive and the other is negative. (Can be useful to create an Axis for x and y using A and D,
@@ -36,9 +34,7 @@ public class TwoWayInput extends AutoCachingInputPart {
 		}
 		this.part1 = part1;
 		this.part2 = part2;
-//		part1.setParent(this);
-//		part2.setParent(this);
-		addChildren(Arrays.asList(part1, part2), false, true);
+		addChildren(false, true, part1, part2);
 	}
 	public InputPart getPart1(){
 		return part1;

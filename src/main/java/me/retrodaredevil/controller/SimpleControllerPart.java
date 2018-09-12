@@ -1,7 +1,9 @@
 package me.retrodaredevil.controller;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -33,22 +35,25 @@ public abstract class SimpleControllerPart implements ControllerPart{
 	}
 
 	@Override
-	public void setParent(final ControllerPart parent) {
-		if(parent == this){
+	public void setParent(final ControllerPart newParent) {
+		if(newParent == this){
 			throw new IllegalArgumentException("Cannot set parent to this");
 		}
-		if(this.parent == parent){ // don't do anything if it's the same
+		if(this.parent == newParent){ // don't do anything if it's the same
 			return;
 		}
-		if(this.parent != null) {
-			this.parent.removeChild(this);
+		final ControllerPart oldParent = this.parent;
+		this.parent = newParent;
+		if(oldParent != null) {
 			if(isDebuggingChangeInParent()){
-				System.out.println(getClass().getSimpleName() + " (or " + this + ") is changing its parent from old parent: " + this.parent + " to new parent: " + parent);
+				System.out.println(getClass().getSimpleName()
+						+ " (or " + this + ") is changing its parent from old parent: " + oldParent
+						+ " to new parent: " + newParent);
 			}
+			oldParent.removeChild(this);
 		}
-		this.parent = parent;
-		if(parent != null){
-			parent.addChild(this);
+		if(newParent != null){
+			newParent.addChild(this);
 		}
 	}
 
@@ -59,22 +64,20 @@ public abstract class SimpleControllerPart implements ControllerPart{
 
 	@Override
 	public void addChild(ControllerPart part) {
+		Objects.requireNonNull(part);
+
 		children.add(part);
 		part.setParent(this);
 	}
 
 	@Override
 	public boolean removeChild(ControllerPart part) {
-		if(part.getParent() != this){
-			return false;
-		}
+		Objects.requireNonNull(part);
+
 		if(part.getParent() == this) {
 			part.setParent(null);
 		}
-		boolean wasRemoved = children.remove(part);
-		if(!wasRemoved){
-			throw new AssertionError("part: " + part + " had us as a parent, but we didn't know because they weren't in our children list!");
-		}
+		children.remove(part);
 		return true;
 	}
 
@@ -161,6 +164,13 @@ public abstract class SimpleControllerPart implements ControllerPart{
 //				this.addChild(part);
 			}
 		}
+	}
+
+	/**
+	 * @see #addChildren(Iterable, boolean, boolean)
+	 */
+	public void addChildren(boolean changeParent, boolean canAlreadyHaveParents, ControllerPart... parts){
+		addChildren(Arrays.asList(parts), changeParent, canAlreadyHaveParents);
 	}
 
 	@Override
