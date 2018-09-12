@@ -33,11 +33,11 @@ public abstract class AutoCachingInputPart extends SimpleInputPart{
 
 	@Override
 	public boolean isPressed() {
-		return isDown() && (previousPosition == null || previousPosition <= this.config.getButtonDownDeadzone());
+		return isDown() && (previousPosition == null || Math.abs(previousPosition) <= this.config.getButtonDownDeadzone());
 	}
 	@Override
 	public boolean isReleased() {
-		return !isDown() && (previousPosition != null && previousPosition > this.config.getButtonDownDeadzone());
+		return !isDown() && (previousPosition != null && Math.abs(previousPosition) > this.config.getButtonDownDeadzone());
 	}
 
 

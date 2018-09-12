@@ -33,15 +33,22 @@ public final class OptionValues {
 		return createImmutableDigitalRangedOptionValue(value, value, value);
 	}
 
-	public static OptionValue createRadioOptionValue(List<? extends RadioOption> options, int defaultOption){
-		return new SimpleRadioOption(options, defaultOption);
+	public static <T extends RadioOption> RadioOptionOptionValue<T> createRadioOptionValue(List<? extends T> options, int defaultOption){
+		return new SimpleRadioOption<>(options, defaultOption);
 	}
+
+	/**
+	 * Creates a new radio based {@link OptionValue} using the passed list of strings as options
+	 * @param options The list of strings that are the options. There should be no null elements
+	 * @param defaultOption The default option index. 0 for the first element in options 1 for second, etc.
+	 * @return A new radio based OptionValue
+	 */
 	public static OptionValue createRadioOptionValueWithStrings(List<String> options, int defaultOption){
 		List<RadioOption> radioOptions = new ArrayList<>();
 		for(final String s : options){
 			radioOptions.add(() -> s);
 		}
-		return new SimpleRadioOption(radioOptions, defaultOption);
+		return new SimpleRadioOption<>(radioOptions, defaultOption);
 	}
 
 	private static final class SimpleOption implements OptionValue {
@@ -144,12 +151,12 @@ public final class OptionValues {
 		@Override
 		public void setToDefaultOptionValue() {} // we shouldn't need to change the value
 	}
-	private static final class SimpleRadioOption implements OptionValue {
-		private final List<RadioOption> options; // an unmodifiable list
+	private static final class SimpleRadioOption<T extends RadioOption> implements RadioOptionOptionValue<T> {
+		private final List<? extends T> options; // an unmodifiable list
 		private final int defaultOptionIndex;
 		private int optionIndex;
 
-		SimpleRadioOption(List<? extends RadioOption> optionsList, int defaultOptionIndex){
+		SimpleRadioOption(List<? extends T> optionsList, int defaultOptionIndex){
 			this.options = Collections.unmodifiableList(optionsList);
 			this.defaultOptionIndex = defaultOptionIndex;
 			if(defaultOptionIndex < 0 || defaultOptionIndex >= options.size()){
@@ -202,7 +209,7 @@ public final class OptionValues {
 		}
 
 		@Override
-		public List<? extends RadioOption> getRadioOptions() {
+		public List<? extends T> getRadioOptions() {
 			return options;
 		}
 

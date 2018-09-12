@@ -14,6 +14,7 @@ import me.retrodaredevil.controller.ControllerPart;
 public class HighestPositionInputPart extends SimpleInputPart {
 
 	private final List<InputPart> parts;
+	private final boolean allowMultiplePressesAndReleases;
 
 	/**
 	 *
@@ -21,11 +22,18 @@ public class HighestPositionInputPart extends SimpleInputPart {
 	 *              each part that already has a parent must update its position
 	 */
 	public HighestPositionInputPart(InputPart... parts){
+		this(Arrays.asList(parts));
+	}
+	public HighestPositionInputPart(List<InputPart> parts){
+		this(parts, false);
+	}
+	public HighestPositionInputPart(List<InputPart> parts, boolean allowMultiplePressesAndReleases){
 		super(autoAxisTypeHelper(parts));
-		this.parts = Arrays.asList(parts);
+		this.parts = parts;
+		this.allowMultiplePressesAndReleases = allowMultiplePressesAndReleases;
 		addChildren(this.parts, false, true);
 	}
-	private static AxisType autoAxisTypeHelper(InputPart... parts){
+	private static AxisType autoAxisTypeHelper(Iterable<InputPart> parts){
 		boolean anyFull = false;
 		boolean anyAnalog = false;
 		for(InputPart part : parts){
@@ -72,10 +80,13 @@ public class HighestPositionInputPart extends SimpleInputPart {
 		boolean onePressed = false;
 		for(InputPart part : parts){
 			boolean pressed = part.isPressed();
-			if(part.isDown() && !pressed){
+			if(allowMultiplePressesAndReleases){
+				if(pressed) return true;
+			} else if(part.isDown() && !pressed){
 				return false;
+			} else if(!onePressed){
+				onePressed = pressed;
 			}
-			onePressed = onePressed || pressed;
 		}
 		return onePressed;
 	}
@@ -84,10 +95,14 @@ public class HighestPositionInputPart extends SimpleInputPart {
 	public boolean isReleased() {
 		boolean oneReleased = false;
 		for(InputPart part : parts){
-			if(part.isDown()){
+			boolean released = part.isReleased();
+			if(allowMultiplePressesAndReleases){
+				if(released) return true;
+			} else if(part.isDown()){
 				return false;
+			} else if(!oneReleased){
+				oneReleased = part.isReleased();
 			}
-			oneReleased = oneReleased || part.isReleased();
 		}
 		return oneReleased;
 	}

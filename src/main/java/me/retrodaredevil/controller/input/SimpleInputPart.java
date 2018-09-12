@@ -1,5 +1,7 @@
 package me.retrodaredevil.controller.input;
 
+import java.util.Objects;
+
 import me.retrodaredevil.controller.ControlConfig;
 import me.retrodaredevil.controller.SimpleControllerPart;
 
@@ -10,7 +12,7 @@ public abstract class SimpleInputPart extends SimpleControllerPart implements In
 	private final AxisType type;
 
 	public SimpleInputPart(AxisType type){
-		this.type = type;
+		this.type = Objects.requireNonNull(type);
 	}
 
 	@Override
