@@ -4,7 +4,17 @@ import java.util.Objects;
 
 import me.retrodaredevil.controller.options.OptionValue;
 
-public class SensitiveInputPart extends AutoCachingInputPart {
+import static java.lang.Math.abs;
+import static java.lang.Math.max;
+
+/**
+ * Adjusts the position using the passed OptionValues. Methods such as {@link #isDown()}, {@link #isPressed()},
+ * {@link #isReleased()}, and {@link #isDeadzone()} are the same as the passed input part
+ * <p>
+ * Even though this relies on another InputPart, it does not matter if this is updated before
+ * that InputPart because we don't rely on that InputPart in our update()
+ */
+public class SensitiveInputPart extends SimpleInputPart {
 
 	private final InputPart inputPart;
 	private final OptionValue sensitivityMultiplier;
@@ -16,7 +26,7 @@ public class SensitiveInputPart extends AutoCachingInputPart {
 	 * @param invertOption null or a boolean OptionValue representing if the position should be multiplied by -1
 	 */
 	public SensitiveInputPart(InputPart inputPart, OptionValue sensitivityMultiplier, OptionValue invertOption){
-		super(autoAxisTypeHelper(inputPart, sensitivityMultiplier, invertOption != null), true);
+		super(autoAxisTypeHelper(inputPart, sensitivityMultiplier, invertOption != null));
 		this.inputPart = Objects.requireNonNull(inputPart);
 		this.sensitivityMultiplier = Objects.requireNonNull(sensitivityMultiplier);
 		this.invertOption = invertOption;
@@ -33,24 +43,43 @@ public class SensitiveInputPart extends AutoCachingInputPart {
 		return new AxisType(
 				type.isFull() || canInvert,
 				type.isAnalog() || sensitivityMultiplier.isOptionAnalog(),
-				type.isRangeOver() || Math.abs(Math.max(sensitivityMultiplier.getMinOptionValue(), sensitivityMultiplier.getMaxOptionValue())) > 1,
+				type.isRangeOver() || max(abs(sensitivityMultiplier.getMinOptionValue()), abs(sensitivityMultiplier.getMaxOptionValue())) > 1,
 				type.isShouldUseDelta()
 				);
 	}
 
-
 	@Override
-	public boolean isConnected() {
-		return inputPart.isConnected();
-	}
-
-	@Override
-	protected double calculatePosition() {
+	public double getPosition() {
 		double r = inputPart.getPosition();
 		r *= sensitivityMultiplier.getOptionValue();
 		if(invertOption != null && invertOption.getBooleanOptionValue()){
 			r *= -1;
 		}
 		return r;
+	}
+
+	@Override
+	public boolean isDown() {
+		return inputPart.isDown();
+	}
+
+	@Override
+	public boolean isPressed() {
+		return inputPart.isPressed();
+	}
+
+	@Override
+	public boolean isReleased() {
+		return inputPart.isReleased();
+	}
+
+	@Override
+	public boolean isDeadzone() {
+		return inputPart.isDeadzone();
+	}
+
+	@Override
+	public boolean isConnected() {
+		return inputPart.isConnected();
 	}
 }
