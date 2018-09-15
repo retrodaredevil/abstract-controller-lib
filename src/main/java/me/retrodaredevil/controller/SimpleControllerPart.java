@@ -141,7 +141,8 @@ public abstract class SimpleControllerPart implements ControllerPart{
 	 * onSecondUpdate() or before)
 	 *
 	 * @param parts The parts to change each element's parent to this
-	 * @param changeParent true if you want to allow the parent of parts that already have a parent to be changed
+	 * @param changeParent true if you want to allow the parent of parts that already have a parent to be changed. If a part
+	 *                     does not already have a parent, it will be set to this regardless of this value.
 	 * @param canAlreadyHaveParents Should be true if you expect one or more elements to already have a parent. If false,
 	 *                                 it will throw an AssertionError if a part already has a parent. If false,
 	 *                                 changeParent's value will do nothing.

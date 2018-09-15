@@ -6,8 +6,8 @@ package me.retrodaredevil.controller.input;
  * parents when the constructor is called (so their parent will be set to this)
  */
 public class TwoAxisJoystickPart extends SimpleJoystickPart {
-	private InputPart xAxis;
-	private InputPart yAxis;
+	private final InputPart xAxis;
+	private final InputPart yAxis;
 
 
 	/**

@@ -1,0 +1,154 @@
+package me.retrodaredevil.controller.input;
+
+import me.retrodaredevil.controller.SimpleControllerPart;
+
+/**
+ * This class can be used to wrap an InputPart or JoystickPart from another source to make sure
+ * it always reflects that other source (such as a getter method for an InputPart in something like
+ * a {@link me.retrodaredevil.controller.types.StandardControllerInput})
+ */
+public final class References {
+	private References(){}
+
+	public static InputPart create(InputPartGetter getter){
+		return new InputPartReference(getter);
+	}
+	public static JoystickPart create(JoystickPartGetter getter){
+		return new JoystickPartReference(getter);
+	}
+
+	public interface InputPartGetter {
+		InputPart getInputPart();
+	}
+	public interface JoystickPartGetter {
+		JoystickPart getJoystickPart();
+	}
+	private static class JoystickPartReference extends SimpleControllerPart implements JoystickPart {
+
+		private final JoystickPartGetter getter;
+
+		public JoystickPartReference(JoystickPartGetter getter){
+			this.getter = getter;
+		}
+
+		private JoystickPart getJoystickPart(){
+			return getter.getJoystickPart();
+		}
+
+		@Override
+		public InputPart getXAxis() {
+			return getJoystickPart().getXAxis();
+		}
+
+		@Override
+		public InputPart getYAxis() {
+			return getJoystickPart().getYAxis();
+		}
+
+		@Override
+		public JoystickType getJoystickType() {
+			return getJoystickPart().getJoystickType();
+		}
+
+		@Override
+		public double getMagnitude() {
+			return getJoystickPart().getMagnitude();
+		}
+
+		@Override
+		public double getCorrectMagnitude() {
+			return getJoystickPart().getCorrectMagnitude();
+		}
+
+		@Override
+		public double getX() {
+			return getJoystickPart().getX();
+		}
+
+		@Override
+		public double getY() {
+			return getJoystickPart().getY();
+		}
+
+		@Override
+		public boolean isXDeadzone() {
+			return getJoystickPart().isXDeadzone();
+		}
+
+		@Override
+		public boolean isYDeadzone() {
+			return getJoystickPart().isYDeadzone();
+		}
+
+		@Override
+		public double getAngle() {
+			return getJoystickPart().getAngle();
+		}
+
+		@Override
+		public double getAngleRadians() {
+			return getJoystickPart().getAngleRadians();
+		}
+
+		@Override
+		public boolean isDeadzone() {
+			return getJoystickPart().isDeadzone();
+		}
+
+		@Override
+		public boolean isConnected() {
+			return getJoystickPart().isConnected();
+		}
+
+	}
+
+	public static class InputPartReference extends SimpleControllerPart implements InputPart {
+		private final InputPartGetter getter;
+		public InputPartReference(InputPartGetter getter){
+			this.getter = getter;
+		}
+		private InputPart getInputPart(){
+			return getter.getInputPart();
+		}
+		@Override
+		public double getPosition() {
+			return getInputPart().getPosition();
+		}
+
+		@Override
+		public boolean isDown() {
+			return getInputPart().isDown();
+		}
+
+		@Override
+		public boolean isPressed() {
+			return getInputPart().isPressed();
+		}
+
+		@Override
+		public boolean isReleased() {
+			return getInputPart().isReleased();
+		}
+
+		@Override
+		public int getDigitalPosition() {
+			return getInputPart().getDigitalPosition();
+		}
+
+		@Override
+		public boolean isConnected() {
+			return getInputPart().isConnected();
+		}
+
+		@Override
+		public AxisType getAxisType() {
+			return getInputPart().getAxisType();
+		}
+
+		@Override
+		public boolean isDeadzone() {
+			return getInputPart().isDeadzone();
+		}
+
+	}
+}
