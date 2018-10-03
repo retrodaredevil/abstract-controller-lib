@@ -4,8 +4,8 @@ import me.retrodaredevil.controller.output.ControllerRumble;
 
 public interface RumbleCapableController {
 	/**
-	 *
-	 * @return null or ControllerRumble
+	 * NOTE: Should not return null
+	 * @return The ControllerRumble object that may or may not be connected
 	 */
 	ControllerRumble getRumble();
 }

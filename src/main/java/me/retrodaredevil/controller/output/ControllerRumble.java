@@ -4,40 +4,54 @@ import me.retrodaredevil.controller.ControllerPart;
 
 public interface ControllerRumble extends ControllerPart {
 	/**
-	 * Rumbles forever until stopped by: calling this again with amount = 0 or by calling
-	 * {@link #rumble(long, double)} and it will turn off after millis milliseconds or if amount = 0, will turn off
+	 * Rumbles forever until stopped by: calling this again with intensity = 0 or by calling another method
+	 * with intensity = 0
 	 * <p>
-	 * It is recommended to use {@link #rumble(long, double)} or {@link #rumble(long, double, double)} because
+	 * It is recommended to use {@link #rumbleTimeout(long, double)} or {@link #rumbleTimeout(long, double, double)} because
 	 * they provide the same features except if they stopped getting called continuously they will reset the rumble
-	 * @param amount The rumble intensity. If 0 stops rumble
+	 * @param intensity The rumble intensity. If 0 stops rumble
 	 */
-	void rumble(double amount);
+	void rumbleForever(double intensity);
 	/**
-	 * Rumbles forever until stopped by: calling {@link #rumble(double)} with amount = 0 or by calling
-	 * {@link #rumble(long, double)} and it will turn off after millis milliseconds or if amount = 0, will turn off
+	 * Rumbles forever until stopped by: calling this again with amount = 0 or by calling another method
 	 * <p>
-	 * It is recommended to use {@link #rumble(long, double)} or {@link #rumble(long, double, double)} because
+	 * It is recommended to use {@link #rumbleTimeout(long, double)} or {@link #rumbleTimeout(long, double, double)} because
 	 * they provide the same features except if they stopped getting called continuously they will reset the rumble
-	 * @param left The left rumble intensity range [0, 1]
-	 * @param right The left rumble intensity range [0, 1]
+	 * @param leftIntensity The left rumble intensity range [0, 1]
+	 * @param rightIntensity The left rumble intensity range [0, 1]
 	 */
-	void rumble(double left, double right);
+	void rumbleForever(double leftIntensity, double rightIntensity);
 
 	/**
-	 * @param millis Amount of time for rumble to last (milliseconds)
-	 * @param left Left rumble intensity range: [0, 1]
-	 * @param right Right rumble intensity range: [0, 1]
+	 * Sets the rumble but will stop the rumble after millisTimeout milliseconds
+	 * @param millisTimeout Amount of time for rumble to last (milliseconds)
+	 * @param leftIntensity Left rumble intensity range: [0, 1]
+	 * @param rightIntensity Right rumble intensity range: [0, 1]
 	 */
-	void rumble(long millis, double left, double right);
+	void rumbleTimeout(long millisTimeout, double leftIntensity, double rightIntensity);
 
 	/**
-	 * @param millis Amount of time for rumble to last (milliseconds)
-	 * @param amount Rumble intensity range: [0, 1]
+	 * Sets the rumble but will stop the rumble after millisTimeout milliseconds
+	 * @param millisTimeout Amount of time for rumble to last (milliseconds)
+	 * @param intensity Rumble intensity range: [0, 1]
 	 */
-	void rumble(long millis, double amount);
+	void rumbleTimeout(long millisTimeout, double intensity);
 
-	/** @return true if underlying API this is uses has support for how long the rumble should stay on, false otherwise. */
-	boolean isTimingNativelyImplemented();
+	/**
+	 * Same as {@link #rumbleTimeout(long, double, double)} except this should never be called
+	 * continuously.
+	 * <p>
+	 * Depending on the implementation, this may less resource intensive
+	 */
+	void rumbleTime(long millis, double leftIntensity, double rightIntensity);
+	/**
+	 * Same as {@link #rumbleTimeout(long, double)} except this should never be called
+	 * continuously.
+	 * <p>
+	 * Depending on the implementation, this may less resource intensive
+	 */
+	void rumbleTime(long millis, double intensity);
+
 	/** @return true if analog rumble is supported at all, false if the intensity will only be interpreted as on or off*/
 	boolean isAnalogRumbleSupported();
 	/** This will be different than {@link #isAnalogRumbleSupported()} when isAnalogRumbleSupported() == true and

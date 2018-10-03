@@ -15,6 +15,10 @@ public abstract class SimpleInputPart extends SimpleControllerPart implements In
 		this.type = Objects.requireNonNull(type);
 	}
 
+	/**
+	 * If necessary, this can be overridden by subclasses. Overriding should have no side effects.
+	 * @return The axis type
+	 */
 	@Override
 	public AxisType getAxisType() {
 		return type;
@@ -66,6 +70,6 @@ public abstract class SimpleInputPart extends SimpleControllerPart implements In
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + "{AxisType:" + type + ",hashCode:" + Integer.toHexString(hashCode()) + "}";
+		return getClass().getSimpleName() + "{AxisType:" + getAxisType() + ",hashCode:" + Integer.toHexString(hashCode()) + "}";
 	}
 }
