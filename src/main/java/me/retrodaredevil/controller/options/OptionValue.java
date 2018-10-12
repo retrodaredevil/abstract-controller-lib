@@ -5,8 +5,8 @@ import java.util.List;
 /**
  * Represents an object that is able to be directly configured.
  * <p>
- * Reference OptionValue when you want to reference a mutable value, reference a {@link ConfigurableControllerPart}
- * when you want to reference a controller that is configurable
+ * Reference OptionValue when you want to reference a mutable value, reference a {@link ConfigurableObject}
+ * when you want to reference a something that is configurable.
  * <p>
  * It is also recommended to override all the default methods if reasonable to do so
  */

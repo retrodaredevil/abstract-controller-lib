@@ -1,15 +1,15 @@
 package me.retrodaredevil.controller.options;
 
-import java.util.Collection;
-
 import me.retrodaredevil.controller.ControllerPart;
 
-public interface ConfigurableControllerPart extends ControllerPart {
-	/**
-	 * Sometimes the returned value will be a new instance each time this is called and other times, the returned
-	 * value will be mutated and returned (don't rely on old returned values. Calling this will give you an updated version).
-	 * @return A Collection of ControlOptions that should not be mutated. This is normally ordered
-	 * 			when iterating over it.
-	 */
-	Collection<? extends ControlOption> getControlOptions();
+/**
+ * This should not be referenced with instanceof. If you wish to use instanceof, reference
+ * {@link ConfigurableObject} instead as it is something that is configurable that may not be a
+ * controller part. If you need something that is a ControllerPart that is also a ConfigurableObject,
+ * this should be referenced only if this type is needed for a parameter.
+ * <p>
+ * This should also be implemented instead of {@link ConfigurableObject} when you are also
+ * implementing {@link ControllerPart} as well.
+ */
+public interface ConfigurableControllerPart extends ControllerPart, ConfigurableObject {
 }

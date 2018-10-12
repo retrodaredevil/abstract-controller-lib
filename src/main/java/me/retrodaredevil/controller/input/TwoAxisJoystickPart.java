@@ -58,9 +58,22 @@ public class TwoAxisJoystickPart extends SimpleJoystickPart {
 				x.getAxisType().isRangeOver() || y.getAxisType().isRangeOver(),
 				isSquareInput, x.getAxisType().isShouldUseDelta() || y.getAxisType().isShouldUseDelta());
 	}
-	public static TwoAxisJoystickPart createFromFour(InputPart up, InputPart down, InputPart left, InputPart right){
-		return new TwoAxisJoystickPart(new TwoWayInput(right, left), new TwoWayInput(up, down));
+	// region four InputPart factory methods
+	public static TwoAxisJoystickPart createFromFour(InputPart up, InputPart down, InputPart left, InputPart right, boolean isInputSquare){
+		return new TwoAxisJoystickPart(new TwoWayInput(right, left), new TwoWayInput(up, down), isInputSquare, false);
 	}
+	/**
+	 * Creates a TwoAxisJoystickPart using the 4 provided InputParts. This assumes that up and right or up and left, etc
+	 * can be pressed at the same time, so this is the same thing as calling {@link #createFromFour(InputPart, InputPart, InputPart, InputPart, boolean)}
+	 * with isInputSquare = true
+	 */
+	public static TwoAxisJoystickPart createFromFour(InputPart up, InputPart down, InputPart left, InputPart right){
+		return createFromFour(up, down, left, right, true);
+	}
+	public static TwoAxisJoystickPart createFromFourAutoDetectSquare(InputPart up, InputPart down, InputPart left, InputPart right){
+		return new TwoAxisJoystickPart(new TwoWayInput(right, left), new TwoWayInput(up, down), false, true);
+	}
+	// endregion
 
 	@Override
 	public double getX(){

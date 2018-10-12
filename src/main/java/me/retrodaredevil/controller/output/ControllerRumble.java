@@ -41,14 +41,14 @@ public interface ControllerRumble extends ControllerPart {
 	 * Same as {@link #rumbleTimeout(long, double, double)} except this should never be called
 	 * continuously.
 	 * <p>
-	 * Depending on the implementation, this may less resource intensive
+	 * Depending on the implementation, this may less resource intensive or may provide more accurate rumble
 	 */
 	void rumbleTime(long millis, double leftIntensity, double rightIntensity);
 	/**
 	 * Same as {@link #rumbleTimeout(long, double)} except this should never be called
 	 * continuously.
 	 * <p>
-	 * Depending on the implementation, this may less resource intensive
+	 * Depending on the implementation, this may less resource intensive or may provide more accurate rumble
 	 */
 	void rumbleTime(long millis, double intensity);
 
