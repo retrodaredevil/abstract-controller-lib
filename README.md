@@ -29,4 +29,4 @@ dependencies {
 [jitpack.io for using with other build tools](https://jitpack.io)
 
 ### TODO
-Class for LowestPositionInputPart, class to change AxisType for an InputPart
+class to change AxisType for an InputPart

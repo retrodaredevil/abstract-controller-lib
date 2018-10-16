@@ -5,7 +5,9 @@ import me.retrodaredevil.controller.ControllerPartNotUpdatedException;
 /**
  * A digital button like InputPart where {@link #isPressed()} returns true when the passed InputPart
  * is released
+ * @deprecated Please use {@link DigitalChildPositionInputPart} and pass InputPart::isReleased
  */
+@Deprecated
 public class JustPressedInputPart extends SimpleInputPart{
 	private final InputPart inputPart;
 	private boolean released = false;

@@ -107,4 +107,51 @@ final class InputPartTests {
 		assertEquals(-3, inputPart.getPosition());
 
 	}
+	@Test
+	void testLowestPosition(){
+		final DummyInputPart dummy1 = new DummyInputPart(.75, false);
+		final DummyInputPart dummy2 = new DummyInputPart(-1, true);
+		final InputPart inputPart = new LowestPositionInputPart(dummy1, dummy2);
+
+		assertTrue(inputPart.getAxisType().isFull());
+		assertTrue(inputPart.getAxisType().isAnalog());
+		assertFalse(inputPart.getAxisType().isRangeOver());
+		assertTrue(inputPart.getAxisType().isShouldUseDelta());
+
+		inputPart.update(config);
+		assertTrue(inputPart.isDown());
+		assertFalse(inputPart.isDeadzone());
+		assertEquals(.75, inputPart.getPosition());
+		assertTrue(inputPart.isPressed());
+
+		dummy2.setPosition(0);
+		inputPart.update(config);
+		assertFalse(inputPart.isDown());
+		assertEquals(0, inputPart.getPosition());
+		assertTrue(inputPart.isReleased());
+	}
+	@Test
+	void testDigitalChildInputPartPressed(){
+		final DummyInputPart dummy = new DummyInputPart(0, false);
+		final InputPart inputPart = new DigitalChildPositionInputPart(dummy, InputPart::isPressed);
+
+		inputPart.update(config);
+		assertFalse(inputPart.isDown());
+		assertFalse(inputPart.isPressed());
+		assertFalse(inputPart.isReleased());
+
+		dummy.setPosition(1);
+		inputPart.update(config);
+		assertTrue(inputPart.isDown());
+		assertTrue(inputPart.isPressed());
+		assertFalse(inputPart.isReleased());
+
+		inputPart.update(config);
+		assertFalse(inputPart.isDown());
+		assertFalse(inputPart.isPressed());
+		assertTrue(inputPart.isReleased());
+		
+		// digital child should try to add dummy as child
+		assertThrows(AssertionError.class, () -> new DigitalChildPositionInputPart(dummy, InputPart::isPressed));
+	}
 }

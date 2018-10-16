@@ -33,7 +33,7 @@ public class HighestPositionInputPart extends SimpleInputPart {
 		this.allowMultiplePressesAndReleases = allowMultiplePressesAndReleases;
 		addChildren(this.parts, false, true);
 	}
-	private static AxisType autoAxisTypeHelper(Iterable<InputPart> parts){
+	static AxisType autoAxisTypeHelper(Iterable<InputPart> parts){
 		boolean anyFull = false;
 		boolean anyAnalog = false;
 		for(InputPart part : parts){
