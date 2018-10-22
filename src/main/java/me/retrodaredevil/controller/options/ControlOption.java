@@ -32,16 +32,19 @@ public class ControlOption {
 		return category;
 	}
 
-	/**
-	 * This is not intended to be displayed on screen. It can be used as a save key or in a map and
-	 * is recommended to be used over just the label or category
-	 * @return By default returns category + "." + label
-	 */
-	public String getKey(){
-		return category + "." + label;
-	}
 	public OptionValue getOptionValue(){
 		return optionValue;
+	}
+
+	/**
+	 * This originally was meant to be used as a key for saving and retreiving values, however it is
+	 * recommended to use {@link #getCategory()} for this purpose
+	 * @deprecated You should not use this as a key. Use {@link #getCategory()} instead
+	 * @return By default returns category + "." + label
+	 */
+	@Deprecated
+	public String getKey(){
+		return category + "." + label;
 	}
 }
 

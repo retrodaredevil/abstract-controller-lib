@@ -1,11 +1,9 @@
 package me.retrodaredevil.controller.input;
 
-import me.retrodaredevil.controller.ControllerPart;
-
 /**
  * Represents a ControllerPart that has two axi (2D) representing a joystick.
  */
-public interface JoystickPart extends ControllerPart, AnglePart{
+public interface JoystickPart extends AnglePart{
 	/**
 	 *
 	 * @return returns the x axis that is controlled and updated by this SimpleJoystickPart

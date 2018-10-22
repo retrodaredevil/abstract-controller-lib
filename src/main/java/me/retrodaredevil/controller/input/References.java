@@ -17,11 +17,34 @@ public final class References {
 		return new JoystickPartReference(getter);
 	}
 
+	/**
+	 * Creates an InputPart that must be updated before each call
+	 * @param axisType The axis type
+	 * @param getter The getter for the position that must comply with axis type. (Usually a lambda)
+	 * @return The created InputPart
+	 */
+	public static InputPart create(AxisType axisType, PositionGetter getter){
+		return new AutoCachingInputPart(axisType) {
+			@Override
+			protected double calculatePosition() {
+				return getter.getPosition();
+			}
+
+			@Override
+			public boolean isConnected() {
+				return true;
+			}
+		};
+	}
+
 	public interface InputPartGetter {
 		InputPart getInputPart();
 	}
 	public interface JoystickPartGetter {
 		JoystickPart getJoystickPart();
+	}
+	public interface PositionGetter {
+		double getPosition();
 	}
 	private static class JoystickPartReference extends SimpleControllerPart implements JoystickPart {
 
@@ -102,7 +125,7 @@ public final class References {
 
 	}
 
-	public static class InputPartReference extends SimpleControllerPart implements InputPart {
+	private static class InputPartReference extends SimpleControllerPart implements InputPart {
 		private final InputPartGetter getter;
 		public InputPartReference(InputPartGetter getter){
 			this.getter = getter;

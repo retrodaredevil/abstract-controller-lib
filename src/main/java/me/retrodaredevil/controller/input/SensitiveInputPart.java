@@ -11,7 +11,7 @@ import static java.lang.Math.max;
  * Adjusts the position using the passed OptionValues. Methods such as {@link #isDown()}, {@link #isPressed()},
  * {@link #isReleased()}, and {@link #isDeadzone()} are the same as the passed input part
  * <p>
- * Even though this relies on another InputPart, it does not matter if this is updated before
+ * Even though this uses on another InputPart, it does not matter if this is updated before
  * that InputPart because we don't rely on that InputPart in our update()
  */
 public class SensitiveInputPart extends SimpleInputPart {
@@ -45,7 +45,7 @@ public class SensitiveInputPart extends SimpleInputPart {
 				type.isAnalog() || sensitivityMultiplier.isOptionAnalog(),
 				type.isRangeOver() || max(abs(sensitivityMultiplier.getMinOptionValue()), abs(sensitivityMultiplier.getMaxOptionValue())) > 1,
 				type.isShouldUseDelta()
-				);
+		);
 	}
 
 	@Override
@@ -56,6 +56,11 @@ public class SensitiveInputPart extends SimpleInputPart {
 			r *= -1;
 		}
 		return r;
+	}
+
+	@Override
+	public int getDigitalPosition() {
+		return (int) Math.round(getPosition());
 	}
 
 	@Override
