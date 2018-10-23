@@ -16,8 +16,11 @@ import static java.lang.Math.max;
  */
 public class SensitiveInputPart extends SimpleInputPart {
 
+	/** The input part where we get our input from before modifying it*/
 	private final InputPart inputPart;
+	/** The sensitivity option */
 	private final OptionValue sensitivityMultiplier;
+	/** The boolean invert option or null*/
 	private final OptionValue invertOption; // nullable
 
 	/**
@@ -60,7 +63,12 @@ public class SensitiveInputPart extends SimpleInputPart {
 
 	@Override
 	public int getDigitalPosition() {
-		return (int) Math.round(getPosition());
+		int r = inputPart.getDigitalPosition();
+		r *= sensitivityMultiplier.getOptionValue();
+		if(invertOption != null && invertOption.getBooleanOptionValue()){
+			r *= -1;
+		}
+		return r;
 	}
 
 	@Override
