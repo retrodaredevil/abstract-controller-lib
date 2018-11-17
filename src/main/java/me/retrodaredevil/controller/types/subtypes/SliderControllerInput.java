@@ -8,14 +8,8 @@ import me.retrodaredevil.controller.input.InputPart;
  */
 public interface SliderControllerInput extends ControllerInput {
 	/**
-	 * The recommended way to do this is that the returned InputPart doesn't have full range but it can
-	 * go either way.
-	 * <p>
-	 * Even though the AxisType shouldn't be full, it is possible that it is. If it is, you will have
-	 * to either use it or scale it to make the range [0, 1].
-	 * <p>
-	 * If the AxisType isn't full and you need a range of [-1, 1], you will have to scale it yourself as well.
-	 * @return The slider on the controller which should be analog and shouldn't have a full range
+     * The returned InputPart is allowed to have a full range [-1..1] but it may also be not a full range [0..1]
+	 * @return The slider on the controller which should be analog and can have full range or no full range
 	 */
 	InputPart getSlider();
 }
