@@ -5,13 +5,11 @@ package me.retrodaredevil.controller.input;
  * positive and the other is negative. (Can be useful to create an Axis for x and y using A and D,
  * then W and S or for other d-pad like buttons)
  */
-public class TwoWayInput extends AutoCachingInputPart {
+public class TwoWayInput extends SimpleInputPart {
 	private final InputPart part1;
 	private final InputPart part2;
 
 	/**
-	 * If either of the parts have a parent, it will be overridden.
-	 * <br/>
 	 * the getPosition() will work like part1.getPosition() - part2.getPosition()
 	 * <br/><br/>
      * For each part1 and part2, their parent will only be set to this if they don't already have a parent. (Uses the addChildren() method)
@@ -22,8 +20,7 @@ public class TwoWayInput extends AutoCachingInputPart {
 		super(new AxisType(true,
 				part1.getAxisType().isAnalog() || part2.getAxisType().isAnalog(),
 				part1.getAxisType().isRangeOver() || part2.getAxisType().isRangeOver(),
-				part1.getAxisType().isShouldUseDelta() && part2.getAxisType().isShouldUseDelta()),
-				true);
+				part1.getAxisType().isShouldUseDelta() && part2.getAxisType().isShouldUseDelta()));
 		AxisType type1 = part1.getAxisType();
 		AxisType type2 = part2.getAxisType();
 		if(type1.isFull() || type2.isFull()){
@@ -43,14 +40,31 @@ public class TwoWayInput extends AutoCachingInputPart {
 		return part2;
 	}
 
+	@Override
+	public boolean isConnected() {
+		return part1.isConnected() && part2.isConnected();
+	}
 
 	@Override
-	protected double calculatePosition() {
+	public double getPosition() {
 		return part1.getPosition() - part2.getPosition();
 	}
 
 	@Override
-	public boolean isConnected() {
-		return part1.isConnected() && part2.isConnected();
+	public boolean isDown() {
+        return part1.isDown() != part2.isDown();
+	}
+
+	@Override
+	public boolean isPressed() {
+        return (part1.isPressed() && !part2.isDown()) || (part2.isPressed() && !part1.isDown());
+	}
+
+	@Override
+	public boolean isReleased() {
+        if(part1.isReleased() || part2.isReleased()){
+        	return part1.isDown() == part2.isDown();
+		}
+		return false;
 	}
 }
