@@ -101,7 +101,7 @@ public class HighestPositionInputPart extends SimpleInputPart {
 			} else if(part.isDown()){
 				return false;
 			} else if(!oneReleased){
-				oneReleased = part.isReleased();
+				oneReleased = released;
 			}
 		}
 		return oneReleased;

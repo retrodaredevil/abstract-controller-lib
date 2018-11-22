@@ -5,6 +5,7 @@ package me.retrodaredevil.controller.input;
  * <p>
  * NOTE: This should not be referenced with instanceof
  */
+@Deprecated
 public abstract class ChangeInPositionJoystick extends SimpleJoystickPart {
 
 	protected ChangeInPositionJoystick() {

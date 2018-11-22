@@ -1,5 +1,8 @@
 package me.retrodaredevil.controller.input;
 
+/**
+ * Using this class allows you to easily scale the value from an {@link InputPart}'s {@link InputPart#getPosition()}
+ */
 public class ChildPositionInputPart extends AutoCachingInputPart {
 
 	private final InputPart inputPart;

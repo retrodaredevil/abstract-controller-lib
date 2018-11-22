@@ -28,5 +28,12 @@ dependencies {
 ```
 [jitpack.io for using with other build tools](https://jitpack.io)
 
+## Version used
+This project uses Java 8 features but does not use new Java 8 APIs to allow compatibility with
+android SDK level 19.
+
+Because of this, you may see interfaces with a single method. This is to allow lambda functions
+without importing classes only in Java 8.
+
 ### TODO
 class to change AxisType for an InputPart

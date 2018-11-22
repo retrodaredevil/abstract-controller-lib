@@ -57,7 +57,8 @@ public class TwoWayInput extends SimpleInputPart {
 
 	@Override
 	public boolean isPressed() {
-        return (part1.isPressed() && !part2.isDown()) || (part2.isPressed() && !part1.isDown());
+        return (part1.isPressed() && !part2.isDown()) || (part2.isPressed() && !part1.isDown())
+				|| (part1.isDown() && part2.isReleased()) || (part2.isDown() && part1.isReleased());
 	}
 
 	@Override

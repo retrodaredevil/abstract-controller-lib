@@ -21,7 +21,7 @@ public class SensitiveInputPart extends SimpleInputPart {
 	/** The sensitivity option */
 	private final OptionValue sensitivityMultiplier;
 	/** The boolean invert option or null*/
-	private final OptionValue invertOption; // nullable
+	private final OptionValue invertOption;
 
 	/**
 	 * @param inputPart The input part to adjust the sensitivity of. If this doesn't already have a parent, it will be added as a child to this instance
@@ -44,7 +44,7 @@ public class SensitiveInputPart extends SimpleInputPart {
 	private static AxisType autoAxisTypeHelper(InputPart inputPart, OptionValue sensitivityMultiplier, boolean canInvert){
 		AxisType type = inputPart.getAxisType();
 		return new AxisType(
-				type.isFull() || canInvert,
+				type.isFull() || canInvert || sensitivityMultiplier.getMinOptionValue() < 0,
 				type.isAnalog() || sensitivityMultiplier.isOptionAnalog(),
 				type.isRangeOver() || max(abs(sensitivityMultiplier.getMinOptionValue()), abs(sensitivityMultiplier.getMaxOptionValue())) > 1,
 				type.isShouldUseDelta()
