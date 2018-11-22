@@ -1,5 +1,8 @@
 # Abstract Controller Lib
 A library that makes it easy to deal with controllers in an abstract way
+
+[![](https://jitpack.io/v/retrodaredevil/abstract-controller-lib.svg)](https://jitpack.io/#retrodaredevil/abstract-controller-lib)
+
 ## How is this used
 This library provides no concrete implementation for actual physical controllers. This provides
 many useful interfaces. InputPart for buttons and axi/triggers, JoystickPart for joysticks
