@@ -18,6 +18,7 @@ public class DigitalAnalogInputPart extends SimpleControllerPart implements Inpu
 		if(digitalType.isFull() != analogType.isFull()){
 			throw new IllegalArgumentException("Both digital and analog must have full range if either has full range!");
 		}
+		addChildren(false, false, digital, analog);
 	}
 
 	@Override
