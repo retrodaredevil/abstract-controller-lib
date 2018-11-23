@@ -1,5 +1,7 @@
-package me.retrodaredevil.controller.implementations;
+package me.retrodaredevil.controller.implementations.mappings;
 
+import me.retrodaredevil.controller.implementations.ControllerPartCreator;
+import me.retrodaredevil.controller.implementations.StandardControllerInputCreator;
 import me.retrodaredevil.controller.input.InputPart;
 import me.retrodaredevil.controller.input.JoystickPart;
 
