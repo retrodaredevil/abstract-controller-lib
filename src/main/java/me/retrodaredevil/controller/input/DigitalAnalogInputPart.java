@@ -36,7 +36,10 @@ public class DigitalAnalogInputPart extends SimpleControllerPart implements Inpu
 
 	@Override
 	public boolean isDeadzone() {
-        return analog.isDeadzone() || (!analog.isConnected() && digital.isDeadzone());
+		if(analog.isConnected()){
+			return analog.isDeadzone();
+		}
+        return digital.isDeadzone();
 	}
 
 	@Override
