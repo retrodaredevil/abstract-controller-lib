@@ -13,7 +13,8 @@ public class ControlOption {
 	 *
 	 * @param label The label for the option
 	 * @param description The description of the option to be changed
-	 * @param category The category of this ControlOption usually something like: "something.something"
+	 * @param category The category of this ControlOption usually something like: "something.something".
+	 *                 Usually, this alone should be able to be used as a key.
 	 * @param optionValue The OptionValue that can be mutated by calling its set methods
 	 */
 	public ControlOption(String label, String description, String category, OptionValue optionValue){
@@ -36,15 +37,5 @@ public class ControlOption {
 		return optionValue;
 	}
 
-	/**
-	 * This originally was meant to be used as a key for saving and retreiving values, however it is
-	 * recommended to use {@link #getCategory()} for this purpose
-	 * @deprecated You should not use this as a key. Use {@link #getCategory()} instead
-	 * @return By default returns category + "." + label
-	 */
-	@Deprecated
-	public String getKey(){
-		return category + "." + label;
-	}
 }
 

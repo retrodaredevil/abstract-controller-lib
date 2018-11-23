@@ -54,4 +54,11 @@ public class DefaultStandardControllerInputCreator implements StandardController
 	@Override public JoystickPart createRightJoy(ControllerPartCreator controller) {
 		return controller.createJoystick(2, 3);
 	}
+
+	@Override public Boolean getPhysicalLocationsSwapped() {
+		return null;
+	}
+	@Override public Boolean getButtonNamesSwapped() {
+		return null;
+	}
 }

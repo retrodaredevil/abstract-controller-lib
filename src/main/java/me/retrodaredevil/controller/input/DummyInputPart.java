@@ -2,6 +2,7 @@ package me.retrodaredevil.controller.input;
 
 public class DummyInputPart extends AutoCachingInputPart {
 	private double actualPosition;
+	private boolean connected = true;
 
 	public DummyInputPart(AxisType axisType, double position){
 		super(check(axisType, position));
@@ -40,6 +41,9 @@ public class DummyInputPart extends AutoCachingInputPart {
 	public void setPosition(int position){
 		setPosition((double) position);
 	}
+	public void setConnected(boolean connected){
+		this.connected = connected;
+	}
 
 	@Override
 	protected double calculatePosition() {
@@ -53,6 +57,6 @@ public class DummyInputPart extends AutoCachingInputPart {
 
 	@Override
 	public boolean isConnected() {
-		return true;
+        return connected;
 	}
 }

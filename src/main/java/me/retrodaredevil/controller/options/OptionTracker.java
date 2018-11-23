@@ -11,7 +11,7 @@ import java.util.LinkedHashSet;
  * {@link ConfigurableObject#getControlOptions()} to return different values while keeping
  * values returned somewhere else consistent.
  */
-public class OptionTracker {
+public class OptionTracker implements ConfigurableObject{
 	private final Collection<ConfigurableObject> parts = new LinkedHashSet<>();
 	private final Collection<ControlOption> options = new LinkedHashSet<>();
 	private final boolean controllerOptionsFirst;
@@ -23,26 +23,6 @@ public class OptionTracker {
 		this(false);
 	}
 
-	/** @see #add(ConfigurableObject) */
-	@Deprecated
-	public boolean addController(ConfigurableControllerPart configurableControllerPart){
-		return add(configurableControllerPart);
-	}
-	/** @see #remove(ConfigurableObject)  */
-	@Deprecated
-	public boolean removeController(ConfigurableControllerPart configurableControllerPart){
-		return remove(configurableControllerPart);
-	}
-	/** @see #add(ControlOption) */
-	@Deprecated
-	public boolean addControlOption(ControlOption controlOption){
-		return add(controlOption);
-	}
-	/** @see #remove(ControlOption) */
-	@Deprecated
-	public boolean removeControlOption(ControlOption controlOption){
-		return remove(controlOption);
-	}
 	public boolean add(ConfigurableObject configurableObject){
 		return parts.add(configurableObject);
 	}
@@ -62,7 +42,17 @@ public class OptionTracker {
 	}
 
 
+	/**
+	 * @deprecated Use {@link #getControlOptions()}
+	 * @return
+	 */
+	@Deprecated
 	public Collection<? extends ControlOption> getOptions(){
+		return getControlOptions();
+	}
+
+	@Override
+	public Collection<? extends ControlOption> getControlOptions() {
 		final Collection<ControlOption> r;
 		if(controllerOptionsFirst){
 			r = new ArrayList<>();
@@ -76,5 +66,6 @@ public class OptionTracker {
 			r.addAll(options);
 		}
 		return r;
+
 	}
 }

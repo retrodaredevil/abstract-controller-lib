@@ -23,4 +23,13 @@ public interface StandardControllerInputCreator {
 	JoystickPart createDPad(ControllerPartCreator controller);
 	JoystickPart createLeftJoy(ControllerPartCreator controller);
 	JoystickPart createRightJoy(ControllerPartCreator controller);
+
+	/**
+	 * @return true if the physical locations are swapped, false if they aren't, null if it could be either way
+	 */
+	Boolean getPhysicalLocationsSwapped();
+	/**
+	 * @return true if the button names (A/B and X/Y) are swapped, false if they aren't, null if it could be either way
+	 */
+	Boolean getButtonNamesSwapped();
 }
