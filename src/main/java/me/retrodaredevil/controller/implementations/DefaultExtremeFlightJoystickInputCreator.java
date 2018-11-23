@@ -6,32 +6,32 @@ import me.retrodaredevil.controller.input.JoystickPart;
 public class DefaultExtremeFlightJoystickInputCreator implements ExtremeFlightJoystickInputCreator {
 	@Override
 	public InputPart createGridUpperLeft(ControllerPartCreator controller) {
-		return controller.createDigital(7);
+		return controller.createDigital(6);
 	}
 
 	@Override
 	public InputPart createGridUpperRight(ControllerPartCreator controller) {
-		return controller.createDigital(8);
+		return controller.createDigital(7);
 	}
 
 	@Override
 	public InputPart createGridMiddleLeft(ControllerPartCreator controller) {
-		return controller.createDigital(9);
+		return controller.createDigital(8);
 	}
 
 	@Override
 	public InputPart createGridMiddleRight(ControllerPartCreator controller) {
-		return controller.createDigital(10);
+		return controller.createDigital(9);
 	}
 
 	@Override
 	public InputPart createGridLowerLeft(ControllerPartCreator controller) {
-		return controller.createDigital(11);
+		return controller.createDigital(10);
 	}
 
 	@Override
 	public InputPart createGridLowerRight(ControllerPartCreator controller) {
-		return controller.createDigital(12);
+		return controller.createDigital(11);
 	}
 
 	@Override
