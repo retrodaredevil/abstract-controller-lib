@@ -9,19 +9,38 @@ import me.retrodaredevil.controller.SimpleControllerPart;
  * The recommended way to map a number of joysticks to a single {@link JoystickPart}
  */
 public class MultiplexerJoystickPart extends SimpleControllerPart implements JoystickPart {
-	private final Collection<JoystickPart> joysticks;
+	private final Collection<? extends JoystickPart> joysticks;
 
 	private final InputPart xAxis;
 	private final InputPart yAxis;
 
-	public MultiplexerJoystickPart(Collection<JoystickPart> joysticks) {
+	public MultiplexerJoystickPart(Collection<? extends JoystickPart> joysticks) {
         this.joysticks = joysticks;
         addChildren(joysticks, false, true);
-        xAxis = new JoystickAxisFollowerPart(this, false);
-		yAxis = new JoystickAxisFollowerPart(this, true);
+        final AxisType axisType = axisTypeHelper(joysticks);
+        xAxis = new MultiplexerInputPart(axisType, false);
+		yAxis = new MultiplexerInputPart(axisType, true);
 	}
 	public MultiplexerJoystickPart(JoystickPart... joysticks){
 		this(Arrays.asList(joysticks));
+	}
+	private static AxisType axisTypeHelper(Collection<? extends JoystickPart> joysticks){
+		boolean analog = false;
+		boolean rangeOver = false;
+		boolean useDelta = true;
+		for(JoystickPart joy : joysticks){
+			JoystickType type = joy.getJoystickType();
+			if(type.isAnalog()){
+				analog = true;
+			}
+			if(type.isRangeOver()){
+				rangeOver = true;
+			}
+			if(!type.isShouldUseDelta()){
+				useDelta = false;
+			}
+		}
+		return new AxisType(true, analog, rangeOver, useDelta);
 	}
 
 	private JoystickPart getCurrentJoystick(){
@@ -171,5 +190,62 @@ public class MultiplexerJoystickPart extends SimpleControllerPart implements Joy
 			}
 		}
 		return false;
+	}
+	private class MultiplexerInputPart extends SimpleInputPart {
+		private final boolean yAxis;
+
+		public MultiplexerInputPart(AxisType type, boolean yAxis) {
+			super(type);
+			this.yAxis = yAxis;
+		}
+
+		@Override
+		public double getPosition() {
+            if(yAxis){
+            	return getY();
+			}
+			return getX();
+		}
+
+		@Override
+		public boolean isDown() {
+            JoystickPart joy = getCurrentJoystick();
+            if(joy != null){
+            	if(yAxis){
+            		return joy.getYAxis().isDown();
+				}
+				return joy.getXAxis().isDown();
+			}
+			return false;
+		}
+
+		@Override
+		public boolean isPressed() {
+			JoystickPart joy = getCurrentJoystick();
+			if(joy != null){
+				if(yAxis){
+					return joy.getYAxis().isPressed();
+				}
+				return joy.getXAxis().isPressed();
+			}
+			return false;
+		}
+
+		@Override
+		public boolean isReleased() {
+			JoystickPart joy = getCurrentJoystick();
+			if(joy != null){
+				if(yAxis){
+					return joy.getYAxis().isReleased();
+				}
+				return joy.getXAxis().isReleased();
+			}
+			return false;
+		}
+
+		@Override
+		public boolean isConnected() {
+            return MultiplexerJoystickPart.this.isConnected();
+		}
 	}
 }
