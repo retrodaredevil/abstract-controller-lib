@@ -17,9 +17,11 @@ public class MultiplexerJoystickPart extends SimpleControllerPart implements Joy
 	public MultiplexerJoystickPart(Collection<? extends JoystickPart> joysticks) {
         this.joysticks = joysticks;
         addChildren(joysticks, false, true);
+        
         final AxisType axisType = axisTypeHelper(joysticks);
         xAxis = new MultiplexerInputPart(axisType, false);
 		yAxis = new MultiplexerInputPart(axisType, true);
+		addChildren(false, false, xAxis, yAxis);
 	}
 	public MultiplexerJoystickPart(JoystickPart... joysticks){
 		this(Arrays.asList(joysticks));
