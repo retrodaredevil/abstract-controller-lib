@@ -9,15 +9,16 @@ import me.retrodaredevil.controller.SimpleControllerPart;
  * The recommended way to map a number of joysticks to a single {@link JoystickPart}
  */
 public class MultiplexerJoystickPart extends SimpleControllerPart implements JoystickPart {
-	private final InputPart xAxis = new JoystickAxisFollowerPart(this, false);
-	private final InputPart yAxis = new JoystickAxisFollowerPart(this, true);
-
 	private final Collection<JoystickPart> joysticks;
+
+	private final InputPart xAxis;
+	private final InputPart yAxis;
 
 	public MultiplexerJoystickPart(Collection<JoystickPart> joysticks) {
         this.joysticks = joysticks;
-
         addChildren(joysticks, false, true);
+        xAxis = new JoystickAxisFollowerPart(this, false);
+		yAxis = new JoystickAxisFollowerPart(this, true);
 	}
 	public MultiplexerJoystickPart(JoystickPart... joysticks){
 		this(Arrays.asList(joysticks));
