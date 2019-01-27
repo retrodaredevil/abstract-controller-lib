@@ -59,6 +59,33 @@ public interface JoystickPart extends AnglePart{
 	 * 			{@link #getJoystickType()}.{@link JoystickType#isRangeOver() isRangeOver()} == true
 	 */
 	double getY();
+	
+	
+	/**
+	 * @return {@link #getX()} scaled according to if this is range over
+	 */
+	default double getCorrectX() {
+		return getX() * getCorrectMagnitude() / getMagnitude();
+	}
+	/**
+	 * @return {@link #getY()} scaled according to if this is range over
+	 */
+	default double getCorrectY() {
+		return getY() * getCorrectMagnitude() / getMagnitude();
+	}
+	
+	/**
+	 * @return The x value where {@link #getNormalX()} and {@link #getNormalY()} have a magnitude of 1
+	 */
+	default double getNormalX() {
+		return getX() / getMagnitude();
+	}
+	/**
+	 * @return The y value where {@link #getNormalX()} and {@link #getNormalY()} have a magnitude of 1
+	 */
+	default double getNormalY() {
+		return getY() / getMagnitude();
+	}
 
 	boolean isXDeadzone();
 

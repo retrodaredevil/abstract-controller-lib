@@ -29,11 +29,11 @@ public abstract class SimpleJoystickPart extends SimpleControllerPart implements
 	 *
 	 * @param type The joystick type
 	 * @param cacheAfterChildrenUpdate If config.{@link ControlConfig#isCacheAngleAndMagnitudeInUpdate() isCacheAngleAndMagnitudeInUpdate()} == true,
-	 *                                 this will determine to calculate after or before children. (set to true if the implementation relies on children,
-	 *                                 false otherwise)
+	 *								 this will determine to calculate after or before children. (set to true if the implementation relies on children,
+	 *								 false otherwise)
 	 * @param autoCorrectToDetectSquareInput Should the JoystickType automatically change if the magnitude gets too high. Ex: Magnitude is sqrt(2)
 	 * @param canCallGetMethodsWhenUpdating true if getX() and getY() are able to be called when updating. False if getX() and getY() cannot
-	 *                                      be called when updating
+	 *									  be called when updating
 	 * @throws IllegalArgumentException thrown if (type.isRangeOver() && autoCorrectToDetectSquareInput) OR (!canCallGetMethodsWhenUpdating && autoCorrectToDetectSquareInput)
 	 */
 	public SimpleJoystickPart(JoystickType type, boolean cacheAfterChildrenUpdate, boolean autoCorrectToDetectSquareInput, boolean canCallGetMethodsWhenUpdating){
@@ -167,7 +167,8 @@ public abstract class SimpleJoystickPart extends SimpleControllerPart implements
 		}
 		return correctMagnitude;
 	}
-
+	
+	
 	/**
 	 * @return isXDeadzone() && isYDeadzone();
 	 */
@@ -189,11 +190,11 @@ public abstract class SimpleJoystickPart extends SimpleControllerPart implements
 	 * @return The number you should scale (multiply) x and y by (or the magnitude by)
 	 */
 	public static double getScaled(final double angleDegrees){
-	    // another option is 1/(cos(angle)+sin(angle)) from: https://www.reddit.com/r/gamedev/comments/4urddr/how_to_deal_with_joysticks_that_map_out_squares/d5srwz4
-        double angle = angleDegrees;
-//        System.out.println(angle);
+		// another option is 1/(cos(angle)+sin(angle)) from: https://www.reddit.com/r/gamedev/comments/4urddr/how_to_deal_with_joysticks_that_map_out_squares/d5srwz4
+		double angle = angleDegrees;
+//		System.out.println(angle);
 
-        angle %= 90;
+		angle %= 90;
 		// angle is between -90 and 90
 		if(angle < 0){
 			angle = -angle;

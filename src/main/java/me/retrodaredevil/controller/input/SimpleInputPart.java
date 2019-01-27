@@ -54,13 +54,13 @@ public abstract class SimpleInputPart extends SimpleControllerPart implements In
 	public int getDigitalPosition() {
 		double value = getPosition();
 		if(!getAxisType().isFull()){
-			if(value > config.getButtonDownDeadzone()){
+			if(value > config.getButtonDownThreshold()){
 				return 1;
 			}
 		} else {
-			if (value > config.getButtonDownDeadzone()) {
+			if (value > config.getButtonDownThreshold()) {
 				return 1;
-			} else if (value < -config.getButtonDownDeadzone()) {
+			} else if (value < -config.getButtonDownThreshold()) {
 				return -1;
 			}
 		}

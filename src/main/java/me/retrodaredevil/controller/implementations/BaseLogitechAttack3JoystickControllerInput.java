@@ -52,71 +52,71 @@ public class BaseLogitechAttack3JoystickControllerInput extends SimpleController
 
 	@Override
 	public boolean isConnected() {
-        return controller.isConnected();
+		return controller.isConnected();
 	}
 
 	@Override
 	public InputPart getLeftUpper() {
-        return leftUpper;
+		return leftUpper;
 	}
 
 	@Override
 	public InputPart getLeftLower() {
-        return leftLower;
+		return leftLower;
 	}
 
 	@Override
 	public InputPart getCenterLeft() {
-        return centerLeft;
+		return centerLeft;
 	}
 
 	@Override
 	public InputPart getCenterRight() {
-        return centerRight;
+		return centerRight;
 	}
 
 	@Override
 	public InputPart getRightUpper() {
-        return rightUpper;
+		return rightUpper;
 	}
 
 	@Override
 	public InputPart getRightLower() {
-        return rightLower;
+		return rightLower;
 	}
 
 	@Override
 	public InputPart getThumbUpper() {
-        return thumbUpper;
+		return thumbUpper;
 	}
 
 	@Override
 	public InputPart getThumbLower() {
-        return thumbLower;
+		return thumbLower;
 	}
 
 	@Override
 	public InputPart getThumbLeft() {
-        return thumbLeft;
+		return thumbLeft;
 	}
 
 	@Override
 	public InputPart getThumbRight() {
-        return thumbRight;
+		return thumbRight;
 	}
 
 	@Override
 	public JoystickPart getMainJoystick() {
-        return joystick;
+		return joystick;
 	}
 
 	@Override
 	public InputPart getTrigger() {
-        return trigger;
+		return trigger;
 	}
 
 	@Override
 	public InputPart getSlider() {
-        return slider;
+		return slider;
 	}
 }

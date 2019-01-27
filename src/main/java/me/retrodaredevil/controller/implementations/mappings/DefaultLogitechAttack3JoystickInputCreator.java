@@ -8,7 +8,7 @@ import me.retrodaredevil.controller.input.JoystickPart;
 public class DefaultLogitechAttack3JoystickInputCreator implements LogitechAttack3JoystickInputCreator {
 	@Override
 	public InputPart createTrigger(ControllerPartCreator controller) {
-        return controller.createDigital(0);
+		return controller.createDigital(0);
 	}
 
 	@Override
@@ -63,11 +63,11 @@ public class DefaultLogitechAttack3JoystickInputCreator implements LogitechAttac
 
 	@Override
 	public JoystickPart createJoystick(ControllerPartCreator controller) {
-        return controller.createJoystick(0, 1);
+		return controller.createJoystick(0, 1);
 	}
 
 	@Override
 	public InputPart createSlider(ControllerPartCreator controller) {
-        return controller.createFullAnalog(3);
+		return controller.createFullAnalog(3);
 	}
 }

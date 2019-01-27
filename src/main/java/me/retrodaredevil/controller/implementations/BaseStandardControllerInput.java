@@ -10,7 +10,7 @@ import me.retrodaredevil.controller.types.StandardControllerInput;
 
 public class BaseStandardControllerInput extends SimpleControllerInput implements StandardControllerInput, RumbleCapableController{
 
-    private final ControllerPartCreator controller;
+	private final ControllerPartCreator controller;
 	private final OptionValue physicalLocationsSwapped;
 	private final OptionValue buttonNamesCodeSwapped;
 
@@ -168,7 +168,7 @@ public class BaseStandardControllerInput extends SimpleControllerInput implement
 
 	@Override
 	public boolean isConnected() {
-        return controller.isConnected();
+		return controller.isConnected();
 	}
 
 	@Override

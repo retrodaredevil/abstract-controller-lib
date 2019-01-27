@@ -31,7 +31,7 @@ public class DigitalAnalogInputPart extends SimpleControllerPart implements Inpu
 		if(analog.isConnected()){
 			return analog.getAxisType();
 		}
-        return digital.getAxisType();
+		return digital.getAxisType();
 	}
 
 	@Override
@@ -49,8 +49,8 @@ public class DigitalAnalogInputPart extends SimpleControllerPart implements Inpu
 
 	@Override
 	public double getPosition() {
-        if(analog.isConnected() && !analog.isDeadzone()){
-        	return analog.getPosition();
+		if(analog.isConnected() && (!analog.isDeadzone() || digital.isDeadzone())){
+			return analog.getPosition();
 		}
 		return digital.getPosition();
 	}
@@ -60,7 +60,7 @@ public class DigitalAnalogInputPart extends SimpleControllerPart implements Inpu
 		if(config.isUseAbstractedIsDownIfPossible() && digital.isConnected() && !digital.isDeadzone()){
 			return digital.isDown();
 		}
-        return analog.isDown();
+		return analog.isDown();
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class DigitalAnalogInputPart extends SimpleControllerPart implements Inpu
 		if(config.isUseAbstractedIsDownIfPossible() && digital.isConnected() && !digital.isDeadzone()){
 			return digital.isPressed();
 		}
-        return analog.isPressed();
+		return analog.isPressed();
 	}
 
 	@Override
@@ -89,6 +89,6 @@ public class DigitalAnalogInputPart extends SimpleControllerPart implements Inpu
 
 	@Override
 	public boolean isConnected() {
-        return digital.isConnected() || analog.isConnected();
+		return digital.isConnected() || analog.isConnected();
 	}
 }

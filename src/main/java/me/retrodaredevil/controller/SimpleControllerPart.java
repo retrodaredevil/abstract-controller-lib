@@ -151,7 +151,7 @@ public abstract class SimpleControllerPart implements ControllerPart{
 	 * @throws IllegalArgumentException only thrown when changeParent == true and canAlreadyHaveParents == false
 	 */
 	public void addChildren(Iterable<? extends ControllerPart> parts,
-	                        boolean changeParent, boolean canAlreadyHaveParents){
+							boolean changeParent, boolean canAlreadyHaveParents){
 		if(changeParent && !canAlreadyHaveParents){
 			throw new IllegalArgumentException("If changeParent == true, canAlreadyHaveParents cannot be false");
 		}

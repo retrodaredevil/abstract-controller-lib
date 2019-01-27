@@ -15,7 +15,7 @@ public class MutableControlConfig implements ControlConfig{
 	public double switchToSquareInputThreshold = 1.01;
 
 	@Override
-	public double getButtonDownDeadzone() { return buttonDownDeadzone; }
+	public double getButtonDownThreshold() { return buttonDownDeadzone; }
 	@Override
 	public double getAnalogDeadzone() { return analogDeadzone; }
 	@Override

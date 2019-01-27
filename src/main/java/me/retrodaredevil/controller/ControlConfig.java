@@ -5,7 +5,11 @@ package me.retrodaredevil.controller;
  */
 public interface ControlConfig {
 	/** Should be used for all isDown() calls and for POVs and digitalPosition calls. It should also be used on isPressed and isReleased calls*/
-	double getButtonDownDeadzone();
+	double getButtonDownThreshold();
+	@Deprecated
+	default double getButtonDownDeadzone(){
+		return getButtonDownThreshold();
+	}
 //	/** Should be used for things like D-pads and POVs and all digitalPosition calls */
 //	double getAnalogDigitalValueDeadzone();
 	/** Should be used for AxisTypes with full=false and analog=true */

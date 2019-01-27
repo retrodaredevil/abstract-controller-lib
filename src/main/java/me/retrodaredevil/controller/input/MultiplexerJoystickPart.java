@@ -15,11 +15,11 @@ public class MultiplexerJoystickPart extends SimpleControllerPart implements Joy
 	private final InputPart yAxis;
 
 	public MultiplexerJoystickPart(Collection<? extends JoystickPart> joysticks) {
-        this.joysticks = joysticks;
-        addChildren(joysticks, false, true);
-        
-        final AxisType axisType = axisTypeHelper(joysticks);
-        xAxis = new MultiplexerInputPart(axisType, false);
+		this.joysticks = joysticks;
+		addChildren(joysticks, false, true);
+
+		final AxisType axisType = axisTypeHelper(joysticks);
+		xAxis = new MultiplexerInputPart(axisType, false);
 		yAxis = new MultiplexerInputPart(axisType, true);
 		addChildren(false, false, xAxis, yAxis);
 	}
@@ -62,12 +62,12 @@ public class MultiplexerJoystickPart extends SimpleControllerPart implements Joy
 
 	@Override
 	public InputPart getXAxis() {
-        return xAxis;
+		return xAxis;
 	}
 
 	@Override
 	public InputPart getYAxis() {
-        return yAxis;
+		return yAxis;
 	}
 
 	@Override
@@ -100,7 +100,7 @@ public class MultiplexerJoystickPart extends SimpleControllerPart implements Joy
 				&& cache.isInputSquare() == square && cache.isShouldUseDelta() == useDelta){
 			return cache; // return cache instead of creating new object if cache is correct
 		}
-        return new JoystickType(analog, rangeOver, square, useDelta);
+		return new JoystickType(analog, rangeOver, square, useDelta);
 	}
 
 	@Override
@@ -203,18 +203,18 @@ public class MultiplexerJoystickPart extends SimpleControllerPart implements Joy
 
 		@Override
 		public double getPosition() {
-            if(yAxis){
-            	return getY();
+			if(yAxis){
+				return getY();
 			}
 			return getX();
 		}
 
 		@Override
 		public boolean isDown() {
-            JoystickPart joy = getCurrentJoystick();
-            if(joy != null){
-            	if(yAxis){
-            		return joy.getYAxis().isDown();
+			JoystickPart joy = getCurrentJoystick();
+			if(joy != null){
+				if(yAxis){
+					return joy.getYAxis().isDown();
 				}
 				return joy.getXAxis().isDown();
 			}
@@ -247,7 +247,7 @@ public class MultiplexerJoystickPart extends SimpleControllerPart implements Joy
 
 		@Override
 		public boolean isConnected() {
-            return MultiplexerJoystickPart.this.isConnected();
+			return MultiplexerJoystickPart.this.isConnected();
 		}
 	}
 }

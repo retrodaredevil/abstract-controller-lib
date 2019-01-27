@@ -154,4 +154,38 @@ final class InputPartTests {
 		// digital child should try to add dummy as child
 		assertThrows(AssertionError.class, () -> new DigitalChildPositionInputPart(dummy, InputPart::isPressed));
 	}
+	
+	@Test
+	void testDigitalAnalogInputPart(){
+		final MutableControlConfig config = new MutableControlConfig();
+		config.useAbstractedIsDownIfPossible = true;
+		
+		final DummyInputPart digital = new DummyInputPart(0, false);
+		final DummyInputPart analog = new DummyInputPart(0.0, false);
+		final InputPart inputPart = new DigitalAnalogInputPart(digital, analog);
+		
+		inputPart.update(config);
+		assertTrue(inputPart.isDeadzone());
+		assertFalse(inputPart.isDown());
+		assertFalse(inputPart.isPressed());
+		assertFalse(inputPart.isReleased());
+        assertEquals(0, inputPart.getDigitalPosition());
+        assertEquals(0.0, inputPart.getPosition());
+        
+        digital.setPosition(1);
+        inputPart.update(config);
+        assertTrue(digital.isDown());
+        assertFalse(analog.isDown());
+        assertTrue(inputPart.isDown());
+        
+        // digital still has a position of 1
+        analog.setPosition(.5);
+        inputPart.update(config);
+        assertTrue(digital.isDown());
+        assertTrue(analog.isDown());
+        assertEquals(.5, inputPart.getPosition());
+        assertTrue(analog.isPressed());
+        assertFalse(digital.isPressed());
+        assertFalse(inputPart.isPressed());
+	}
 }

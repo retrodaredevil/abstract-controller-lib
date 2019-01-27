@@ -63,9 +63,9 @@ public class PS4StandardControllerInputCreator implements StandardControllerInpu
 	}
 
 	@Override public Boolean getPhysicalLocationsSwapped() {
-        return false;
+		return false;
 	}
 	@Override public Boolean getButtonNamesSwapped() {
-        return false;
+		return false;
 	}
 }

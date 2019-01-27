@@ -1,7 +1,6 @@
 package me.retrodaredevil.controller.input;
 
 import me.retrodaredevil.controller.ControlConfig;
-import me.retrodaredevil.controller.ControllerPart;
 
 /**
  * Represents input that can be digital, analog and can have full range, not full range, or range over
@@ -67,7 +66,7 @@ public interface InputPart extends DeadzoneablePart {
 	 * If {@link #isDown()} == true, then this should return 1 or -1
 	 * @return returns {@link #getPosition()} unless {@link #getAxisType()}.{@link AxisType#isAnalog() isAnalog()} == true
 	 * 			or {@link #getAxisType()}.{@link AxisType#isRangeOver() isRangeOver()} == true, it will round it using the
-	 *          {@link ControlConfig#getButtonDownDeadzone()}
+	 *          {@link ControlConfig#getButtonDownThreshold()}
 	 * @throws me.retrodaredevil.controller.ControllerPartNotUpdatedException Thrown if this part isn't
 	 * 			updated. This is not required to be thrown
 	 */

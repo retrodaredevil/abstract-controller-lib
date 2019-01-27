@@ -59,27 +59,27 @@ public class BaseExtremeFlightJoystickControllerInput extends SimpleControllerIn
 	// region grid buttons
 	@Override
 	public InputPart getGridUpperLeft() {
-        return gridUpperLeft;
+		return gridUpperLeft;
 	}
 	@Override
 	public InputPart getGridUpperRight() {
-        return gridUpperRight;
+		return gridUpperRight;
 	}
 	@Override
 	public InputPart getGridMiddleLeft() {
-        return gridMiddleLeft;
+		return gridMiddleLeft;
 	}
 	@Override
 	public InputPart getGridMiddleRight() {
-        return gridMiddleRight;
+		return gridMiddleRight;
 	}
 	@Override
 	public InputPart getGridLowerLeft() {
-        return gridLowerLeft;
+		return gridLowerLeft;
 	}
 	@Override
 	public InputPart getGridLowerRight() {
-        return gridLowerRight;
+		return gridLowerRight;
 	}
 	// endregion
 
@@ -91,48 +91,48 @@ public class BaseExtremeFlightJoystickControllerInput extends SimpleControllerIn
 	// region thumb buttons
 	@Override
 	public InputPart getThumbButton() {
-        return thumbButton;
+		return thumbButton;
 	}
 	@Override
 	public InputPart getThumbLeftUpper() {
-        return thumbLeftUpper;
+		return thumbLeftUpper;
 	}
 	@Override
 	public InputPart getThumbLeftLower() {
-        return thumbLeftLower;
+		return thumbLeftLower;
 	}
 	@Override
 	public InputPart getThumbRightUpper() {
-        return thumbRightUpper;
+		return thumbRightUpper;
 	}
 	@Override
 	public InputPart getThumbRightLower() {
-        return thumbRightLower;
+		return thumbRightLower;
 	}
 	//endregion
 
 	@Override
 	public JoystickPart getDPad() {
-        return dPad;
+		return dPad;
 	}
 
 	@Override
 	public InputPart getTwist() {
-        return twist;
+		return twist;
 	}
 
 	@Override
 	public JoystickPart getMainJoystick() {
-        return mainJoystick;
+		return mainJoystick;
 	}
 
 	@Override
 	public InputPart getSlider() {
-        return slider;
+		return slider;
 	}
 
 	@Override
 	public boolean isConnected() {
-        return controller.isConnected();
+		return controller.isConnected();
 	}
 }

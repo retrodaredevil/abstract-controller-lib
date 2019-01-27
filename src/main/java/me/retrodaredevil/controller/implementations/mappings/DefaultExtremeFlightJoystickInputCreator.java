@@ -38,7 +38,7 @@ public class DefaultExtremeFlightJoystickInputCreator implements ExtremeFlightJo
 
 	@Override
 	public InputPart createTrigger(ControllerPartCreator controller) {
-        return controller.createDigital(0);
+		return controller.createDigital(0);
 	}
 
 	@Override
@@ -68,21 +68,21 @@ public class DefaultExtremeFlightJoystickInputCreator implements ExtremeFlightJo
 
 	@Override
 	public JoystickPart createMainJoystick(ControllerPartCreator controller) {
-        return controller.createJoystick(0, 1);
+		return controller.createJoystick(0, 1);
 	}
 
 	@Override
 	public InputPart createTwist(ControllerPartCreator controller) {
-        return controller.createFullAnalog(2, false);
+		return controller.createFullAnalog(2, false);
 	}
 
 	@Override
 	public InputPart createSlider(ControllerPartCreator controller) {
-        return controller.createFullAnalog(3, true);
+		return controller.createFullAnalog(3, true);
 	}
 
 	@Override
 	public JoystickPart createDPad(ControllerPartCreator controller) {
-        return controller.createPOV(0, 4, 5);
+		return controller.createPOV(0, 4, 5);
 	}
 }

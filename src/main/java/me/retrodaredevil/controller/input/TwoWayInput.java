@@ -12,7 +12,7 @@ public class TwoWayInput extends SimpleInputPart {
 	/**
 	 * the getPosition() will work like part1.getPosition() - part2.getPosition()
 	 * <br/><br/>
-     * For each part1 and part2, their parent will only be set to this if they don't already have a parent. (Uses the addChildren() method)
+	 * For each part1 and part2, their parent will only be set to this if they don't already have a parent. (Uses the addChildren() method)
 	 * @param part1 The InputPart that will be the positive value
 	 * @param part2 The InputPart that will be the negative value
 	 */
@@ -52,19 +52,19 @@ public class TwoWayInput extends SimpleInputPart {
 
 	@Override
 	public boolean isDown() {
-        return part1.isDown() != part2.isDown();
+		return part1.isDown() != part2.isDown();
 	}
 
 	@Override
 	public boolean isPressed() {
-        return (part1.isPressed() && !part2.isDown()) || (part2.isPressed() && !part1.isDown())
+		return (part1.isPressed() && !part2.isDown()) || (part2.isPressed() && !part1.isDown())
 				|| (part1.isDown() && part2.isReleased()) || (part2.isDown() && part1.isReleased());
 	}
 
 	@Override
 	public boolean isReleased() {
-        if(part1.isReleased() || part2.isReleased()){
-        	return part1.isDown() == part2.isDown();
+		if(part1.isReleased() || part2.isReleased()){
+			return part1.isDown() == part2.isDown();
 		}
 		return false;
 	}

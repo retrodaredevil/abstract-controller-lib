@@ -57,6 +57,6 @@ public class DummyInputPart extends AutoCachingInputPart {
 
 	@Override
 	public boolean isConnected() {
-        return connected;
+		return connected;
 	}
 }
