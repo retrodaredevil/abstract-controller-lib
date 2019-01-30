@@ -49,7 +49,7 @@ public class DigitalAnalogInputPart extends SimpleControllerPart implements Inpu
 
 	@Override
 	public double getPosition() {
-		if(analog.isConnected() && (!analog.isDeadzone() || digital.isDeadzone())){
+		if(analog.isConnected()){
 			return analog.getPosition();
 		}
 		return digital.getPosition();
