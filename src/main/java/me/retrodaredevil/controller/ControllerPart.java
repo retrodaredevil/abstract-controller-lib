@@ -1,5 +1,6 @@
 package me.retrodaredevil.controller;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 /**
@@ -84,4 +85,41 @@ public interface ControllerPart {
 	 * @return true if this ControllerPart will give accurate values and if it is connected.
 	 */
 	boolean isConnected();
+	
+	/**
+	 * NOTE: Depending on the implementation of {@link ControllerPart}, children may not be added and may not be
+	 * updated in the order you expect.
+	 *
+	 * @param parts The parts to change each element's parent to this
+	 * @param changeParent true if you want to allow the parent of parts that already have a parent to be changed. If a part
+	 *                     does not already have a parent, it will be set to this regardless of this value.
+	 * @param canAlreadyHaveParents Should be true if you expect one or more elements to already have a parent. If false,
+	 *                                 it will throw an AssertionError if a part already has a parent. If false,
+	 *                                 changeParent's value will do nothing.
+	 * @throws AssertionError if canAlreadyHaveParents == false and one of the parts in the
+	 *                        parts Iterable has a parent that isn't null, this will be thrown
+	 * @throws IllegalArgumentException only thrown when changeParent == true and canAlreadyHaveParents == false
+	 */
+	default void addChildren(Iterable<? extends ControllerPart> parts,
+							boolean changeParent, boolean canAlreadyHaveParents){
+		if(changeParent && !canAlreadyHaveParents){
+			throw new IllegalArgumentException("If changeParent == true, canAlreadyHaveParents cannot be false");
+		}
+		for(ControllerPart part : parts){
+			boolean hasParent = part.getParent() != null;
+			if(!canAlreadyHaveParents && hasParent){
+				throw new AssertionError("A part already has a parent");
+			}
+			if(changeParent || !hasParent) {
+				part.setParent(this);
+			}
+		}
+	}
+	
+	/**
+	 * @see #addChildren(Iterable, boolean, boolean)
+	 */
+	default void addChildren(boolean changeParent, boolean canAlreadyHaveParents, ControllerPart... parts){
+		addChildren(Arrays.asList(parts), changeParent, canAlreadyHaveParents);
+	}
 }
