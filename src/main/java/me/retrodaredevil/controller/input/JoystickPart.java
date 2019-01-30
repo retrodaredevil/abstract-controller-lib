@@ -60,6 +60,9 @@ public interface JoystickPart extends AnglePart{
 	 */
 	double getY();
 	
+	boolean isXDeadzone();
+	
+	boolean isYDeadzone();
 	
 	/**
 	 * @return {@link #getX()} scaled according to if this is range over
@@ -86,8 +89,32 @@ public interface JoystickPart extends AnglePart{
 	default double getNormalY() {
 		return getY() / getMagnitude();
 	}
+	
+	/** @return 0 if {@link #isDeadzone()} is true otherwise {@link #getX()}*/
+	default double getZonedX(){
+		return isDeadzone() ? 0 : getX();
+	}
+	/** @return 0 if {@link #isDeadzone()} is true otherwise {@link #getY()}*/
+	default double getZonedY(){
+		return isDeadzone() ? 0 : getY();
+	}
+	/** @return 0 if {@link #isDeadzone()} is true otherwise {@link #getCorrectX()}*/
+	default double getZonedCorrectX(){
+		return isDeadzone() ? 0 : getCorrectX();
+	}
+	/** @return 0 if {@link #isDeadzone()} is true otherwise {@link #getCorrectY()}*/
+	default double getZonedCorrectY(){
+		return isDeadzone() ? 0 : getCorrectY();
+	}
+	
+	/** @return 0 if {@link #isDeadzone()} is true otherwise {@link #getMagnitude()}*/
+	default double getZonedMagnitude(){
+		return isDeadzone() ? 0 : getMagnitude();
+	}
+	/** @return 0 if {@link #isDeadzone()} is true otherwise {@link #getCorrectMagnitude()}*/
+	default double getZonedCorrectMagnitude(){
+		return isDeadzone() ? 0 : getCorrectMagnitude();
+	}
+	
 
-	boolean isXDeadzone();
-
-	boolean isYDeadzone();
 }
