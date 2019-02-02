@@ -188,4 +188,39 @@ final class InputPartTests {
         assertFalse(digital.isPressed());
         assertFalse(inputPart.isPressed());
 	}
+	
+	@Test
+	void testMultiplierInputPart(){
+		final DummyInputPart full = new DummyInputPart(1.0, true);
+		final DummyInputPart multiplier = new DummyInputPart(0.0, false);
+		
+		final InputPart inputPart = new MultiplierInputPart(true, full, multiplier);
+		
+		inputPart.update(config);
+		assertTrue(inputPart.isDeadzone());
+		assertFalse(inputPart.isDown());
+		assertFalse(inputPart.isPressed());
+		assertFalse(inputPart.isReleased());
+		assertEquals(0, inputPart.getPosition());
+		
+		multiplier.setPosition(1);
+		
+		inputPart.update(config);
+		assertFalse(inputPart.isDeadzone());
+		assertTrue(inputPart.isDown());
+		assertTrue(inputPart.isPressed());
+		assertFalse(inputPart.isReleased());
+		assertEquals(1, inputPart.getPosition());
+		
+		
+		multiplier.setPosition(.5);
+		inputPart.update(config);
+		assertTrue(inputPart.isDown());
+		assertEquals(.5, inputPart.getPosition());
+		
+		full.setPosition(-1.0);
+		inputPart.update(config);
+		assertTrue(inputPart.isDown());
+		assertEquals(-.5, inputPart.getPosition());
+	}
 }

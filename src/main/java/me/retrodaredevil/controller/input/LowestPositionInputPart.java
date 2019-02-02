@@ -10,20 +10,24 @@ import static java.lang.Math.abs;
  */
 public class LowestPositionInputPart extends SimpleInputPart {
 
-	private final List<InputPart> inputParts;
-	private final boolean allowNotConnected;
+	protected final List<InputPart> inputParts;
+	protected final boolean allowNotConnected;
 
 	/**
+	 * NOTE: If two or more {@link InputPart}s in the list are tied for the lowest position, the one that comes first in
+	 * the list will take priority
 	 * @param allowNotConnected true if you want something that isn't connected to be treated like it isn't there
 	 * @param inputParts The list of InputParts. Each that does not have a parent will have its parent set to this
 	 */
 	public LowestPositionInputPart(boolean allowNotConnected, List<InputPart> inputParts) {
-		super(HighestPositionInputPart.autoAxisTypeHelper(inputParts));
+		super(InputPartUtils.autoAxisTypeHelper(inputParts));
 		this.inputParts = inputParts;
 		this.allowNotConnected = allowNotConnected;
 		addChildren(inputParts, false, true);
 	}
 	/**
+	 * NOTE: If two or more {@link InputPart}s in the list are tied for the lowest position, the one that comes first in
+	 * the list will take priority
 	 * @param allowNotConnected true if you want something that isn't connected to be treated like it isn't there
 	 * @param inputParts The InputParts
 	 */
@@ -56,6 +60,13 @@ public class LowestPositionInputPart extends SimpleInputPart {
 	@Override
 	public boolean isDown() {
 		for(InputPart part : inputParts){
+			if(!part.isConnected()){
+				if(allowNotConnected){
+					continue;
+				} else {
+					return false;
+				}
+			}
 			if(!part.isDown()){
 				return false;
 			}
@@ -67,6 +78,13 @@ public class LowestPositionInputPart extends SimpleInputPart {
 	public boolean isPressed() {
 		boolean pressed = false;
 		for(InputPart part : inputParts){
+			if(!part.isConnected()){
+				if(allowNotConnected){
+					continue;
+				} else {
+					return false;
+				}
+			}
 			if(!part.isDown()){
 				return false;
 			}

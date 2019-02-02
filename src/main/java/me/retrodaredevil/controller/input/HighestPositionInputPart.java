@@ -28,21 +28,10 @@ public class HighestPositionInputPart extends SimpleInputPart {
 		this(parts, false);
 	}
 	public HighestPositionInputPart(List<InputPart> parts, boolean allowMultiplePressesAndReleases){
-		super(autoAxisTypeHelper(parts));
+		super(InputPartUtils.autoAxisTypeHelper(parts));
 		this.parts = parts;
 		this.allowMultiplePressesAndReleases = allowMultiplePressesAndReleases;
 		addChildren(this.parts, false, true);
-	}
-	static AxisType autoAxisTypeHelper(Iterable<InputPart> parts){
-		boolean anyFull = false;
-		boolean anyAnalog = false;
-		for(InputPart part : parts){
-			AxisType type = part.getAxisType();
-
-			anyFull = anyFull || type.isFull();
-			anyAnalog = anyAnalog || type.isAnalog();
-		}
-		return new AxisType(anyFull, anyAnalog, false, true);
 	}
 
 	@Override
