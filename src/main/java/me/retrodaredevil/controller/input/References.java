@@ -122,7 +122,70 @@ public final class References {
 		public boolean isConnected() {
 			return getJoystickPart().isConnected();
 		}
-
+		
+		// region default methods
+		@Override
+		public double getNormalX() {
+			return getJoystickPart().getNormalX();
+		}
+		@Override
+		public double getNormalY() {
+			return getJoystickPart().getNormalY();
+		}
+		@Override
+		public double getCorrectX() {
+			return getJoystickPart().getCorrectX();
+		}
+		@Override
+		public double getCorrectY() {
+			return getJoystickPart().getCorrectY();
+		}
+		
+		@Override
+		public double getZonedCorrectX() {
+			return getJoystickPart().getZonedCorrectX();
+		}
+		@Override
+		public double getZonedCorrectY() {
+			return getJoystickPart().getZonedCorrectY();
+		}
+		
+		@Override
+		public double getZonedCorrectMagnitude() {
+			return getJoystickPart().getZonedCorrectMagnitude();
+		}
+		
+		@Override
+		public double getZonedMagnitude() {
+			return getJoystickPart().getZonedMagnitude();
+		}
+		
+		@Override
+		public double getZonedX() {
+			return getJoystickPart().getZonedX();
+		}
+		
+		@Override
+		public double getZonedY() {
+			return getJoystickPart().getZonedY();
+		}
+		@Override
+		public double getAngleOrDefault(double def) {
+			return getJoystickPart().getAngleOrDefault(def);
+		}
+		@Override
+		public Double getAngleOrNull() {
+			return getJoystickPart().getAngleOrNull();
+		}
+		@Override
+		public double getAngleRadiansOrDefault(double def) {
+			return getJoystickPart().getAngleRadiansOrDefault(def);
+		}
+		@Override
+		public Double getAngleRadiansOrNull() {
+			return getJoystickPart().getAngleRadiansOrNull();
+		}
+		// endregion
 	}
 
 	private static class InputPartReference extends SimpleControllerPart implements InputPart {
@@ -172,6 +235,15 @@ public final class References {
 		public boolean isDeadzone() {
 			return getInputPart().isDeadzone();
 		}
-
+		
+		@Override
+		public double getZonedPosition() {
+			return getInputPart().getZonedPosition();
+		}
+		
+		@Override
+		public double getZonedPosition(double customDeadzone) {
+			return getInputPart().getZonedPosition(customDeadzone);
+		}
 	}
 }

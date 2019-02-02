@@ -223,4 +223,38 @@ final class InputPartTests {
 		assertTrue(inputPart.isDown());
 		assertEquals(-.5, inputPart.getPosition());
 	}
+	
+	@Test
+	void testScaledInputPart(){
+		{
+			final DummyInputPart dummyFull = new DummyInputPart(0.0, true);
+			final InputPart inputPart = new ScaledInputPart(AxisType.ANALOG, dummyFull);
+			
+			inputPart.update(config);
+			assertEquals(.5, inputPart.getPosition());
+			
+			dummyFull.setPosition(-1.0);
+			inputPart.update(config);
+			assertEquals(0, inputPart.getPosition());
+			
+			dummyFull.setPosition(1.0);
+			inputPart.update(config);
+			assertEquals(1, inputPart.getPosition());
+		}
+		{
+			final DummyInputPart dummy = new DummyInputPart(0.0, false);
+			final InputPart inputPart = new ScaledInputPart(AxisType.FULL_ANALOG, dummy);
+			
+			inputPart.update(config);
+			assertEquals(-1.0, inputPart.getPosition());
+			
+			dummy.setPosition(.5);
+			inputPart.update(config);
+			assertEquals(0.0, inputPart.getPosition());
+			
+			dummy.setPosition(1);
+			inputPart.update(config);
+			assertEquals(1.0, inputPart.getPosition());
+		}
+	}
 }
