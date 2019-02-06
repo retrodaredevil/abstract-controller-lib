@@ -68,6 +68,6 @@ public class DefaultLogitechAttack3JoystickInputCreator implements LogitechAttac
 
 	@Override
 	public InputPart createSlider(ControllerPartCreator controller) {
-		return controller.createFullAnalog(3);
+		return controller.createFullAnalog(2);
 	}
 }
