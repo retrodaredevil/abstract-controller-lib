@@ -1,6 +1,8 @@
-package me.retrodaredevil.controller.input;
+package me.retrodaredevil.controller.input.implementations;
 
-import me.retrodaredevil.controller.SimpleControllerPart;
+import me.retrodaredevil.controller.*;
+import me.retrodaredevil.controller.input.AxisType;
+import me.retrodaredevil.controller.input.InputPart;
 
 /**
  * A simple InputPart that is normally used with triggers that also have a corresponding button representing
@@ -23,7 +25,7 @@ public class DigitalAnalogInputPart extends SimpleControllerPart implements Inpu
 		if(digitalType.isFull() != analogType.isFull()){
 			throw new IllegalArgumentException("Both digital and analog must have full range if either has full range!");
 		}
-		addChildren(false, true, digital, analog);
+		partUpdater.addPartsAssertNonePresent(digital, analog);
 	}
 
 	@Override
@@ -64,19 +66,19 @@ public class DigitalAnalogInputPart extends SimpleControllerPart implements Inpu
 	}
 
 	@Override
-	public boolean isPressed() {
+	public boolean isJustPressed() {
 		if(config.isUseAbstractedIsDownIfPossible() && digital.isConnected() && !digital.isDeadzone()){
-			return digital.isPressed();
+			return digital.isJustPressed();
 		}
-		return analog.isPressed();
+		return analog.isJustPressed();
 	}
 
 	@Override
-	public boolean isReleased() {
+	public boolean isJustReleased() {
 		if(config.isUseAbstractedIsDownIfPossible() && digital.isConnected()){
-			return digital.isReleased();
+			return digital.isJustReleased();
 		}
-		return analog.isReleased();
+		return analog.isJustReleased();
 	}
 
 	@Override

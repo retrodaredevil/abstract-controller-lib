@@ -1,14 +1,11 @@
-package me.retrodaredevil.controller.input;
+package me.retrodaredevil.controller.input.implementations;
 
 import me.retrodaredevil.controller.ControlConfig;
 import me.retrodaredevil.controller.SimpleControllerPart;
+import me.retrodaredevil.controller.input.JoystickPart;
+import me.retrodaredevil.controller.input.JoystickType;
 
-import static java.lang.Math.abs;
-import static java.lang.Math.atan2;
-import static java.lang.Math.cos;
-import static java.lang.Math.hypot;
-import static java.lang.Math.toDegrees;
-import static java.lang.Math.toRadians;
+import static java.lang.Math.*;
 
 /**
  * A simple abstract base class for JoystickParts that handles many things on its own with the

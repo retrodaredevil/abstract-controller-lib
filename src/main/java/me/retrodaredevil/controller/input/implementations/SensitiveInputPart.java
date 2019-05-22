@@ -1,15 +1,17 @@
-package me.retrodaredevil.controller.input;
+package me.retrodaredevil.controller.input.implementations;
 
 import java.util.Objects;
 
+import me.retrodaredevil.controller.input.AxisType;
+import me.retrodaredevil.controller.input.InputPart;
 import me.retrodaredevil.controller.options.OptionValue;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.max;
 
 /**
- * Adjusts the position using the passed OptionValues. Methods such as {@link #isDown()}, {@link #isPressed()},
- * {@link #isReleased()}, and {@link #isDeadzone()} are the same as the passed input part
+ * Adjusts the position using the passed OptionValues. Methods such as {@link #isDown()}, {@link #isJustPressed()},
+ * {@link #isJustReleased()}, and {@link #isDeadzone()} are the same as the passed input part
  * <p>
  * Even though this uses on another InputPart, it does not matter if this is updated before
  * that InputPart because we don't rely on that InputPart in our update()
@@ -36,7 +38,7 @@ public class SensitiveInputPart extends SimpleInputPart {
 		if(invertOption != null && !invertOption.isOptionValueBoolean()){
 			throw new IllegalArgumentException("invertOption must be a boolean option value");
 		}
-		addChildren(false, true, inputPart);
+		partUpdater.addPartAssertNotPresent(inputPart);
 	}
 	public SensitiveInputPart(InputPart inputPart, OptionValue sensitivityMultiplier){
 		this(inputPart, sensitivityMultiplier, null);
@@ -77,13 +79,13 @@ public class SensitiveInputPart extends SimpleInputPart {
 	}
 
 	@Override
-	public boolean isPressed() {
-		return inputPart.isPressed();
+	public boolean isJustPressed() {
+		return inputPart.isJustPressed();
 	}
 
 	@Override
-	public boolean isReleased() {
-		return inputPart.isReleased();
+	public boolean isJustReleased() {
+		return inputPart.isJustReleased();
 	}
 
 	@Override

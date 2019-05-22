@@ -40,9 +40,11 @@ public class BaseLogitechAttack3JoystickControllerInput extends SimpleController
 		joystick = creator.createJoystick(controller);
 		slider = creator.createSlider(controller);
 		rumble = controller.createRumble();
-
-		addChildren(false, false, trigger, thumbLower, thumbUpper, thumbLeft, thumbRight,
-				leftUpper, leftLower, centerLeft, centerRight, rightLower, rightUpper, joystick, slider, rumble);
+		
+		partUpdater.addPartsAssertNonePresent(
+				trigger, thumbLower, thumbUpper, thumbLeft, thumbRight,
+				leftUpper, leftLower, centerLeft, centerRight, rightLower, rightUpper, joystick, slider, rumble
+		);
 	}
 
 	@Override

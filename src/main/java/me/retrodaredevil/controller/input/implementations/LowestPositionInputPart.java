@@ -1,4 +1,7 @@
-package me.retrodaredevil.controller.input;
+package me.retrodaredevil.controller.input.implementations;
+
+import me.retrodaredevil.controller.input.InputPart;
+import me.retrodaredevil.controller.input.InputPartUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,31 +14,31 @@ import static java.lang.Math.abs;
 public class LowestPositionInputPart extends SimpleInputPart {
 
 	protected final List<InputPart> inputParts;
-	protected final boolean allowNotConnected;
+	protected final boolean ignoreIfDisconnected;
 
 	/**
 	 * NOTE: If two or more {@link InputPart}s in the list are tied for the lowest position, the one that comes first in
 	 * the list will take priority
-	 * @param allowNotConnected true if you want something that isn't connected to be treated like it isn't there
+	 * @param ignoreIfDisconnected true if you want something that is disconnected to be ignored. (Recommended to be true)
 	 * @param inputParts The list of InputParts. Each that does not have a parent will have its parent set to this
 	 */
-	public LowestPositionInputPart(boolean allowNotConnected, List<InputPart> inputParts) {
+	public LowestPositionInputPart(boolean ignoreIfDisconnected, List<InputPart> inputParts) {
 		super(InputPartUtils.autoAxisTypeHelper(inputParts));
 		this.inputParts = inputParts;
-		this.allowNotConnected = allowNotConnected;
-		addChildren(inputParts, false, true);
+		this.ignoreIfDisconnected = ignoreIfDisconnected;
+		partUpdater.addPartsAssertNonePresent(inputParts);
 	}
 	/**
 	 * NOTE: If two or more {@link InputPart}s in the list are tied for the lowest position, the one that comes first in
 	 * the list will take priority
-	 * @param allowNotConnected true if you want something that isn't connected to be treated like it isn't there
+	 * @param ignoreIfDisconnected true if you want something that is disconnected to be ignored. (Recommended to be true)
 	 * @param inputParts The InputParts
 	 */
-	public LowestPositionInputPart(boolean allowNotConnected, InputPart... inputParts){
-		this(allowNotConnected, Arrays.asList(inputParts));
+	public LowestPositionInputPart(boolean ignoreIfDisconnected, InputPart... inputParts){
+		this(ignoreIfDisconnected, Arrays.asList(inputParts));
 	}
 	/**
-	 * Calls {@link #LowestPositionInputPart(boolean, InputPart...)} with allowNotConnected = false
+	 * Calls {@link #LowestPositionInputPart(boolean, InputPart...)} with ignoreIfDisconnected = false
 	 * @param inputParts The InputParts
 	 */
 	public LowestPositionInputPart(InputPart... inputParts){
@@ -46,7 +49,7 @@ public class LowestPositionInputPart extends SimpleInputPart {
 	public double getPosition() {
 		Double lowest = null;
 		for(InputPart part : inputParts){
-			if(allowNotConnected && !part.isConnected()){
+			if(ignoreIfDisconnected && !part.isConnected()){
 				continue;
 			}
 			final double position = part.getPosition();
@@ -61,7 +64,7 @@ public class LowestPositionInputPart extends SimpleInputPart {
 	public boolean isDown() {
 		for(InputPart part : inputParts){
 			if(!part.isConnected()){
-				if(allowNotConnected){
+				if(ignoreIfDisconnected){
 					continue;
 				} else {
 					return false;
@@ -75,11 +78,11 @@ public class LowestPositionInputPart extends SimpleInputPart {
 	}
 
 	@Override
-	public boolean isPressed() {
+	public boolean isJustPressed() {
 		boolean pressed = false;
 		for(InputPart part : inputParts){
 			if(!part.isConnected()){
-				if(allowNotConnected){
+				if(ignoreIfDisconnected){
 					continue;
 				} else {
 					return false;
@@ -88,18 +91,18 @@ public class LowestPositionInputPart extends SimpleInputPart {
 			if(!part.isDown()){
 				return false;
 			}
-			pressed = pressed || part.isPressed();
+			pressed = pressed || part.isJustPressed();
 		}
 		return pressed;
 	}
 
 	@Override
-	public boolean isReleased() {
+	public boolean isJustReleased() {
 		boolean anyReleased = false;
 		int down = 0;
 
 		for(InputPart part : inputParts){
-			if(part.isReleased()){
+			if(part.isJustReleased()){
 				anyReleased = true;
 			} else if(part.isDown()){
 				down++;
@@ -110,7 +113,7 @@ public class LowestPositionInputPart extends SimpleInputPart {
 
 	@Override
 	public boolean isConnected() {
-		if(allowNotConnected){
+		if(ignoreIfDisconnected){
 			for(InputPart part : inputParts){
 				if(part.isConnected()){
 					return true;

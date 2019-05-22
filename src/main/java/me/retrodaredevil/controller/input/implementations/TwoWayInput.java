@@ -1,4 +1,7 @@
-package me.retrodaredevil.controller.input;
+package me.retrodaredevil.controller.input.implementations;
+
+import me.retrodaredevil.controller.input.AxisType;
+import me.retrodaredevil.controller.input.InputPart;
 
 /**
  * Represents a "full" InputPart so that you are able to use two other InputParts where one is
@@ -31,7 +34,7 @@ public class TwoWayInput extends SimpleInputPart {
 		}
 		this.part1 = part1;
 		this.part2 = part2;
-		addChildren(false, true, part1, part2);
+		partUpdater.addPartsAssertNonePresent(part1, part2);
 	}
 	public InputPart getPart1(){
 		return part1;
@@ -56,14 +59,14 @@ public class TwoWayInput extends SimpleInputPart {
 	}
 
 	@Override
-	public boolean isPressed() {
-		return (part1.isPressed() && !part2.isDown()) || (part2.isPressed() && !part1.isDown())
-				|| (part1.isDown() && part2.isReleased()) || (part2.isDown() && part1.isReleased());
+	public boolean isJustPressed() {
+		return (part1.isJustPressed() && !part2.isDown()) || (part2.isJustPressed() && !part1.isDown())
+				|| (part1.isDown() && part2.isJustReleased()) || (part2.isDown() && part1.isJustReleased());
 	}
 
 	@Override
-	public boolean isReleased() {
-		if(part1.isReleased() || part2.isReleased()){
+	public boolean isJustReleased() {
+		if(part1.isJustReleased() || part2.isJustReleased()){
 			return part1.isDown() == part2.isDown();
 		}
 		return false;

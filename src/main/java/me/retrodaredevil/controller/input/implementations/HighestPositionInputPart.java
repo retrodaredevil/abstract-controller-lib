@@ -1,9 +1,10 @@
-package me.retrodaredevil.controller.input;
+package me.retrodaredevil.controller.input.implementations;
 
 import java.util.Arrays;
 import java.util.List;
 
-import me.retrodaredevil.controller.ControllerPart;
+import me.retrodaredevil.controller.input.InputPart;
+import me.retrodaredevil.controller.input.InputPartUtils;
 
 /**
  * This class can be used if you want to map two buttons to the same control.
@@ -31,7 +32,7 @@ public class HighestPositionInputPart extends SimpleInputPart {
 		super(InputPartUtils.autoAxisTypeHelper(parts));
 		this.parts = parts;
 		this.allowMultiplePressesAndReleases = allowMultiplePressesAndReleases;
-		addChildren(this.parts, false, true);
+		partUpdater.addPartsAssertNonePresent(parts);
 	}
 
 	@Override
@@ -65,10 +66,10 @@ public class HighestPositionInputPart extends SimpleInputPart {
 	}
 
 	@Override
-	public boolean isPressed() {
+	public boolean isJustPressed() {
 		boolean onePressed = false;
 		for(InputPart part : parts){
-			boolean pressed = part.isPressed();
+			boolean pressed = part.isJustPressed();
 			if(allowMultiplePressesAndReleases){
 				if(pressed) return true;
 			} else if(part.isDown() && !pressed){
@@ -81,10 +82,10 @@ public class HighestPositionInputPart extends SimpleInputPart {
 	}
 
 	@Override
-	public boolean isReleased() {
+	public boolean isJustReleased() {
 		boolean oneReleased = false;
 		for(InputPart part : parts){
-			boolean released = part.isReleased();
+			boolean released = part.isJustReleased();
 			if(allowMultiplePressesAndReleases){
 				if(released) return true;
 			} else if(part.isDown()){

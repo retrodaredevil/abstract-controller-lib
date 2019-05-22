@@ -1,5 +1,6 @@
 package me.retrodaredevil.controller;
 
+@Deprecated
 public interface ControllerManager {
 	/**
 	 *

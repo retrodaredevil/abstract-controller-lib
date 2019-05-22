@@ -69,11 +69,12 @@ public class BaseStandardControllerInput extends SimpleControllerInput implement
 
 
 		// the axises already have parents and we don't want to change them
-		addChildren(false, true,
+		partUpdater.addPartsAssertNonePresent(
 				start, select, yButton, aButton, xButton, bButton,
 				leftBumper, rightBumper, leftTrigger, rightTrigger,
 				leftStick, rightStick,
-				dPad, leftJoy, rightJoy, rumble);
+				dPad, leftJoy, rightJoy, rumble
+		);
 
 	}
 

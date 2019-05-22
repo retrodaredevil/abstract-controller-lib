@@ -1,6 +1,7 @@
-package me.retrodaredevil.controller.input;
+package me.retrodaredevil.controller.input.implementations;
 
 import me.retrodaredevil.controller.ControllerPartNotUpdatedException;
+import me.retrodaredevil.controller.input.AxisType;
 
 /**
  * A base class for InputParts that calculate their position for caching. This type of InputPart
@@ -32,11 +33,11 @@ public abstract class AutoCachingInputPart extends SimpleInputPart{
 	}
 
 	@Override
-	public boolean isPressed() {
+	public boolean isJustPressed() {
 		return isDown() && (previousPosition == null || Math.abs(previousPosition) <= this.config.getButtonDownThreshold());
 	}
 	@Override
-	public boolean isReleased() {
+	public boolean isJustReleased() {
 		return !isDown() && (previousPosition != null && Math.abs(previousPosition) > this.config.getButtonDownThreshold());
 	}
 
@@ -45,7 +46,7 @@ public abstract class AutoCachingInputPart extends SimpleInputPart{
 	public double getPosition() {
 		if(this.position == null){
 			throw new ControllerPartNotUpdatedException("this.position was not initialized. " +
-					"update() must not have been called. this: " + this + " this.getParent(): " + this.getParent());
+					"update() must not have been called. this: " + this);
 		}
 		return this.position;
 	}
@@ -69,7 +70,7 @@ public abstract class AutoCachingInputPart extends SimpleInputPart{
 
 	/**
 	 * Calls in update(). This is meant to be overridden if the default behaviour of calling calculatePosition() is not
-	 * needed and you would like to handle isPressed() by yourself
+	 * needed and you would like to handle isJustPressed() by yourself
 	 */
 	protected void positionUpdate(){
 		if(this.position != null){

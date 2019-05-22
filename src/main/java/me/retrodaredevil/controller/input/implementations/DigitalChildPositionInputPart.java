@@ -1,4 +1,7 @@
-package me.retrodaredevil.controller.input;
+package me.retrodaredevil.controller.input.implementations;
+
+import me.retrodaredevil.controller.input.AxisType;
+import me.retrodaredevil.controller.input.InputPart;
 
 public class DigitalChildPositionInputPart extends ChildPositionInputPart {
 	public DigitalChildPositionInputPart(InputPart inputPart, DigitalGetter getter) {

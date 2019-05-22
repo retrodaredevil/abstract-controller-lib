@@ -1,4 +1,7 @@
-package me.retrodaredevil.controller.input;
+package me.retrodaredevil.controller.input.implementations;
+
+import me.retrodaredevil.controller.input.AxisType;
+import me.retrodaredevil.controller.input.InputPart;
 
 /**
  * Using this class allows you to easily scale the value from an {@link InputPart}'s {@link InputPart#getPosition()}
@@ -18,7 +21,7 @@ public class ChildPositionInputPart extends AutoCachingInputPart {
 		super(axisType, true);
 		this.inputPart = inputPart;
 		this.getter = getter;
-		addChildren(false, false, inputPart);
+		partUpdater.addPartAssertNotPresent(inputPart);
 	}
 
 	@Override

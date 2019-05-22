@@ -1,5 +1,6 @@
 package me.retrodaredevil.controller.input;
 
+import me.retrodaredevil.controller.input.implementations.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -45,12 +46,12 @@ final class InputPartTests {
 
 		dummy.update(config);
 		assertTrue(dummy.isDown());
-		assertTrue(dummy.isPressed());
+		assertTrue(dummy.isJustPressed());
 		assertFalse(dummy.isDeadzone());
 
 		dummy.update(config);
 		assertTrue(dummy.isDown());
-		assertFalse(dummy.isPressed());
+		assertFalse(dummy.isJustPressed());
 
 	}
 
@@ -69,14 +70,14 @@ final class InputPartTests {
 
 
 		// pressed tests
-		assertTrue(inputPart.isPressed());
+		assertTrue(inputPart.isJustPressed());
 		inputPart.update(config);
-		assertFalse(inputPart.isPressed());
+		assertFalse(inputPart.isJustPressed());
 
 		// released tests
 		dummy.setPosition(-.4);
 		inputPart.update(config);
-		assertTrue(inputPart.isReleased());
+		assertTrue(inputPart.isJustReleased());
 		assertEquals(-.4, inputPart.getPosition());
 		assertEquals(-.4, dummy.getPosition());
 
@@ -122,37 +123,35 @@ final class InputPartTests {
 		assertTrue(inputPart.isDown());
 		assertFalse(inputPart.isDeadzone());
 		assertEquals(.75, inputPart.getPosition());
-		assertTrue(inputPart.isPressed());
+		assertTrue(inputPart.isJustPressed());
 
 		dummy2.setPosition(0);
 		inputPart.update(config);
 		assertFalse(inputPart.isDown());
 		assertEquals(0, inputPart.getPosition());
-		assertTrue(inputPart.isReleased());
+		assertTrue(inputPart.isJustReleased());
 	}
 	@Test
 	void testDigitalChildInputPartPressed(){
 		final DummyInputPart dummy = new DummyInputPart(0, false);
-		final InputPart inputPart = new DigitalChildPositionInputPart(dummy, InputPart::isPressed);
+		final InputPart inputPart = new DigitalChildPositionInputPart(dummy, InputPart::isJustPressed);
 
 		inputPart.update(config);
 		assertFalse(inputPart.isDown());
-		assertFalse(inputPart.isPressed());
-		assertFalse(inputPart.isReleased());
+		assertFalse(inputPart.isJustPressed());
+		assertFalse(inputPart.isJustReleased());
 
 		dummy.setPosition(1);
 		inputPart.update(config);
 		assertTrue(inputPart.isDown());
-		assertTrue(inputPart.isPressed());
-		assertFalse(inputPart.isReleased());
+		assertTrue(inputPart.isJustPressed());
+		assertFalse(inputPart.isJustReleased());
 
 		inputPart.update(config);
 		assertFalse(inputPart.isDown());
-		assertFalse(inputPart.isPressed());
-		assertTrue(inputPart.isReleased());
+		assertFalse(inputPart.isJustPressed());
+		assertTrue(inputPart.isJustReleased());
 		
-		// digital child should try to add dummy as child
-		assertThrows(AssertionError.class, () -> new DigitalChildPositionInputPart(dummy, InputPart::isPressed));
 	}
 	
 	@Test
@@ -162,13 +161,13 @@ final class InputPartTests {
 		
 		final DummyInputPart digital = new DummyInputPart(0, false);
 		final DummyInputPart analog = new DummyInputPart(0.0, false);
-		final InputPart inputPart = new DigitalAnalogInputPart(digital, analog);
+		final DigitalAnalogInputPart inputPart = new DigitalAnalogInputPart(digital, analog);
 		
 		inputPart.update(config);
 		assertTrue(inputPart.isDeadzone());
 		assertFalse(inputPart.isDown());
-		assertFalse(inputPart.isPressed());
-		assertFalse(inputPart.isReleased());
+		assertFalse(inputPart.isJustPressed());
+		assertFalse(inputPart.isJustReleased());
         assertEquals(0, inputPart.getDigitalPosition());
         assertEquals(0.0, inputPart.getPosition());
         
@@ -184,9 +183,9 @@ final class InputPartTests {
         assertTrue(digital.isDown());
         assertTrue(analog.isDown());
         assertEquals(.5, inputPart.getPosition());
-        assertTrue(analog.isPressed());
-        assertFalse(digital.isPressed());
-        assertFalse(inputPart.isPressed());
+        assertTrue(analog.isJustPressed());
+        assertFalse(digital.isJustPressed());
+        assertFalse(inputPart.isJustPressed());
 	}
 	
 	@Test
@@ -199,8 +198,8 @@ final class InputPartTests {
 		inputPart.update(config);
 		assertTrue(inputPart.isDeadzone());
 		assertFalse(inputPart.isDown());
-		assertFalse(inputPart.isPressed());
-		assertFalse(inputPart.isReleased());
+		assertFalse(inputPart.isJustPressed());
+		assertFalse(inputPart.isJustReleased());
 		assertEquals(0, inputPart.getPosition());
 		
 		multiplier.setPosition(1);
@@ -208,8 +207,8 @@ final class InputPartTests {
 		inputPart.update(config);
 		assertFalse(inputPart.isDeadzone());
 		assertTrue(inputPart.isDown());
-		assertTrue(inputPart.isPressed());
-		assertFalse(inputPart.isReleased());
+		assertTrue(inputPart.isJustPressed());
+		assertFalse(inputPart.isJustReleased());
 		assertEquals(1, inputPart.getPosition());
 		
 		

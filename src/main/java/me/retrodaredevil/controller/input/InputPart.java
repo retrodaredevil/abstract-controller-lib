@@ -32,6 +32,48 @@ public interface InputPart extends DeadzoneablePart {
 	double getPosition();
 	
 	/**
+	 * Can be used for all AxisTypes.
+	 * <p>
+     * If this axis type is "full" then this will return true when the absolute values moves enough
+     * in either direction
+	 * @return true if this input part is currently down
+	 * @throws me.retrodaredevil.controller.ControllerPartNotUpdatedException Thrown if this part isn't
+	 * 			updated. This is not required to be thrown
+	 */
+	boolean isDown();
+
+	/**
+	 * Is this InputPart "just" pressed
+	 * @return returns true the first frame the key is pressed down.
+	 * @throws me.retrodaredevil.controller.ControllerPartNotUpdatedException Thrown if this part isn't
+	 * 			updated. This is not required to be thrown
+	 */
+	boolean isJustPressed();
+
+	/**
+	 *
+	 * @return true the first frame the button wasn't down
+	 * @throws me.retrodaredevil.controller.ControllerPartNotUpdatedException Thrown if this part isn't
+	 * 			updated. This is not required to be thrown
+	 */
+	boolean isJustReleased();
+
+
+	/**
+	 * NOTE: This will only ever return 1, 0, and -1
+	 * <p>
+	 * If {@link #isDown()} == true, then this should return 1 or -1
+	 * @return returns {@link #getPosition()} unless {@link #getAxisType()}.{@link AxisType#isAnalog() isAnalog()} == true
+	 * 			or {@link #getAxisType()}.{@link AxisType#isRangeOver() isRangeOver()} == true, it will round it using the
+	 *          {@link ControlConfig#getButtonDownThreshold()}
+	 * @throws me.retrodaredevil.controller.ControllerPartNotUpdatedException Thrown if this part isn't
+	 * 			updated. This is not required to be thrown
+	 */
+	int getDigitalPosition();
+	
+	
+	
+	/**
 	 * @return 0 if {@link #isDeadzone()} is true otherwise returns {@link #getPosition()}
 	 */
 	default double getZonedPosition(){
@@ -50,45 +92,4 @@ public interface InputPart extends DeadzoneablePart {
 		}
 		return position;
 	}
-
-
-	/**
-	 * Can be used for all AxisTypes.
-	 * <p>
-     * If this axis type is "full" then this will return true when the absolute values moves enough
-     * in either direction
-	 * @return true if this input part is currently down
-	 * @throws me.retrodaredevil.controller.ControllerPartNotUpdatedException Thrown if this part isn't
-	 * 			updated. This is not required to be thrown
-	 */
-	boolean isDown();
-
-	/**
-	 * Is this InputPart "just" pressed
-	 * @return returns true the first frame the key is pressed down.
-	 * @throws me.retrodaredevil.controller.ControllerPartNotUpdatedException Thrown if this part isn't
-	 * 			updated. This is not required to be thrown
-	 */
-	boolean isPressed();
-
-	/**
-	 *
-	 * @return true the first frame the button wasn't down
-	 * @throws me.retrodaredevil.controller.ControllerPartNotUpdatedException Thrown if this part isn't
-	 * 			updated. This is not required to be thrown
-	 */
-	boolean isReleased();
-
-
-	/**
-	 * NOTE: This will only ever return 1, 0, and -1
-	 * <p>
-	 * If {@link #isDown()} == true, then this should return 1 or -1
-	 * @return returns {@link #getPosition()} unless {@link #getAxisType()}.{@link AxisType#isAnalog() isAnalog()} == true
-	 * 			or {@link #getAxisType()}.{@link AxisType#isRangeOver() isRangeOver()} == true, it will round it using the
-	 *          {@link ControlConfig#getButtonDownThreshold()}
-	 * @throws me.retrodaredevil.controller.ControllerPartNotUpdatedException Thrown if this part isn't
-	 * 			updated. This is not required to be thrown
-	 */
-	int getDigitalPosition();
 }

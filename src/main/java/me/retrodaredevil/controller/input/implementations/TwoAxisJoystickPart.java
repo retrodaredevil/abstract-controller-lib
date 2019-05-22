@@ -1,4 +1,7 @@
-package me.retrodaredevil.controller.input;
+package me.retrodaredevil.controller.input.implementations;
+
+import me.retrodaredevil.controller.input.InputPart;
+import me.retrodaredevil.controller.input.JoystickType;
 
 /**
  * A single joystick with two axis. If the two axi that this handles have the same parent, this
@@ -28,7 +31,7 @@ public class TwoAxisJoystickPart extends SimpleJoystickPart {
 				autoCorrectToDetectSquareInput && !(x.getAxisType().isRangeOver() || y.getAxisType().isRangeOver()));
 		this.xAxis = x;
 		this.yAxis = y;
-		this.addChildren(true, true, xAxis, yAxis);
+		partUpdater.addPartsAssertNonePresent(xAxis, yAxis);
 	}
 
 	/**

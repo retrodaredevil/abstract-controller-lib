@@ -1,4 +1,9 @@
-package me.retrodaredevil.controller.input;
+package me.retrodaredevil.controller.input.implementations;
+
+import me.retrodaredevil.controller.PartUpdater;
+import me.retrodaredevil.controller.input.AxisType;
+import me.retrodaredevil.controller.input.JoystickPart;
+import me.retrodaredevil.controller.input.JoystickType;
 
 /**
  * Caches the position of the x or y axis of a joystick. The parent of this class should be
@@ -13,11 +18,11 @@ public class JoystickAxisFollowerPart extends AutoCachingInputPart {
 	 * @param joystick The joystick
 	 * @param useY true for y axis, false for x axis
 	 */
-	public JoystickAxisFollowerPart(JoystickPart joystick, boolean useY){
+	public JoystickAxisFollowerPart(JoystickPart joystick, PartUpdater partUpdater, boolean useY){
 		super(autoAxisTypeHelper(joystick));
 		this.joystick = joystick;
 		this.useY = useY;
-		this.setParent(joystick);
+		partUpdater.addPartAssertNotPresent(this);
 	}
 	private static AxisType autoAxisTypeHelper(JoystickPart joystick){
 		JoystickType type = joystick.getJoystickType();

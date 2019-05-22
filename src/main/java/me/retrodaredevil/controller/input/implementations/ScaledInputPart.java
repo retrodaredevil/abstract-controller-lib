@@ -1,4 +1,7 @@
-package me.retrodaredevil.controller.input;
+package me.retrodaredevil.controller.input.implementations;
+
+import me.retrodaredevil.controller.input.AxisType;
+import me.retrodaredevil.controller.input.InputPart;
 
 import static java.lang.Math.*;
 
@@ -8,7 +11,7 @@ public class ScaledInputPart extends SimpleInputPart {
 	public ScaledInputPart(AxisType type, InputPart inputPart) {
 		super(type);
 		this.inputPart = inputPart;
-		addChildren(false, true, inputPart);
+		partUpdater.addPartAssertNotPresent(inputPart);
 	}
 	
 	@Override
@@ -46,12 +49,12 @@ public class ScaledInputPart extends SimpleInputPart {
 	}
 	
 	@Override
-	public boolean isPressed() {
+	public boolean isJustPressed() {
 		return false;
 	}
 	
 	@Override
-	public boolean isReleased() {
+	public boolean isJustReleased() {
 		return false;
 	}
 	

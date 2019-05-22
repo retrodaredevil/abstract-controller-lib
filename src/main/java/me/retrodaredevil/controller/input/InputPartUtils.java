@@ -2,7 +2,7 @@ package me.retrodaredevil.controller.input;
 
 public final class InputPartUtils {
 	private InputPartUtils(){ throw new UnsupportedOperationException(); }
-	static AxisType autoAxisTypeHelper(Iterable<? extends InputPart> parts){
+	public static AxisType autoAxisTypeHelper(Iterable<? extends InputPart> parts){
 		boolean anyFull = false;
 		boolean anyAnalog = false;
 		for(InputPart part : parts){

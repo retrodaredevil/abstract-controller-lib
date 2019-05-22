@@ -41,7 +41,7 @@ public class BaseExtremeFlightJoystickControllerInput extends SimpleControllerIn
 
 		rumble = controller.createRumble();
 
-		addChildren(false, false,
+		partUpdater.addPartsAssertNonePresent(
 				gridUpperLeft, gridUpperRight,
 				gridMiddleLeft, gridMiddleRight,
 				gridLowerLeft, gridLowerRight,

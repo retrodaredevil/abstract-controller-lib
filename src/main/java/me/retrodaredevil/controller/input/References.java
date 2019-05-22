@@ -1,6 +1,7 @@
 package me.retrodaredevil.controller.input;
 
 import me.retrodaredevil.controller.SimpleControllerPart;
+import me.retrodaredevil.controller.input.implementations.AutoCachingInputPart;
 
 /**
  * This class can be used to wrap an InputPart or JoystickPart from another source to make sure
@@ -207,13 +208,13 @@ public final class References {
 		}
 
 		@Override
-		public boolean isPressed() {
-			return getInputPart().isPressed();
+		public boolean isJustPressed() {
+			return getInputPart().isJustPressed();
 		}
 
 		@Override
-		public boolean isReleased() {
-			return getInputPart().isReleased();
+		public boolean isJustReleased() {
+			return getInputPart().isJustReleased();
 		}
 
 		@Override

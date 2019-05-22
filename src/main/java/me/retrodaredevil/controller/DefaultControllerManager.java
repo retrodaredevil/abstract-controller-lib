@@ -23,9 +23,6 @@ public class DefaultControllerManager implements ControllerManager {
 
 	@Override
 	public boolean addController(ControllerInput controller){
-		if(controller.getParent() != null){
-			throw new IllegalArgumentException("The controller cannot have a parent! controller: " + controller);
-		}
 		return this.controllers.add(controller);
 	}
 
@@ -37,10 +34,6 @@ public class DefaultControllerManager implements ControllerManager {
 	@Override
 	public void update(){
 		for(ControllerInput controller : controllers){
-			if(controller.getParent() != null){
-				throw new IllegalStateException("The controllers handled by DefaultControllerManager cannot have parents. " +
-						"A parent must have been set after it was added. controller: " + controller + " which is of class: " + controller.getClass().getSimpleName());
-			}
 			try {
 				controller.update(config);
 			} catch(Exception ex){

@@ -1,4 +1,6 @@
-package me.retrodaredevil.controller.input;
+package me.retrodaredevil.controller.input.implementations;
+
+import me.retrodaredevil.controller.input.InputPart;
 
 import java.util.Arrays;
 import java.util.List;

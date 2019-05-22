@@ -1,9 +1,13 @@
-package me.retrodaredevil.controller.input;
+package me.retrodaredevil.controller.input.implementations;
+
+import me.retrodaredevil.controller.SimpleControllerPart;
+import me.retrodaredevil.controller.input.AxisType;
+import me.retrodaredevil.controller.input.InputPart;
+import me.retrodaredevil.controller.input.JoystickPart;
+import me.retrodaredevil.controller.input.JoystickType;
 
 import java.util.Arrays;
 import java.util.Collection;
-
-import me.retrodaredevil.controller.SimpleControllerPart;
 
 /**
  * The recommended way to map a number of joysticks to a single {@link JoystickPart}
@@ -16,12 +20,12 @@ public class MultiplexerJoystickPart extends SimpleControllerPart implements Joy
 
 	public MultiplexerJoystickPart(Collection<? extends JoystickPart> joysticks) {
 		this.joysticks = joysticks;
-		addChildren(joysticks, false, true);
+		partUpdater.addPartsAssertNonePresent(joysticks);
 
 		final AxisType axisType = axisTypeHelper(joysticks);
 		xAxis = new MultiplexerInputPart(axisType, false);
 		yAxis = new MultiplexerInputPart(axisType, true);
-		addChildren(false, false, xAxis, yAxis);
+		partUpdater.addPartsAssertNonePresent(xAxis, yAxis);
 	}
 	public MultiplexerJoystickPart(JoystickPart... joysticks){
 		this(Arrays.asList(joysticks));
@@ -222,25 +226,25 @@ public class MultiplexerJoystickPart extends SimpleControllerPart implements Joy
 		}
 
 		@Override
-		public boolean isPressed() {
+		public boolean isJustPressed() {
 			JoystickPart joy = getCurrentJoystick();
 			if(joy != null){
 				if(yAxis){
-					return joy.getYAxis().isPressed();
+					return joy.getYAxis().isJustPressed();
 				}
-				return joy.getXAxis().isPressed();
+				return joy.getXAxis().isJustPressed();
 			}
 			return false;
 		}
 
 		@Override
-		public boolean isReleased() {
+		public boolean isJustReleased() {
 			JoystickPart joy = getCurrentJoystick();
 			if(joy != null){
 				if(yAxis){
-					return joy.getYAxis().isReleased();
+					return joy.getYAxis().isJustReleased();
 				}
-				return joy.getXAxis().isReleased();
+				return joy.getXAxis().isJustReleased();
 			}
 			return false;
 		}

@@ -1,9 +1,12 @@
-package me.retrodaredevil.controller.input;
-
-import java.util.Objects;
+package me.retrodaredevil.controller.input.implementations;
 
 import me.retrodaredevil.controller.ControlConfig;
+import me.retrodaredevil.controller.ControllerPartNotUpdatedException;
 import me.retrodaredevil.controller.SimpleControllerPart;
+import me.retrodaredevil.controller.input.AxisType;
+import me.retrodaredevil.controller.input.InputPart;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * An abstract base class for simple InputParts that handle deadzones, AxisType and digital position
@@ -12,7 +15,7 @@ public abstract class SimpleInputPart extends SimpleControllerPart implements In
 	private final AxisType type;
 
 	public SimpleInputPart(AxisType type){
-		this.type = Objects.requireNonNull(type);
+		this.type = requireNonNull(type);
 	}
 
 	/**
@@ -29,6 +32,10 @@ public abstract class SimpleInputPart extends SimpleControllerPart implements In
 	 */
 	@Override
 	public boolean isDeadzone() {
+		ControlConfig config = this.config;
+		if(config == null){
+			throw new ControllerPartNotUpdatedException();
+		}
 		return Math.abs(getPosition()) <= getDeadzone(getAxisType(), config);
 	}
 
