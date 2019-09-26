@@ -16,6 +16,7 @@ public class JoystickAxisFollowerPart extends AutoCachingInputPart {
 	/**
 	 * When this is created, it sets its own parent to the passed SimpleJoystickPart meaning the passed Joystick needs to update this (should happen automatically)
 	 * @param joystick The joystick
+	 * @param partUpdater The {@link PartUpdater} to add this to.
 	 * @param useY true for y axis, false for x axis
 	 */
 	public JoystickAxisFollowerPart(JoystickPart joystick, PartUpdater partUpdater, boolean useY){

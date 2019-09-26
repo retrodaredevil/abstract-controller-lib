@@ -73,21 +73,6 @@ public interface OptionValue {
 	default boolean isOptionValueRadio(){
 		return getRadioOptions().isEmpty();
 	}
-//	default String getRadioOptionValue(){ I decided not to include this in the implementation as it doesn't add much
-//		if(!isOptionValueRadio()){
-//			throw new UnsupportedOperationException("Cannot get radio option if this OptionValue is not a radio option");
-//		}
-//		double value = getOptionValue();
-//		int index = (int) value;
-//
-//		List<String> options = getRadioOptions();
-//		if(index < 0 || index >= options.size()){
-//			throw new IndexOutOfBoundsException("index: " + index + " (casted from double value: " + value + ") " +
-//					"is out of bounds for options of size: " + options.size()
-//					+ "\nThe class implementing radio options must have implemented it wrong.");
-//		}
-//		return options.get(index);
-//	}
 
 	/** @return true if the value represented by this is a boolean value (range: [0, 1] and not analog and not radio) */
 	default boolean isOptionValueBoolean(){

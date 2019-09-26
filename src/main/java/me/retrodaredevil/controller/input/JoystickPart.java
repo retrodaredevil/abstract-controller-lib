@@ -5,12 +5,14 @@ package me.retrodaredevil.controller.input;
  */
 public interface JoystickPart extends AnglePart{
 	/**
-	 *
+	 * NOTE: The {@link InputPart} returned by this method will be the same instance each time you call it
 	 * @return returns the x axis that is controlled and updated by this SimpleJoystickPart
 	 */
 	InputPart getXAxis();
 
 	/**
+	 * NOTE: The {@link InputPart} returned by this method will be the same instance each time you call it
+	 * <p>
 	 * Just like getY(), the getPosition() should be exactly the same: positive is up and negative is down.
 	 * @return returns the y axis that is controlled and updated by this SimpleJoystickPart
 	 */
@@ -77,44 +79,6 @@ public interface JoystickPart extends AnglePart{
 		return getY() * getCorrectMagnitude() / getMagnitude();
 	}
 	
-	/**
-	 * @return The x value where {@link #getNormalX()} and {@link #getNormalY()} have a magnitude of 1
-	 */
-	default double getNormalX() {
-		return getX() / getMagnitude();
-	}
-	/**
-	 * @return The y value where {@link #getNormalX()} and {@link #getNormalY()} have a magnitude of 1
-	 */
-	default double getNormalY() {
-		return getY() / getMagnitude();
-	}
-	
-	/** @return 0 if {@link #isDeadzone()} is true otherwise {@link #getX()}*/
-	default double getZonedX(){
-		return isDeadzone() ? 0 : getX();
-	}
-	/** @return 0 if {@link #isDeadzone()} is true otherwise {@link #getY()}*/
-	default double getZonedY(){
-		return isDeadzone() ? 0 : getY();
-	}
-	/** @return 0 if {@link #isDeadzone()} is true otherwise {@link #getCorrectX()}*/
-	default double getZonedCorrectX(){
-		return isDeadzone() ? 0 : getCorrectX();
-	}
-	/** @return 0 if {@link #isDeadzone()} is true otherwise {@link #getCorrectY()}*/
-	default double getZonedCorrectY(){
-		return isDeadzone() ? 0 : getCorrectY();
-	}
-	
-	/** @return 0 if {@link #isDeadzone()} is true otherwise {@link #getMagnitude()}*/
-	default double getZonedMagnitude(){
-		return isDeadzone() ? 0 : getMagnitude();
-	}
-	/** @return 0 if {@link #isDeadzone()} is true otherwise {@link #getCorrectMagnitude()}*/
-	default double getZonedCorrectMagnitude(){
-		return isDeadzone() ? 0 : getCorrectMagnitude();
-	}
 	
 
 }

@@ -71,25 +71,4 @@ public interface InputPart extends DeadzoneablePart {
 	 */
 	int getDigitalPosition();
 	
-	
-	
-	/**
-	 * @return 0 if {@link #isDeadzone()} is true otherwise returns {@link #getPosition()}
-	 */
-	default double getZonedPosition(){
-		return isDeadzone() ? 0 : getPosition();
-	}
-	
-	/**
-	 * NOTE: This is not recommended and does not use {@link #isDeadzone()} at all.
-	 * @param customDeadzone The custom deadzone value
-	 * @return 0 if abs({@link #getPosition()} <= customDeadzone otherwise returns {@link #getPosition()}
-	 */
-	default double getZonedPosition(double customDeadzone){ // TODO add scaling
-		final double position = getPosition();
-		if(Math.abs(position) <= customDeadzone){
-			return 0;
-		}
-		return position;
-	}
 }

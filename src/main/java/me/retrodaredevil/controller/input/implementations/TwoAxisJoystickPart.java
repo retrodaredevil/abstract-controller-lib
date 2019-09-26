@@ -14,10 +14,8 @@ public class TwoAxisJoystickPart extends SimpleJoystickPart {
 
 
 	/**
-	 * This will change x and y's parents to this only if needed. Note if they already have parents,
-	 * then those parents must update before this does or there will be incorrect results or errors thrown.
-	 * <p>
-	 * It is not recommended that x or y have parents when this constructor is called.
+	 * Parameters x and y will automatically be updated. Do not update them.
+	 *
 	 * @param x x axis where left is negative and positive is right
 	 * @param y y axis where down is negative and positive is up
 	 * @param isInputSquare Is the input from each x and y a "square".

@@ -38,5 +38,10 @@ android SDK level 19.
 Because of this, you may see interfaces with a single method. This is to allow lambda functions
 without importing classes only in Java 8.
 
+## Deadzones
+This project has an interface called DeadzoneablePart. There may be many times when you want a joystick to have a large
+deadzone (maybe .3). This isDeadzone() method is not meant to be easily extended to make callers ignore a magnitude of .3
+just because you say so. If you want to have a deadzone this large, you should scale the x and y values as well.
+
 ### TODO
 class to change AxisType for an InputPart

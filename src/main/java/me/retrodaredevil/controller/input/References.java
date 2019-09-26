@@ -126,14 +126,6 @@ public final class References {
 		
 		// region default methods
 		@Override
-		public double getNormalX() {
-			return getJoystickPart().getNormalX();
-		}
-		@Override
-		public double getNormalY() {
-			return getJoystickPart().getNormalY();
-		}
-		@Override
 		public double getCorrectX() {
 			return getJoystickPart().getCorrectX();
 		}
@@ -142,50 +134,6 @@ public final class References {
 			return getJoystickPart().getCorrectY();
 		}
 		
-		@Override
-		public double getZonedCorrectX() {
-			return getJoystickPart().getZonedCorrectX();
-		}
-		@Override
-		public double getZonedCorrectY() {
-			return getJoystickPart().getZonedCorrectY();
-		}
-		
-		@Override
-		public double getZonedCorrectMagnitude() {
-			return getJoystickPart().getZonedCorrectMagnitude();
-		}
-		
-		@Override
-		public double getZonedMagnitude() {
-			return getJoystickPart().getZonedMagnitude();
-		}
-		
-		@Override
-		public double getZonedX() {
-			return getJoystickPart().getZonedX();
-		}
-		
-		@Override
-		public double getZonedY() {
-			return getJoystickPart().getZonedY();
-		}
-		@Override
-		public double getAngleOrDefault(double def) {
-			return getJoystickPart().getAngleOrDefault(def);
-		}
-		@Override
-		public Double getAngleOrNull() {
-			return getJoystickPart().getAngleOrNull();
-		}
-		@Override
-		public double getAngleRadiansOrDefault(double def) {
-			return getJoystickPart().getAngleRadiansOrDefault(def);
-		}
-		@Override
-		public Double getAngleRadiansOrNull() {
-			return getJoystickPart().getAngleRadiansOrNull();
-		}
 		// endregion
 	}
 
@@ -237,14 +185,5 @@ public final class References {
 			return getInputPart().isDeadzone();
 		}
 		
-		@Override
-		public double getZonedPosition() {
-			return getInputPart().getZonedPosition();
-		}
-		
-		@Override
-		public double getZonedPosition(double customDeadzone) {
-			return getInputPart().getZonedPosition(customDeadzone);
-		}
 	}
 }
