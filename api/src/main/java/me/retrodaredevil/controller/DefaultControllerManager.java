@@ -7,6 +7,7 @@ import java.util.SortedSet;
 /**
  * A simple concrete controller manager that updates controllers in the order they were added.
  */
+@Deprecated
 public class DefaultControllerManager implements ControllerManager {
 
 	private final ControlConfig config;

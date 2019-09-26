@@ -1,3 +1,8 @@
+build/
+api/build/
+gdx/build/
+wpi/build/
+.gradle
 
 .idea/
 *.iml
