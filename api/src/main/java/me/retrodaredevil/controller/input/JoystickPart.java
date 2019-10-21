@@ -70,13 +70,21 @@ public interface JoystickPart extends AnglePart{
 	 * @return {@link #getX()} scaled according to if this is range over
 	 */
 	default double getCorrectX() {
-		return getX() * getCorrectMagnitude() / getMagnitude();
+		double magnitude = getMagnitude();
+		if(magnitude != 0){
+			return getX() * getCorrectMagnitude() / magnitude;
+		}
+		return 0;
 	}
 	/**
 	 * @return {@link #getY()} scaled according to if this is range over
 	 */
 	default double getCorrectY() {
-		return getY() * getCorrectMagnitude() / getMagnitude();
+		double magnitude = getMagnitude();
+		if(magnitude != 0){
+			return getY() * getCorrectMagnitude() / magnitude;
+		}
+		return 0;
 	}
 	
 	

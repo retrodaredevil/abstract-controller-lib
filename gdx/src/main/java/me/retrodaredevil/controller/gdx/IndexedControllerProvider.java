@@ -17,10 +17,10 @@ public class IndexedControllerProvider implements ControllerProvider {
     @Override
     public Controller getController() {
         Array<Controller> controllers = Controllers.getControllers();
-        if(controllers.size >= index){
-            return null;
+        if(controllers.size > index){
+            return controllers.get(index);
         }
-        return controllers.get(index);
+        return null;
     }
 
     @Override
