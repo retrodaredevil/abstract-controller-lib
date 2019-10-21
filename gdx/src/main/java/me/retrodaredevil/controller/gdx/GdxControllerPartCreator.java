@@ -9,15 +9,18 @@ import me.retrodaredevil.controller.output.ControllerRumble;
 import me.retrodaredevil.controller.output.DisconnectedRumble;
 
 public class GdxControllerPartCreator implements ControllerPartCreator {
-	private final Controller controller;
+	private final ControllerProvider provider;
 
 	public GdxControllerPartCreator(Controller controller){
-		this.controller = controller;
+		this(ControllerProviders.wrap(controller));
+	}
+	public GdxControllerPartCreator(ControllerProvider provider){
+		this.provider = provider;
 	}
 
 	@Override
 	public InputPart createDigital(int code) {
-        return new ControllerInputPart(controller, AxisType.DIGITAL, code);
+        return new ControllerInputPart(provider, AxisType.DIGITAL, code);
 	}
 
 	@Override
@@ -27,7 +30,7 @@ public class GdxControllerPartCreator implements ControllerPartCreator {
 
 	@Override
 	public JoystickPart createPOV(int povNumber) {
-        return new ControllerPovJoystick(controller, povNumber);
+        return new ControllerPovJoystick(provider, povNumber);
 	}
 
 	@Override
@@ -38,34 +41,34 @@ public class GdxControllerPartCreator implements ControllerPartCreator {
 	@Override
 	public JoystickPart createJoystick(int xAxis, int yAxis) {
         return new TwoAxisJoystickPart(
-        		new ControllerInputPart(controller, AxisType.FULL_ANALOG, xAxis),
-				new ControllerInputPart(controller, AxisType.FULL_ANALOG, yAxis, true)
+        		new ControllerInputPart(provider, AxisType.FULL_ANALOG, xAxis),
+				new ControllerInputPart(provider, AxisType.FULL_ANALOG, yAxis, true)
 		);
 	}
 
 	@Override
 	public InputPart createFullAnalog(int axisCode) {
-		return new ControllerInputPart(controller, AxisType.FULL_ANALOG, axisCode);
+		return new ControllerInputPart(provider, AxisType.FULL_ANALOG, axisCode);
 	}
 
 	@Override
 	public InputPart createAnalog(int axisCode) {
-		return new ControllerInputPart(controller, AxisType.ANALOG, axisCode);
+		return new ControllerInputPart(provider, AxisType.ANALOG, axisCode);
 	}
 
 	@Override
 	public InputPart createFullAnalog(int axisCode, boolean isVertical) {
-        return new ControllerInputPart(controller, AxisType.FULL_ANALOG, axisCode, isVertical);
+        return new ControllerInputPart(provider, AxisType.FULL_ANALOG, axisCode, isVertical);
 	}
 
 	@Override
 	public InputPart createAnalog(int axisCode, boolean isVertical) {
-		return new ControllerInputPart(controller, AxisType.ANALOG, axisCode, isVertical);
+		return new ControllerInputPart(provider, AxisType.ANALOG, axisCode, isVertical);
 	}
 
 	@Override
 	public InputPart createAnalogTrigger(int axisCode) {
-		return new ControllerInputPart(controller, AxisType.ANALOG, axisCode);
+		return new ControllerInputPart(provider, AxisType.ANALOG, axisCode);
 	}
 
 	@Override
@@ -74,8 +77,8 @@ public class GdxControllerPartCreator implements ControllerPartCreator {
 			return createDigital(digitalCode);
 		}
         return new DigitalAnalogInputPart(
-        		new ControllerInputPart(controller, AxisType.DIGITAL, digitalCode),
-				new ControllerInputPart(controller, AxisType.ANALOG, analogCode)
+        		new ControllerInputPart(provider, AxisType.DIGITAL, digitalCode),
+				new ControllerInputPart(provider, AxisType.ANALOG, analogCode)
 		);
 	}
 
@@ -86,11 +89,11 @@ public class GdxControllerPartCreator implements ControllerPartCreator {
 
 	@Override
 	public boolean isConnected() {
-        return ControllerUtil.isControllerConnected(controller);
+        return provider.isConnected();
 	}
 
 	@Override
 	public String getName() {
-        return controller.getName();
+        return provider.getName();
 	}
 }

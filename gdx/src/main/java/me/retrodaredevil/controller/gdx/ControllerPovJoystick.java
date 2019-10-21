@@ -13,15 +13,18 @@ public class ControllerPovJoystick extends SimpleJoystickPart {
 	private final InputPart xAxis = new JoystickAxisFollowerPart(this, partUpdater, false);
 	private final InputPart yAxis = new JoystickAxisFollowerPart(this, partUpdater, true);
 
-	private final Controller controller;
+	private final ControllerProvider provider;
 	private final int povCode;
 
 	private double x, y;
 
-	public ControllerPovJoystick(Controller controller, int povCode){
+	public ControllerPovJoystick(ControllerProvider provider, int povCode){
 		super(new JoystickType(false, false, false, true), false,false);
-		this.controller = controller;
+		this.provider = provider;
 		this.povCode = povCode;
+	}
+	public ControllerPovJoystick(Controller controller, int povCode){
+		this(ControllerProviders.wrap(controller), povCode);
 	}
 
 	@Override
@@ -37,19 +40,26 @@ public class ControllerPovJoystick extends SimpleJoystickPart {
 	@Override
 	protected void onUpdate() {
 		super.onUpdate();
-		PovDirection pov = controller.getPov(povCode);
-		switch(pov){
-			case center: x = 0; y = 0; break;
-			case north: x = 0; y = 1; break;
-			case northEast: x = INV_SQRT2; y = INV_SQRT2; break;
-			case east: x = 1; y = 0; break;
-			case southEast: x = INV_SQRT2; y = -INV_SQRT2; break;
-			case south: x = 0; y = -1; break;
-			case southWest: x = -INV_SQRT2; y = -INV_SQRT2; break;
-			case west: x = -1; y = 0; break;
-			case northWest: x = -INV_SQRT2; y = INV_SQRT2; break;
-			default: throw new UnsupportedOperationException("Unknown pov: " + pov);
+		Controller controller = provider.getController();
+		if(controller != null) {
+			PovDirection pov = controller.getPov(povCode);
+			switch(pov){
+				case center: x = 0; y = 0; break;
+				case north: x = 0; y = 1; break;
+				case northEast: x = INV_SQRT2; y = INV_SQRT2; break;
+				case east: x = 1; y = 0; break;
+				case southEast: x = INV_SQRT2; y = -INV_SQRT2; break;
+				case south: x = 0; y = -1; break;
+				case southWest: x = -INV_SQRT2; y = -INV_SQRT2; break;
+				case west: x = -1; y = 0; break;
+				case northWest: x = -INV_SQRT2; y = INV_SQRT2; break;
+				default: throw new UnsupportedOperationException("Unknown pov: " + pov);
+			}
+        } else {
+			x = 0;
+			y = 0;
 		}
+
 	}
 
 	@Override
@@ -89,6 +99,6 @@ public class ControllerPovJoystick extends SimpleJoystickPart {
 
 	@Override
 	public boolean isConnected() {
-		return ControllerUtil.isControllerConnected(controller);
+		return provider.isConnected();
 	}
 }
