@@ -50,6 +50,9 @@ public class ControllerInputPart extends AutoCachingInputPart {
 	@Override
 	protected double calculatePosition() {
 		Controller controller = provider.getController();
+		if(controller == null){
+			return 0;
+		}
 		AxisType type = getAxisType();
 		if(isAxis){
 			final double value = controller.getAxis(this.code) * (inverted ? -1 : 1);
