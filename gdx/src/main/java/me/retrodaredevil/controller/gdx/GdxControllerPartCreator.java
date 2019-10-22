@@ -2,7 +2,9 @@ package me.retrodaredevil.controller.gdx;
 
 import com.badlogic.gdx.controllers.Controller;
 import me.retrodaredevil.controller.implementations.ControllerPartCreator;
-import me.retrodaredevil.controller.input.*;
+import me.retrodaredevil.controller.input.AxisType;
+import me.retrodaredevil.controller.input.InputPart;
+import me.retrodaredevil.controller.input.JoystickPart;
 import me.retrodaredevil.controller.input.implementations.DigitalAnalogInputPart;
 import me.retrodaredevil.controller.input.implementations.TwoAxisJoystickPart;
 import me.retrodaredevil.controller.output.ControllerRumble;
@@ -10,12 +12,18 @@ import me.retrodaredevil.controller.output.DisconnectedRumble;
 
 public class GdxControllerPartCreator implements ControllerPartCreator {
 	private final ControllerProvider provider;
+	private final boolean assumeTriggersAreDigitalUntilAnalogNonZero;
 
+	@Deprecated
 	public GdxControllerPartCreator(Controller controller){
 		this(ControllerProviders.wrap(controller));
 	}
-	public GdxControllerPartCreator(ControllerProvider provider){
+	public GdxControllerPartCreator(ControllerProvider provider, boolean assumeTriggersAreDigitalUntilAnalogNonZero){
 		this.provider = provider;
+		this.assumeTriggersAreDigitalUntilAnalogNonZero = assumeTriggersAreDigitalUntilAnalogNonZero;
+	}
+	public GdxControllerPartCreator(ControllerProvider provider){
+		this(provider, false);
 	}
 
 	@Override
@@ -78,7 +86,7 @@ public class GdxControllerPartCreator implements ControllerPartCreator {
 		}
         return new DigitalAnalogInputPart(
         		new ControllerInputPart(provider, AxisType.DIGITAL, digitalCode),
-				new ControllerInputPart(provider, AxisType.ANALOG, analogCode)
+				new ControllerInputPart(provider, AxisType.ANALOG, analogCode, false, true, assumeTriggersAreDigitalUntilAnalogNonZero)
 		);
 	}
 

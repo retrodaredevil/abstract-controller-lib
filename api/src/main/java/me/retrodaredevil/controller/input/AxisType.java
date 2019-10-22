@@ -70,6 +70,10 @@ public final class AxisType{
 	 * If true, this usually means that whatever this AxisType represents returns a POSITION.
 	 * <br/>
 	 * If false this usually means that whatever this AxisType represents returns a CHANGE IN POSITION
+	 * <p>
+	 * The reason for naming this {@code isShouldUseDelta} is that when a value is representing a position (ex: a position of a joystick),
+	 * you usually change the player's position by {@code position * delta}. When something represents a change in position (ex: how many pixels a mouse has moved),
+	 * you usually change the player's position by {@code change in position}.
 	 * @return true if delta should be applied.
 	 */
 	public boolean isShouldUseDelta(){
@@ -123,8 +127,6 @@ public final class AxisType{
 				}
 			}
 		}
-//			return getAxisType(anyFull, anyAnalog, anyRangeOver, isShouldUseDelta);
-//			assert isShouldUseDelta != null; always true
 		return new AxisType(anyFull, anyAnalog, anyRangeOver, shouldUseDelta);
 	}
 }
