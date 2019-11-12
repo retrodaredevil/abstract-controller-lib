@@ -8,7 +8,7 @@ import me.retrodaredevil.controller.input.JoystickPart;
 import me.retrodaredevil.controller.input.JoystickType;
 import me.retrodaredevil.controller.input.implementations.JoystickAxisFollowerPart;
 
-class HIDPOVJoystickPart extends SimpleControllerPart implements JoystickPart {
+class HidPovJoystickPart extends SimpleControllerPart implements JoystickPart {
 	private static final double INV_SQRT2 = 1.0 / Math.sqrt(2.0);
 	private static final JoystickType JOYSTICK_TYPE = new JoystickType(false, false, false, true);
 
@@ -27,7 +27,7 @@ class HIDPOVJoystickPart extends SimpleControllerPart implements JoystickPart {
 	 * @param hid The hid device
 	 * @param povCode The index of the POV - starting at 0
 	 */
-	public HIDPOVJoystickPart(GenericHID hid, int povCode){
+	public HidPovJoystickPart(GenericHID hid, int povCode){
 		this.hid = hid;
 		this.povCode = povCode;
 	}
@@ -123,7 +123,7 @@ class HIDPOVJoystickPart extends SimpleControllerPart implements JoystickPart {
 		if(hid.getPOVCount() < povCode + 1){
 			return false;
 		}
-		return HIDUtil.isConnected(hid);
+		return HidUtil.isConnected(hid);
 	}
 
 	@Override

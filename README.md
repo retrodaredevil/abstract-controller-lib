@@ -26,7 +26,11 @@ allprojects {
 dependencies {
     implementation 'com.github.retrodaredevil:abstract-controller-lib:<CHOOSE A RELEASE TAG>'
     // or for older gradle versions:
-    compile 'com.github.retrodaredevil:abstract-controller-lib:<CHOOSE A RELEASE TAG>'
+    compile 'com.github.retrodaredevil.abstract-controller-lib:api:<CHOOSE A RELEASE TAG>'
+
+    // also add either of these depending on if you are using libGDX or WPILib.
+    compile 'com.github.retrodaredevil.abstract-controller-lib:gdx:<CHOOSE A RELEASE TAG>'
+    compile 'com.github.retrodaredevil.abstract-controller-lib:wpi:<CHOOSE A RELEASE TAG>'
 }
 ```
 [jitpack.io for using with other build tools](https://jitpack.io)
@@ -36,12 +40,13 @@ This project uses Java 8 features but does not use new Java 8 APIs to allow comp
 android SDK level 19.
 
 Because of this, you may see interfaces with a single method. This is to allow lambda functions
-without importing classes only in Java 8.
+without importing classes only in Java 8 such as Supplier and Consumer.
 
 ## Deadzones
 This project has an interface called DeadzoneablePart. There may be many times when you want a joystick to have a large
 deadzone (maybe .3). This isDeadzone() method is not meant to be easily extended to make callers ignore a magnitude of .3
-just because you say so. If you want to have a deadzone this large, you should scale the x and y values as well.
+just because you say so. If you want to have a deadzone this large, you should scale the x and y values as well. There
+is currently no InputPart or JoystickPart implementation that can be used for this.
 
 ### TODO
 class to change AxisType for an InputPart

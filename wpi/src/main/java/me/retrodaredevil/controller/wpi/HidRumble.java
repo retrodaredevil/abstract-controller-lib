@@ -4,14 +4,14 @@ import edu.wpi.first.wpilibj.GenericHID;
 import me.retrodaredevil.controller.SimpleControllerPart;
 import me.retrodaredevil.controller.output.ControllerRumble;
 
-public class HIDRumble extends SimpleControllerPart implements ControllerRumble {
+public class HidRumble extends SimpleControllerPart implements ControllerRumble {
 
 	private final GenericHID hid;
 
 	/** The time since the epoch in milliseconds representing the time at which to cancel the rumble*/
 	private Long cancelAt = null;
 
-	public HIDRumble(GenericHID hid){
+	public HidRumble(GenericHID hid){
 		this.hid = hid;
 	}
 
@@ -62,6 +62,6 @@ public class HIDRumble extends SimpleControllerPart implements ControllerRumble 
 
 	@Override
 	public boolean isConnected() {
-		return HIDUtil.isConnected(hid);
+		return HidUtil.isConnected(hid);
 	}
 }

@@ -32,17 +32,17 @@ public class GdxControllerPartCreator implements ControllerPartCreator {
 	}
 
 	@Override
-	public JoystickPart createPOV(int povNumber, int xAxis, int yAxis) {
-        return createPOV(povNumber);
+	public JoystickPart createPov(int povNumber, int xAxis, int yAxis) {
+        return createPov(povNumber);
 	}
 
 	@Override
-	public JoystickPart createPOV(int povNumber) {
+	public JoystickPart createPov(int povNumber) {
         return new ControllerPovJoystick(provider, povNumber);
 	}
 
 	@Override
-	public JoystickPart createPOV(int xAxis, int yAxis) {
+	public JoystickPart createPov(int xAxis, int yAxis) {
         return createJoystick(xAxis, yAxis);
 	}
 

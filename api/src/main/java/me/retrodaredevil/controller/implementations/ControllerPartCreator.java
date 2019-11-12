@@ -25,31 +25,31 @@ public interface ControllerPartCreator {
 	 * Depending on the implementation, either dPadNumber should be used or xAxis and yAxis should be used.
 	 * Some implementations are only able to use one or the other, so both must be accurate.
 	 * <p>
-	 * If you do not know the xAxis or yAxis for certain, use {@link #createPOV(int)}
+	 * If you do not know the xAxis or yAxis for certain, use {@link #createPov(int)}
 	 * @param povNumber The number of the POV. (The most reliable)
 	 * @param xAxis The code for the x axis of the POV. (May vary from controller to controller)
 	 * @param yAxis The code for the y axis of the POV. (May vary from controller to controller)
 	 * @return The created JoystickPart
 	 */
-	JoystickPart createPOV(int povNumber, int xAxis, int yAxis);
+	JoystickPart createPov(int povNumber, int xAxis, int yAxis);
 	/**
 	 * Creates a POV joystick
 	 * Some implementations are only able to use one or the other, so both must be accurate.
-	 * @see #createPOV(int, int)
-	 * @see #createPOV(int, int, int)
+	 * @see #createPov(int, int)
+	 * @see #createPov(int, int, int)
 	 * @param povNumber The number of the POV.
 	 * @return The created JoystickPart
 	 */
-	JoystickPart createPOV(int povNumber);
+	JoystickPart createPov(int povNumber);
 	/**
 	 * Creates a POV joystick
-	 * @see #createPOV(int)
-	 * @see #createPOV(int, int, int)
+	 * @see #createPov(int)
+	 * @see #createPov(int, int, int)
 	 * @param xAxis The code for the x axis of the POV.
 	 * @param yAxis The code for the y axis of the POV.
 	 * @return The created JoystickPart
 	 */
-	JoystickPart createPOV(int xAxis, int yAxis);
+	JoystickPart createPov(int xAxis, int yAxis);
 	//endregion
 
 	JoystickPart createJoystick(int xAxis, int yAxis);

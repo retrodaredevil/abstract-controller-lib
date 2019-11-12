@@ -48,7 +48,7 @@ public class DefaultStandardControllerInputCreator implements StandardController
 	}
 
 	@Override public JoystickPart createDPad(ControllerPartCreator controller) {
-		return controller.createPOV(0);
+		return controller.createPov(0);
 	}
 	@Override public JoystickPart createLeftJoy(ControllerPartCreator controller) {
 		return controller.createJoystick(0, 1);

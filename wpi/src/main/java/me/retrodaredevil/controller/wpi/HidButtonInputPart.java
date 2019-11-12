@@ -7,14 +7,14 @@ import me.retrodaredevil.controller.input.InputPart;
 
 /**
  * An InputPart only for buttons on a {@link GenericHID}. When using buttons, this is recommended
- * over using {@link HIDInputPart} as it uses more methods directly from {@link GenericHID} and
+ * over using {@link HidInputPart} as it uses more methods directly from {@link GenericHID} and
  * doesn't calculated it's own pressed and released.
  * <p>
  * NOTE, if you call {@link GenericHID#getRawButtonPressed(int)} or {@link GenericHID#getRawButtonReleased(int)},
  * on the passed {@link GenericHID}, the instance of this class may not return the correct values from
  * {@link #isJustPressed()} or {@link #isJustReleased()}
  */
-class HIDButtonInputPart extends SimpleControllerPart implements InputPart {
+class HidButtonInputPart extends SimpleControllerPart implements InputPart {
 	private final GenericHID hid;
 	private final int buttonCode;
 
@@ -26,7 +26,7 @@ class HIDButtonInputPart extends SimpleControllerPart implements InputPart {
 	 * @param hid The HID device
 	 * @param buttonCode The button code, starting from 1
 	 */
-	public HIDButtonInputPart(GenericHID hid, int buttonCode) {
+	public HidButtonInputPart(GenericHID hid, int buttonCode) {
 		this.hid = hid;
 		this.buttonCode = buttonCode;
 		if(buttonCode <= 0){
@@ -87,6 +87,6 @@ class HIDButtonInputPart extends SimpleControllerPart implements InputPart {
 		if(hid.getButtonCount() < buttonCode){
 			return false;
 		}
-		return HIDUtil.isConnected(hid);
+		return HidUtil.isConnected(hid);
 	}
 }

@@ -12,39 +12,43 @@ import me.retrodaredevil.controller.output.ControllerRumble;
  * This is used to create different types of {@link InputPart}s and {@link JoystickPart}s using a
  * {@link GenericHID} which is easily instantiated by using a {@link Joystick}
  */
-public class WPIInputCreator implements ControllerPartCreator {
+public class WpiInputCreator implements ControllerPartCreator {
 
 	private final GenericHID hid;
 
-	public WPIInputCreator(GenericHID hid){
+	public WpiInputCreator(GenericHID hid){
 		this.hid = hid;
+	}
+
+	public WpiInputCreator(int port){
+		this(new Joystick(port));
 	}
 
 	@Override
 	public InputPart createDigital(int code) {
-		return new HIDButtonInputPart(hid, code + 1);
+		return new HidButtonInputPart(hid, code + 1);
 	}
 
 	@Override
-	public JoystickPart createPOV(int povNumber, int xAxis, int yAxis) {
-		return createPOV(povNumber);
+	public JoystickPart createPov(int povNumber, int xAxis, int yAxis) {
+		return createPov(povNumber);
 	}
 
 	@Override
-	public JoystickPart createPOV(int povNumber) {
-		return new HIDPOVJoystickPart(hid, povNumber);
+	public JoystickPart createPov(int povNumber) {
+		return new HidPovJoystickPart(hid, povNumber);
 	}
 
 	@Override
-	public JoystickPart createPOV(int xAxis, int yAxis) {
+	public JoystickPart createPov(int xAxis, int yAxis) {
 		return createJoystick(xAxis, yAxis);
 	}
 
 	@Override
 	public JoystickPart createJoystick(int xAxis, int yAxis) {
 		return new TwoAxisJoystickPart(
-				new HIDInputPart(AxisType.FULL_ANALOG, hid, xAxis, false, true),
-				new HIDInputPart(AxisType.FULL_ANALOG, hid, yAxis, true, true)
+				new HidInputPart(AxisType.FULL_ANALOG, hid, xAxis, false, true),
+				new HidInputPart(AxisType.FULL_ANALOG, hid, yAxis, true, true)
 		);
 	}
 
@@ -62,35 +66,35 @@ public class WPIInputCreator implements ControllerPartCreator {
 
 	@Override
 	public InputPart createFullAnalog(int axisCode, boolean isVertical) {
-		return new HIDInputPart(AxisType.FULL_ANALOG, hid, axisCode, isVertical, true);
+		return new HidInputPart(AxisType.FULL_ANALOG, hid, axisCode, isVertical, true);
 	}
 
 	@Override
 	public InputPart createAnalog(int axisCode, boolean isVertical) {
-		return new HIDInputPart(AxisType.ANALOG, hid, axisCode, isVertical, true);
+		return new HidInputPart(AxisType.ANALOG, hid, axisCode, isVertical, true);
 	}
 
 	@Override
 	public InputPart createAnalogTrigger(int axisCode) {
-		return new HIDInputPart(AxisType.ANALOG, hid, axisCode, false, true);
+		return new HidInputPart(AxisType.ANALOG, hid, axisCode, false, true);
 	}
 
 	@Override
 	public InputPart createTrigger(int digitalCode, int analogCode) {
 		return new DigitalAnalogInputPart(
-				new HIDButtonInputPart(hid, digitalCode + 1),
-				new HIDInputPart(AxisType.ANALOG, hid, analogCode, false, true)
+				new HidButtonInputPart(hid, digitalCode + 1),
+				new HidInputPart(AxisType.ANALOG, hid, analogCode, false, true)
 		);
 	}
 
 	@Override
 	public ControllerRumble createRumble() {
-		return new HIDRumble(hid);
+		return new HidRumble(hid);
 	}
 
 	@Override
 	public boolean isConnected() {
-		return HIDUtil.isConnected(hid);
+		return HidUtil.isConnected(hid);
 	}
 
 	@Override

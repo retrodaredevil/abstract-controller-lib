@@ -83,6 +83,6 @@ public class DefaultExtremeFlightJoystickInputCreator implements ExtremeFlightJo
 
 	@Override
 	public JoystickPart createDPad(ControllerPartCreator controller) {
-		return controller.createPOV(0, 4, 5);
+		return controller.createPov(0, 4, 5);
 	}
 }

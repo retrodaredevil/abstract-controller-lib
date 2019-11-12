@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import me.retrodaredevil.controller.input.AxisType;
 import me.retrodaredevil.controller.input.implementations.AutoCachingInputPart;
 
-class HIDInputPart extends AutoCachingInputPart {
+class HidInputPart extends AutoCachingInputPart {
 
 	private final GenericHID hid;
 	private final int code;
@@ -19,7 +19,7 @@ class HIDInputPart extends AutoCachingInputPart {
 	 * @param inverted True if it's inverted
 	 * @param isAxis true if it is an axis, false if it's a button
 	 */
-	public HIDInputPart(AxisType type, GenericHID hid, int code, boolean inverted, boolean isAxis) {
+	public HidInputPart(AxisType type, GenericHID hid, int code, boolean inverted, boolean isAxis) {
 		super(type);
 		this.hid = hid;
 		this.code = code;
@@ -57,7 +57,7 @@ class HIDInputPart extends AutoCachingInputPart {
 				return false;
 			}
 		}
-		return HIDUtil.isConnected(hid);
+		return HidUtil.isConnected(hid);
 	}
 
 }
