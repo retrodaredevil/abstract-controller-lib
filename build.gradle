@@ -49,14 +49,6 @@ project(":api"){
     sourceCompatibility = 8
     targetCompatibility = 8
 }
-project(":wpi"){
-    apply plugin: 'java-library'
-    sourceCompatibility = 8
-    targetCompatibility = 11
-    dependencies {
-        api project(":api")
-    }
-}
 project(":gdx"){
     apply plugin: 'java-library'
     sourceCompatibility = 8

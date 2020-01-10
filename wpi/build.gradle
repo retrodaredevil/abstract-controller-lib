@@ -1,4 +1,0 @@
-
-dependencies {
-    api 'edu.wpi.first.wpilibj:wpilibj-java:2020.1.2'
-}

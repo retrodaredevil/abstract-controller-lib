@@ -1,4 +1,3 @@
 rootProject.name = 'abstract-controller-lib'
 include ':api'
 include ':gdx'
-include ':wpi'
