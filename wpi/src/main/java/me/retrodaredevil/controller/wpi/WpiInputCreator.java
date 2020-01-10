@@ -15,9 +15,14 @@ import me.retrodaredevil.controller.output.ControllerRumble;
 public class WpiInputCreator implements ControllerPartCreator {
 
 	private final GenericHID hid;
+	private final boolean returnZeroValueIfDisconnected;
 
-	public WpiInputCreator(GenericHID hid){
+	public WpiInputCreator(GenericHID hid, boolean returnZeroValueIfDisconnected){
 		this.hid = hid;
+		this.returnZeroValueIfDisconnected = returnZeroValueIfDisconnected;
+	}
+	public WpiInputCreator(GenericHID hid){
+		this(hid, true);
 	}
 
 	public WpiInputCreator(int port){
@@ -47,8 +52,8 @@ public class WpiInputCreator implements ControllerPartCreator {
 	@Override
 	public JoystickPart createJoystick(int xAxis, int yAxis) {
 		return new TwoAxisJoystickPart(
-				new HidInputPart(AxisType.FULL_ANALOG, hid, xAxis, false, true),
-				new HidInputPart(AxisType.FULL_ANALOG, hid, yAxis, true, true)
+				new HidInputPart(AxisType.FULL_ANALOG, hid, xAxis, false, true, returnZeroValueIfDisconnected),
+				new HidInputPart(AxisType.FULL_ANALOG, hid, yAxis, true, true, returnZeroValueIfDisconnected)
 		);
 	}
 
@@ -66,24 +71,24 @@ public class WpiInputCreator implements ControllerPartCreator {
 
 	@Override
 	public InputPart createFullAnalog(int axisCode, boolean isVertical) {
-		return new HidInputPart(AxisType.FULL_ANALOG, hid, axisCode, isVertical, true);
+		return new HidInputPart(AxisType.FULL_ANALOG, hid, axisCode, isVertical, true, returnZeroValueIfDisconnected);
 	}
 
 	@Override
 	public InputPart createAnalog(int axisCode, boolean isVertical) {
-		return new HidInputPart(AxisType.ANALOG, hid, axisCode, isVertical, true);
+		return new HidInputPart(AxisType.ANALOG, hid, axisCode, isVertical, true, returnZeroValueIfDisconnected);
 	}
 
 	@Override
 	public InputPart createAnalogTrigger(int axisCode) {
-		return new HidInputPart(AxisType.ANALOG, hid, axisCode, false, true);
+		return new HidInputPart(AxisType.ANALOG, hid, axisCode, false, true, returnZeroValueIfDisconnected);
 	}
 
 	@Override
 	public InputPart createTrigger(int digitalCode, int analogCode) {
 		return new DigitalAnalogInputPart(
 				new HidButtonInputPart(hid, digitalCode + 1),
-				new HidInputPart(AxisType.ANALOG, hid, analogCode, false, true)
+				new HidInputPart(AxisType.ANALOG, hid, analogCode, false, true, returnZeroValueIfDisconnected)
 		);
 	}
 
@@ -104,7 +109,7 @@ public class WpiInputCreator implements ControllerPartCreator {
 
 	@Override
 	public String toString() {
-		return String.format("%s{port:%s,axi count:%s,button count:%s,pov count:%s}",
-				getClass().getSimpleName(), hid.getPort(), hid.getAxisCount(), hid.getButtonCount(), hid.getPOVCount());
+		return String.format("%s{name=%s,port=%s,axi count=%s,button count=%s,pov count=%s}",
+				getClass().getSimpleName(), hid.getName(), hid.getPort(), hid.getAxisCount(), hid.getButtonCount(), hid.getPOVCount());
 	}
 }
