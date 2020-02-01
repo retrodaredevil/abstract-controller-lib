@@ -8,12 +8,14 @@ import java.util.List;
 public class MultiplierInputPart extends LowestPositionInputPart {
 	
 	
-	public MultiplierInputPart(boolean allowNotConnected, List<InputPart> inputParts) {
-		super(allowNotConnected, inputParts);
+	public MultiplierInputPart(boolean ignoreIfDisconnected, List<InputPart> inputParts, boolean updateParts) {
+		super(ignoreIfDisconnected, inputParts, updateParts);
 	}
-	public MultiplierInputPart(boolean allowNotConnected, InputPart... inputParts){
-		this(allowNotConnected, Arrays.asList(inputParts));
+	@Deprecated
+	public MultiplierInputPart(boolean ignoreIfDisconnected, InputPart... inputParts){
+		super(ignoreIfDisconnected, inputParts);
 	}
+	@Deprecated
 	public MultiplierInputPart(InputPart... inputParts){
 		this(true, inputParts);
 	}
@@ -25,7 +27,7 @@ public class MultiplierInputPart extends LowestPositionInputPart {
         	if(part.isDeadzone()){
         		return 0;
 			}
-        	if(part.isConnected()) {
+        	if(part.isConnected() || !ignoreIfDisconnected) {
 				r *= part.getPosition();
 			}
 		}

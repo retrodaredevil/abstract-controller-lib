@@ -22,17 +22,25 @@ public class HighestPositionInputPart extends SimpleInputPart {
 	 * @param parts The controller parts to use. If a part's parent is null, it will automatically be handled by this, otherwise,
 	 *              each part that already has a parent must update its position
 	 */
+	@Deprecated
 	public HighestPositionInputPart(InputPart... parts){
 		this(Arrays.asList(parts));
 	}
+	@Deprecated
 	public HighestPositionInputPart(List<InputPart> parts){
 		this(parts, false);
 	}
+	@Deprecated
 	public HighestPositionInputPart(List<InputPart> parts, boolean allowMultiplePressesAndReleases){
+		this(parts, allowMultiplePressesAndReleases, true);
+	}
+	public HighestPositionInputPart(List<InputPart> parts, boolean allowMultiplePressesAndReleases, boolean updateParts){
 		super(InputPartUtils.autoAxisTypeHelper(parts));
 		this.parts = parts;
 		this.allowMultiplePressesAndReleases = allowMultiplePressesAndReleases;
-		partUpdater.addPartsAssertNonePresent(parts);
+		if(updateParts) {
+			partUpdater.addPartsAssertNonePresent(parts);
+		}
 	}
 
 	@Override

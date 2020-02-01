@@ -19,7 +19,7 @@ public class TwoWayInput extends SimpleInputPart {
 	 * @param part1 The InputPart that will be the positive value
 	 * @param part2 The InputPart that will be the negative value
 	 */
-	public TwoWayInput(InputPart part1, InputPart part2){
+	public TwoWayInput(InputPart part1, InputPart part2, boolean updateParts){
 		super(new AxisType(true,
 				part1.getAxisType().isAnalog() || part2.getAxisType().isAnalog(),
 				part1.getAxisType().isRangeOver() || part2.getAxisType().isRangeOver(),
@@ -34,7 +34,13 @@ public class TwoWayInput extends SimpleInputPart {
 		}
 		this.part1 = part1;
 		this.part2 = part2;
-		partUpdater.addPartsAssertNonePresent(part1, part2);
+		if(updateParts) {
+			partUpdater.addPartsAssertNonePresent(part1, part2);
+		}
+	}
+	@Deprecated
+	public TwoWayInput(InputPart part1, InputPart part2){
+		this(part1, part2, true);
 	}
 	public InputPart getPart1(){
 		return part1;

@@ -30,7 +30,7 @@ public class SensitiveInputPart extends SimpleInputPart {
 	 * @param sensitivityMultiplier The sensitivity OptionValue that the position from inputPart will be multiplied by
 	 * @param invertOption null or a boolean OptionValue representing if the position should be multiplied by -1
 	 */
-	public SensitiveInputPart(InputPart inputPart, OptionValue sensitivityMultiplier, OptionValue invertOption){
+	public SensitiveInputPart(InputPart inputPart, OptionValue sensitivityMultiplier, OptionValue invertOption, boolean updatePart){
 		super(autoAxisTypeHelper(inputPart, sensitivityMultiplier, invertOption != null));
 		this.inputPart = Objects.requireNonNull(inputPart);
 		this.sensitivityMultiplier = Objects.requireNonNull(sensitivityMultiplier);
@@ -38,8 +38,15 @@ public class SensitiveInputPart extends SimpleInputPart {
 		if(invertOption != null && !invertOption.isOptionValueBoolean()){
 			throw new IllegalArgumentException("invertOption must be a boolean option value");
 		}
-		partUpdater.addPartAssertNotPresent(inputPart);
+		if(updatePart){
+			partUpdater.addPartAssertNotPresent(inputPart);
+		}
 	}
+	@Deprecated
+	public SensitiveInputPart(InputPart inputPart, OptionValue sensitivityMultiplier, OptionValue invertOption){
+		this(inputPart, sensitivityMultiplier, invertOption, true);
+	}
+	@Deprecated
 	public SensitiveInputPart(InputPart inputPart, OptionValue sensitivityMultiplier){
 		this(inputPart, sensitivityMultiplier, null);
 	}

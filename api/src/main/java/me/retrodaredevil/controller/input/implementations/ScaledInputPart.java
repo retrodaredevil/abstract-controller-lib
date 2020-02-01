@@ -8,10 +8,12 @@ import static java.lang.Math.*;
 public class ScaledInputPart extends SimpleInputPart {
 	private final InputPart inputPart;
 	
-	public ScaledInputPart(AxisType type, InputPart inputPart) {
+	public ScaledInputPart(AxisType type, InputPart inputPart, boolean updatePart) {
 		super(type);
 		this.inputPart = inputPart;
-		partUpdater.addPartAssertNotPresent(inputPart);
+		if(updatePart) {
+			partUpdater.addPartAssertNotPresent(inputPart);
+		}
 	}
 	
 	@Override

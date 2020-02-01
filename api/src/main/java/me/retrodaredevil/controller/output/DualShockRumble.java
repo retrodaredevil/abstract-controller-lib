@@ -13,15 +13,18 @@ public class DualShockRumble extends SimpleControllerPart implements ControllerR
 	private final double heavyStart;
 	private final double lightEnd;
 	private final ControllerRumble rumble;
-	
+
+	@Deprecated
 	public DualShockRumble(ControllerRumble rumble) {
-		this(rumble, DEFAULT_HEAVY_START, DEFAULT_LIGHT_END);
+		this(rumble, DEFAULT_HEAVY_START, DEFAULT_LIGHT_END, true);
 	}
-	private DualShockRumble(ControllerRumble rumble, double heavyStart, double lightEnd){
+	private DualShockRumble(ControllerRumble rumble, double heavyStart, double lightEnd, boolean updateRumble){
 		this.rumble = rumble;
 		this.heavyStart = heavyStart;
 		this.lightEnd = lightEnd;
-		partUpdater.addPartsAssertNonePresent(rumble);
+		if(updateRumble) {
+			partUpdater.addPartsAssertNonePresent(rumble);
+		}
 	}
 	
 	@Override

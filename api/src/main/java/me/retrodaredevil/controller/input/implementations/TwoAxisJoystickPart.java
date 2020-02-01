@@ -24,19 +24,25 @@ public class TwoAxisJoystickPart extends SimpleJoystickPart {
 	 *                                        Should only be set to false if you are sure isInputSquare will and should always be false.
 	 *                                        If this is true and the x or y axis support range over, this will be set to false and have no effect
 	 */
-	public TwoAxisJoystickPart(InputPart x, InputPart y, boolean isInputSquare, boolean autoCorrectToDetectSquareInput){
+	public TwoAxisJoystickPart(InputPart x, InputPart y, boolean updateParts, boolean isInputSquare, boolean autoCorrectToDetectSquareInput){
 		super(autoJoystickTypeHelper(x, y, isInputSquare), true,
 				autoCorrectToDetectSquareInput && !(x.getAxisType().isRangeOver() || y.getAxisType().isRangeOver()));
 		this.xAxis = x;
 		this.yAxis = y;
-		partUpdater.addPartsAssertNonePresent(xAxis, yAxis);
+		if(updateParts) {
+			partUpdater.addPartsAssertNonePresent(xAxis, yAxis);
+		}
+	}
+	@Deprecated
+	public TwoAxisJoystickPart(InputPart x, InputPart y, boolean isInputSquare, boolean autoCorrectToDetectSquareInput){
+		this(x, y, true, isInputSquare, autoCorrectToDetectSquareInput);
 	}
 
 	/**
 	 * The recommended way of constructing a TwoAxisJoystickPart.
 	 * <p>
-	 * Calls {@link #TwoAxisJoystickPart(InputPart, InputPart, boolean, boolean)}
-	 * with isInputSquare=false and autoCorrectToDetectSquareInput=true meaning that at first
+	 * Calls {@link #TwoAxisJoystickPart(InputPart, InputPart, boolean, boolean, boolean)}
+	 * with updateParts=true, isInputSquare=false, and autoCorrectToDetectSquareInput=true meaning that at first
 	 * this expects the magnitude to not go over 1 but if it goes over too much it will switch to
 	 * isInputSquare=true
 	 * <p>
@@ -46,7 +52,7 @@ public class TwoAxisJoystickPart extends SimpleJoystickPart {
 	 * @param y y axis where down is negative and positive is up
 	 */
 	public TwoAxisJoystickPart(InputPart x, InputPart y){
-		this(x, y, false, true);
+		this(x, y, true, false, true);
 	}
 	private static JoystickType autoJoystickTypeHelper(InputPart x, InputPart y, boolean isSquareInput){
 		if(!x.getAxisType().isFull() || !y.getAxisType().isFull()){
@@ -60,19 +66,22 @@ public class TwoAxisJoystickPart extends SimpleJoystickPart {
 				isSquareInput, x.getAxisType().isShouldUseDelta() || y.getAxisType().isShouldUseDelta());
 	}
 	// region four InputPart factory methods
+	@Deprecated
 	public static TwoAxisJoystickPart createFromFour(InputPart up, InputPart down, InputPart left, InputPart right, boolean isInputSquare){
-		return new TwoAxisJoystickPart(new TwoWayInput(right, left), new TwoWayInput(up, down), isInputSquare, false);
+		return createFromFour(up, down, left, right, true, isInputSquare);
 	}
 	/**
-	 * Creates a TwoAxisJoystickPart using the 4 provided InputParts. This assumes that up and right or up and left, etc
-	 * can be pressed at the same time, so this is the same thing as calling {@link #createFromFour(InputPart, InputPart, InputPart, InputPart, boolean)}
-	 * with isInputSquare = true
+	 * Creates a TwoAxisJoystickPart using the 4 provided InputParts.
 	 */
-	public static TwoAxisJoystickPart createFromFour(InputPart up, InputPart down, InputPart left, InputPart right){
-		return createFromFour(up, down, left, right, true);
+	public static TwoAxisJoystickPart createFromFour(InputPart up, InputPart down, InputPart left, InputPart right, boolean updateParts, boolean isInputSquare){
+		return new TwoAxisJoystickPart(new TwoWayInput(right, left, updateParts), new TwoWayInput(up, down, updateParts), true, isInputSquare, false);
 	}
-	public static TwoAxisJoystickPart createFromFourAutoDetectSquare(InputPart up, InputPart down, InputPart left, InputPart right){
-		return new TwoAxisJoystickPart(new TwoWayInput(right, left), new TwoWayInput(up, down), false, true);
+	@Deprecated
+	public static TwoAxisJoystickPart createFromFour(InputPart up, InputPart down, InputPart left, InputPart right){
+		return createFromFour(up, down, left, right, true, true);
+	}
+	public static TwoAxisJoystickPart createFromFourAutoDetectSquare(InputPart up, InputPart down, InputPart left, InputPart right, boolean updateParts){
+		return new TwoAxisJoystickPart(new TwoWayInput(right, left, updateParts), new TwoWayInput(up, down, updateParts), true, false, true);
 	}
 	// endregion
 

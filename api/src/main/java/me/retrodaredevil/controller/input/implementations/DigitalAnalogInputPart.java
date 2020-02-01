@@ -18,14 +18,19 @@ public class DigitalAnalogInputPart extends SimpleControllerPart implements Inpu
 	 * @param digital The digital InputPart. Its parent will be set to this if it does not already have one
 	 * @param analog The analog InputPart. Its parent will be set to this if it does not already have one
 	 */
-	public DigitalAnalogInputPart(InputPart digital, InputPart analog){
+	public DigitalAnalogInputPart(InputPart digital, InputPart analog, boolean updateParts){
 		this.digital = digital;
 		this.analog = analog;
 		final AxisType digitalType = digital.getAxisType(), analogType = analog.getAxisType();
 		if(digitalType.isFull() != analogType.isFull()){
 			throw new IllegalArgumentException("Both digital and analog must have full range if either has full range!");
 		}
-		partUpdater.addPartsAssertNonePresent(digital, analog);
+		if(updateParts) {
+			partUpdater.addPartsAssertNonePresent(digital, analog);
+		}
+	}
+	public DigitalAnalogInputPart(InputPart digital, InputPart analog){
+		this(digital, analog, true);
 	}
 
 	@Override

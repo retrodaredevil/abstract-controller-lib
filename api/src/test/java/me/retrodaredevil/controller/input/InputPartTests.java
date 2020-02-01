@@ -58,9 +58,7 @@ final class InputPartTests {
 	@Test
 	void testHighestPositionInputPart(){
 		DummyInputPart dummy = new DummyInputPart(-.51, true);
-		InputPart inputPart = new HighestPositionInputPart(
-				Arrays.asList(dummy,  new DummyInputPart(.125, true)),
-				true);
+		InputPart inputPart = new HighestPositionInputPart(Arrays.asList(dummy,  new DummyInputPart(.125, true)), true, true);
 		inputPart.update(config);
 		// HighestPositionInputParts tests
 		assertEquals(-.51, inputPart.getPosition());
@@ -93,7 +91,7 @@ final class InputPartTests {
 		final InputPart dummy = new DummyInputPart(1.5, true);
 		final OptionValue multiplier = OptionValues.createAnalogRangedOptionValue(0, 2, 1);
 		final OptionValue invert = OptionValues.createBooleanOptionValue(false);
-		final InputPart inputPart = new SensitiveInputPart(dummy, multiplier, invert);
+		final InputPart inputPart = new SensitiveInputPart(dummy, multiplier, invert, true);
 
 		inputPart.update(config);
 		assertEquals(1.5, inputPart.getPosition());
@@ -227,7 +225,7 @@ final class InputPartTests {
 	void testScaledInputPart(){
 		{
 			final DummyInputPart dummyFull = new DummyInputPart(0.0, true);
-			final InputPart inputPart = new ScaledInputPart(AxisType.ANALOG, dummyFull);
+			final InputPart inputPart = new ScaledInputPart(AxisType.ANALOG, dummyFull, true);
 			
 			inputPart.update(config);
 			assertEquals(.5, inputPart.getPosition());
@@ -242,7 +240,7 @@ final class InputPartTests {
 		}
 		{
 			final DummyInputPart dummy = new DummyInputPart(0.0, false);
-			final InputPart inputPart = new ScaledInputPart(AxisType.FULL_ANALOG, dummy);
+			final InputPart inputPart = new ScaledInputPart(AxisType.FULL_ANALOG, dummy, true);
 			
 			inputPart.update(config);
 			assertEquals(-1.0, inputPart.getPosition());

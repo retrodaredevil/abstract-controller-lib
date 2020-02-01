@@ -22,11 +22,13 @@ public class LowestPositionInputPart extends SimpleInputPart {
 	 * @param ignoreIfDisconnected true if you want something that is disconnected to be ignored. (Recommended to be true)
 	 * @param inputParts The list of InputParts. Each that does not have a parent will have its parent set to this
 	 */
-	public LowestPositionInputPart(boolean ignoreIfDisconnected, List<InputPart> inputParts) {
+	public LowestPositionInputPart(boolean ignoreIfDisconnected, List<InputPart> inputParts, boolean updateParts) {
 		super(InputPartUtils.autoAxisTypeHelper(inputParts));
 		this.inputParts = inputParts;
 		this.ignoreIfDisconnected = ignoreIfDisconnected;
-		partUpdater.addPartsAssertNonePresent(inputParts);
+		if(updateParts) {
+			partUpdater.addPartsAssertNonePresent(inputParts);
+		}
 	}
 	/**
 	 * NOTE: If two or more {@link InputPart}s in the list are tied for the lowest position, the one that comes first in
@@ -34,13 +36,15 @@ public class LowestPositionInputPart extends SimpleInputPart {
 	 * @param ignoreIfDisconnected true if you want something that is disconnected to be ignored. (Recommended to be true)
 	 * @param inputParts The InputParts
 	 */
+	@Deprecated
 	public LowestPositionInputPart(boolean ignoreIfDisconnected, InputPart... inputParts){
-		this(ignoreIfDisconnected, Arrays.asList(inputParts));
+		this(ignoreIfDisconnected, Arrays.asList(inputParts), true);
 	}
 	/**
 	 * Calls {@link #LowestPositionInputPart(boolean, InputPart...)} with ignoreIfDisconnected = false
 	 * @param inputParts The InputParts
 	 */
+	@Deprecated
 	public LowestPositionInputPart(InputPart... inputParts){
 		this(false, inputParts);
 	}

@@ -17,11 +17,16 @@ public class ChildPositionInputPart extends AutoCachingInputPart {
 	 * @param axisType The AxisType
 	 * @param getter The getter to get the position
 	 */
-	public ChildPositionInputPart(InputPart inputPart, AxisType axisType, PositionGetter getter){
+	public ChildPositionInputPart(InputPart inputPart, AxisType axisType, PositionGetter getter, boolean updateParts){
 		super(axisType, true);
 		this.inputPart = inputPart;
 		this.getter = getter;
-		partUpdater.addPartAssertNotPresent(inputPart);
+		if(updateParts){
+			partUpdater.addPartAssertNotPresent(inputPart);
+		}
+	}
+	public ChildPositionInputPart(InputPart inputPart, AxisType axisType, PositionGetter getter){
+		this(inputPart, axisType, getter, true);
 	}
 
 	@Override
