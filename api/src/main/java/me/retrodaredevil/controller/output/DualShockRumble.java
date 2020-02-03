@@ -14,10 +14,6 @@ public class DualShockRumble extends SimpleControllerPart implements ControllerR
 	private final double lightEnd;
 	private final ControllerRumble rumble;
 
-	@Deprecated
-	public DualShockRumble(ControllerRumble rumble) {
-		this(rumble, DEFAULT_HEAVY_START, DEFAULT_LIGHT_END, true);
-	}
 	public DualShockRumble(ControllerRumble rumble, double heavyStart, double lightEnd, boolean updateRumble){
 		this.rumble = rumble;
 		this.heavyStart = heavyStart;
@@ -30,7 +26,7 @@ public class DualShockRumble extends SimpleControllerPart implements ControllerR
 	@Override
 	protected void onUpdate() {
 		super.onUpdate();
-		rumble.update(config);
+		rumble.update(getConfig());
 	}
 	
 	@Override

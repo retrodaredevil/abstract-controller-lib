@@ -85,7 +85,8 @@ public abstract class SimpleJoystickPart extends SimpleControllerPart implements
 			return;
 		}
 		boolean testForNeedsScale = (autoCorrectToDetectSquareInput && !type.isInputSquare()) && !type.isRangeOver();
-		if(this.config.isCacheAngleAndMagnitudeInUpdate() || testForNeedsScale){
+		ControlConfig config = getConfig();
+		if(config.isCacheAngleAndMagnitudeInUpdate() || testForNeedsScale){
 			double x = getX();
 			double y = getY();
 			angleDegrees = calculateAngle(x, y);

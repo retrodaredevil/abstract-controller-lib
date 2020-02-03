@@ -110,7 +110,7 @@ final class InputPartTests {
 	void testLowestPosition(){
 		final DummyInputPart dummy1 = new DummyInputPart(.75, false);
 		final DummyInputPart dummy2 = new DummyInputPart(-1, true);
-		final InputPart inputPart = new LowestPositionInputPart(dummy1, dummy2);
+		final InputPart inputPart = new LowestPositionInputPart(false, Arrays.asList(dummy1, dummy2), true);
 
 		assertTrue(inputPart.getAxisType().isFull());
 		assertTrue(inputPart.getAxisType().isAnalog());
@@ -191,7 +191,7 @@ final class InputPartTests {
 		final DummyInputPart full = new DummyInputPart(1.0, true);
 		final DummyInputPart multiplier = new DummyInputPart(0.0, false);
 		
-		final InputPart inputPart = new MultiplierInputPart(true, full, multiplier);
+		final InputPart inputPart = new MultiplierInputPart(true, Arrays.asList(full, multiplier), true);
 		
 		inputPart.update(config);
 		assertTrue(inputPart.isDeadzone());

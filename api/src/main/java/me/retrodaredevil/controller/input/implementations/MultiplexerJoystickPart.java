@@ -29,10 +29,6 @@ public class MultiplexerJoystickPart extends SimpleControllerPart implements Joy
 		yAxis = new MultiplexerInputPart(axisType, true);
 		partUpdater.addPartsAssertNonePresent(xAxis, yAxis);
 	}
-	@Deprecated
-	public MultiplexerJoystickPart(JoystickPart... joysticks){
-		this(Arrays.asList(joysticks), true);
-	}
 	private static AxisType axisTypeHelper(Collection<? extends JoystickPart> joysticks){
 		boolean analog = false;
 		boolean rangeOver = false;

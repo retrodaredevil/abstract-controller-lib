@@ -8,11 +8,22 @@ public abstract class SimpleControllerPart implements ControllerPart{
 	protected final PartUpdater partUpdater = new PartUpdater();
 	
 	/** Can be accessed after or during the first call to update. */
+	@Deprecated
 	protected ControlConfig config;
+	private ControlConfig _config;
+
+	protected final ControlConfig getConfig(){
+		ControlConfig r = _config;
+		if(r == null){
+			throw new ControllerPartNotUpdatedException("This controller part was not updated! getConfig() called! this=" + this + ". class=" + getClass().getSimpleName());
+		}
+		return r;
+	}
 
 	@Override
 	public final void update(ControlConfig config) {
 		this.config = config;
+		this._config = config;
 		onUpdate();
 		onSecondUpdate();
 		updateChildren();
@@ -20,7 +31,7 @@ public abstract class SimpleControllerPart implements ControllerPart{
 		onLateUpdate();
 	}
 	protected void updateChildren(){
-		partUpdater.updateParts(config);
+		partUpdater.updateParts(getConfig());
 	}
 
 	/**
@@ -48,6 +59,6 @@ public abstract class SimpleControllerPart implements ControllerPart{
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + "{hashCode: " + Integer.toHexString(hashCode()) + "}";
+		return getClass().getSimpleName() + "(hashCode=" + Integer.toHexString(hashCode()) + ")";
 	}
 }

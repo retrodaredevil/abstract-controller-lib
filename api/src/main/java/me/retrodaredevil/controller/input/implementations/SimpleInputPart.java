@@ -32,10 +32,7 @@ public abstract class SimpleInputPart extends SimpleControllerPart implements In
 	 */
 	@Override
 	public boolean isDeadzone() {
-		ControlConfig config = this.config;
-		if(config == null){
-			throw new ControllerPartNotUpdatedException();
-		}
+		ControlConfig config = getConfig();
 		return Math.abs(getPosition()) <= getDeadzone(getAxisType(), config);
 	}
 
@@ -59,6 +56,7 @@ public abstract class SimpleInputPart extends SimpleControllerPart implements In
 
 	@Override
 	public int getDigitalPosition() {
+		ControlConfig config = getConfig();
 		double value = getPosition();
 		if(!getAxisType().isFull()){
 			if(value > config.getButtonDownThreshold()){
@@ -77,6 +75,6 @@ public abstract class SimpleInputPart extends SimpleControllerPart implements In
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + "{AxisType:" + getAxisType() + ",hashCode:" + Integer.toHexString(hashCode()) + "}";
+		return getClass().getSimpleName() + "(AxisType=" + getAxisType() + ",hashCode=" + Integer.toHexString(hashCode()) + ")";
 	}
 }

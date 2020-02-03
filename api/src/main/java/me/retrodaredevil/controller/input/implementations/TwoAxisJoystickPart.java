@@ -33,10 +33,6 @@ public class TwoAxisJoystickPart extends SimpleJoystickPart {
 			partUpdater.addPartsAssertNonePresent(xAxis, yAxis);
 		}
 	}
-	@Deprecated
-	public TwoAxisJoystickPart(InputPart x, InputPart y, boolean isInputSquare, boolean autoCorrectToDetectSquareInput){
-		this(x, y, true, isInputSquare, autoCorrectToDetectSquareInput);
-	}
 
 	/**
 	 * The recommended way of constructing a TwoAxisJoystickPart.
@@ -66,19 +62,11 @@ public class TwoAxisJoystickPart extends SimpleJoystickPart {
 				isSquareInput, x.getAxisType().isShouldUseDelta() || y.getAxisType().isShouldUseDelta());
 	}
 	// region four InputPart factory methods
-	@Deprecated
-	public static TwoAxisJoystickPart createFromFour(InputPart up, InputPart down, InputPart left, InputPart right, boolean isInputSquare){
-		return createFromFour(up, down, left, right, true, isInputSquare);
-	}
 	/**
 	 * Creates a TwoAxisJoystickPart using the 4 provided InputParts.
 	 */
 	public static TwoAxisJoystickPart createFromFour(InputPart up, InputPart down, InputPart left, InputPart right, boolean updateParts, boolean isInputSquare){
 		return new TwoAxisJoystickPart(new TwoWayInput(right, left, updateParts), new TwoWayInput(up, down, updateParts), true, isInputSquare, false);
-	}
-	@Deprecated
-	public static TwoAxisJoystickPart createFromFour(InputPart up, InputPart down, InputPart left, InputPart right){
-		return createFromFour(up, down, left, right, true, true);
 	}
 	public static TwoAxisJoystickPart createFromFourAutoDetectSquare(InputPart up, InputPart down, InputPart left, InputPart right, boolean updateParts){
 		return new TwoAxisJoystickPart(new TwoWayInput(right, left, updateParts), new TwoWayInput(up, down, updateParts), true, false, true);

@@ -30,24 +30,6 @@ public class LowestPositionInputPart extends SimpleInputPart {
 			partUpdater.addPartsAssertNonePresent(inputParts);
 		}
 	}
-	/**
-	 * NOTE: If two or more {@link InputPart}s in the list are tied for the lowest position, the one that comes first in
-	 * the list will take priority
-	 * @param ignoreIfDisconnected true if you want something that is disconnected to be ignored. (Recommended to be true)
-	 * @param inputParts The InputParts
-	 */
-	@Deprecated
-	public LowestPositionInputPart(boolean ignoreIfDisconnected, InputPart... inputParts){
-		this(ignoreIfDisconnected, Arrays.asList(inputParts), true);
-	}
-	/**
-	 * Calls {@link #LowestPositionInputPart(boolean, InputPart...)} with ignoreIfDisconnected = false
-	 * @param inputParts The InputParts
-	 */
-	@Deprecated
-	public LowestPositionInputPart(InputPart... inputParts){
-		this(false, inputParts);
-	}
 
 	@Override
 	public double getPosition() {

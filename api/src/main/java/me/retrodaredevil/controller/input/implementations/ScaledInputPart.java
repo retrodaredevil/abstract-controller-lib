@@ -35,7 +35,7 @@ public class ScaledInputPart extends SimpleInputPart {
 		final AxisType neededType = getAxisType();
 		if(!neededType.isAnalog()){
 			final double position = inputPart.getPosition();
-			if(abs(position) >= config.getButtonDownThreshold()){
+			if(abs(position) >= getConfig().getButtonDownThreshold()){
 				if(neededType.isRangeOver()){
 					return signum(position) * ceil(abs(position));
 				}
@@ -47,7 +47,7 @@ public class ScaledInputPart extends SimpleInputPart {
 	
 	@Override
 	public boolean isDown() {
-		return getPosition() >= config.getButtonDownThreshold();
+		return getPosition() >= getConfig().getButtonDownThreshold();
 	}
 	
 	@Override

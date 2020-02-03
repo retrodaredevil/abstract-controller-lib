@@ -64,7 +64,7 @@ public class DigitalAnalogInputPart extends SimpleControllerPart implements Inpu
 
 	@Override
 	public boolean isDown() {
-		if(config.isUseAbstractedIsDownIfPossible() && digital.isConnected() && !digital.isDeadzone()){
+		if(getConfig().isUseAbstractedIsDownIfPossible() && digital.isConnected() && !digital.isDeadzone()){
 			return digital.isDown();
 		}
 		return analog.isDown();
@@ -72,7 +72,7 @@ public class DigitalAnalogInputPart extends SimpleControllerPart implements Inpu
 
 	@Override
 	public boolean isJustPressed() {
-		if(config.isUseAbstractedIsDownIfPossible() && digital.isConnected() && !digital.isDeadzone()){
+		if(getConfig().isUseAbstractedIsDownIfPossible() && digital.isConnected() && !digital.isDeadzone()){
 			return digital.isJustPressed();
 		}
 		return analog.isJustPressed();
@@ -80,7 +80,7 @@ public class DigitalAnalogInputPart extends SimpleControllerPart implements Inpu
 
 	@Override
 	public boolean isJustReleased() {
-		if(config.isUseAbstractedIsDownIfPossible() && digital.isConnected()){
+		if(getConfig().isUseAbstractedIsDownIfPossible() && digital.isConnected()){
 			return digital.isJustReleased();
 		}
 		return analog.isJustReleased();
@@ -88,7 +88,7 @@ public class DigitalAnalogInputPart extends SimpleControllerPart implements Inpu
 
 	@Override
 	public int getDigitalPosition() {
-		if(config.isUseAbstractedIsDownIfPossible() && digital.isConnected() && !digital.isDeadzone()){
+		if(getConfig().isUseAbstractedIsDownIfPossible() && digital.isConnected() && !digital.isDeadzone()){
 			return digital.getDigitalPosition();
 		}
 		return analog.getDigitalPosition();

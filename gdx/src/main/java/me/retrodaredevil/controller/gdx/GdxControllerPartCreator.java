@@ -1,6 +1,5 @@
 package me.retrodaredevil.controller.gdx;
 
-import com.badlogic.gdx.controllers.Controller;
 import me.retrodaredevil.controller.implementations.ControllerPartCreator;
 import me.retrodaredevil.controller.input.AxisType;
 import me.retrodaredevil.controller.input.InputPart;
@@ -14,10 +13,6 @@ public class GdxControllerPartCreator implements ControllerPartCreator {
 	private final ControllerProvider provider;
 	private final boolean assumeTriggersAreDigitalUntilAnalogNonZero;
 
-	@Deprecated
-	public GdxControllerPartCreator(Controller controller){
-		this(ControllerProviders.wrap(controller));
-	}
 	public GdxControllerPartCreator(ControllerProvider provider, boolean assumeTriggersAreDigitalUntilAnalogNonZero){
 		this.provider = provider;
 		this.assumeTriggersAreDigitalUntilAnalogNonZero = assumeTriggersAreDigitalUntilAnalogNonZero;

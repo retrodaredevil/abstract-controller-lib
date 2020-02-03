@@ -42,14 +42,6 @@ public class SensitiveInputPart extends SimpleInputPart {
 			partUpdater.addPartAssertNotPresent(inputPart);
 		}
 	}
-	@Deprecated
-	public SensitiveInputPart(InputPart inputPart, OptionValue sensitivityMultiplier, OptionValue invertOption){
-		this(inputPart, sensitivityMultiplier, invertOption, true);
-	}
-	@Deprecated
-	public SensitiveInputPart(InputPart inputPart, OptionValue sensitivityMultiplier){
-		this(inputPart, sensitivityMultiplier, null);
-	}
 	private static AxisType autoAxisTypeHelper(InputPart inputPart, OptionValue sensitivityMultiplier, boolean canInvert){
 		AxisType type = inputPart.getAxisType();
 		return new AxisType(

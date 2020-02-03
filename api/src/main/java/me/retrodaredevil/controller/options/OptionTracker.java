@@ -41,16 +41,6 @@ public class OptionTracker implements ConfigurableObject{
 		options.clear();
 	}
 
-
-	/**
-	 * @deprecated Use {@link #getControlOptions()}
-	 * @return
-	 */
-	@Deprecated
-	public Collection<? extends ControlOption> getOptions(){
-		return getControlOptions();
-	}
-
 	@Override
 	public Collection<? extends ControlOption> getControlOptions() {
 		final Collection<ControlOption> r;

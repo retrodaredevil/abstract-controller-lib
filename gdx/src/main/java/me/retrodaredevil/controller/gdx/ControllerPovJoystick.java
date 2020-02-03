@@ -23,10 +23,6 @@ public class ControllerPovJoystick extends SimpleJoystickPart {
 		this.provider = provider;
 		this.povCode = povCode;
 	}
-	@Deprecated
-	public ControllerPovJoystick(Controller controller, int povCode){
-		this(ControllerProviders.wrap(controller), povCode);
-	}
 
 	@Override
 	public InputPart getXAxis() {

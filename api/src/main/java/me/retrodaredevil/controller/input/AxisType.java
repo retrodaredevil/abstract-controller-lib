@@ -104,7 +104,7 @@ public final class AxisType{
 
 	@Override
 	public String toString() {
-		return String.format("AxisType{full:%s,analog:%s,rangeOver:%s,isShouldUseDelta:%s}", full, analog, rangeOver, shouldUseDelta);
+		return String.format("AxisType(full=%s,analog:%s,rangeOver=%s,isShouldUseDelta=%s)", full, analog, rangeOver, shouldUseDelta);
 	}
 
 	public static AxisType getAxisType(InputPart... parts){

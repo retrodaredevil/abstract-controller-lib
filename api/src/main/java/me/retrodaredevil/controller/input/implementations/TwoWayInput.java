@@ -38,10 +38,6 @@ public class TwoWayInput extends SimpleInputPart {
 			partUpdater.addPartsAssertNonePresent(part1, part2);
 		}
 	}
-	@Deprecated
-	public TwoWayInput(InputPart part1, InputPart part2){
-		this(part1, part2, true);
-	}
 	public InputPart getPart1(){
 		return part1;
 	}

@@ -43,19 +43,6 @@ public class ControllerInputPart extends AutoCachingInputPart {
 		this(provider, type, code, false);
 	}
 
-	@Deprecated
-	public ControllerInputPart(Controller controller, AxisType type, int code, boolean inverted, boolean isAxis){
-		this(ControllerProviders.wrap(controller), type, code, inverted, isAxis);
-	}
-	@Deprecated
-	public ControllerInputPart(Controller controller, AxisType type, int code, boolean inverted){
-		this(ControllerProviders.wrap(controller), type, code, inverted);
-	}
-	@Deprecated
-	public ControllerInputPart(Controller controller, AxisType type, int code){
-		this(ControllerProviders.wrap(controller), type, code);
-	}
-
 	@Override
 	protected double calculatePosition() {
 		Controller controller = provider.getController();
