@@ -49,4 +49,5 @@ just because you say so. If you want to have a deadzone this large, you should s
 is currently no InputPart or JoystickPart implementation that can be used for this.
 
 ### TODO
-class to change AxisType for an InputPart
+* class to change AxisType for an InputPart
+* Look into supporting https://github.com/electronstudio/sdl2gdx
