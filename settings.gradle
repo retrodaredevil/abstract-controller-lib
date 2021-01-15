@@ -1,3 +1,5 @@
 rootProject.name = 'abstract-controller-lib'
 include ':api'
 include ':gdx'
+include ':gdx2'
+include ':gdx-common'
