@@ -7,18 +7,12 @@ import me.retrodaredevil.controller.input.JoystickPart;
 import me.retrodaredevil.controller.input.implementations.DigitalAnalogInputPart;
 import me.retrodaredevil.controller.input.implementations.TwoAxisJoystickPart;
 import me.retrodaredevil.controller.output.ControllerRumble;
-import me.retrodaredevil.controller.output.DisconnectedRumble;
 
 public class GdxControllerPartCreator implements ControllerPartCreator {
 	private final ControllerProvider provider;
-	private final boolean assumeTriggersAreDigitalUntilAnalogNonZero;
 
-	public GdxControllerPartCreator(ControllerProvider provider, boolean assumeTriggersAreDigitalUntilAnalogNonZero){
-		this.provider = provider;
-		this.assumeTriggersAreDigitalUntilAnalogNonZero = assumeTriggersAreDigitalUntilAnalogNonZero;
-	}
 	public GdxControllerPartCreator(ControllerProvider provider){
-		this(provider, false);
+		this.provider = provider;
 	}
 
 	@Override
@@ -81,13 +75,13 @@ public class GdxControllerPartCreator implements ControllerPartCreator {
 		}
         return new DigitalAnalogInputPart(
         		new ControllerInputPart(provider, AxisType.DIGITAL, digitalCode),
-				new ControllerInputPart(provider, AxisType.ANALOG, analogCode, false, true, assumeTriggersAreDigitalUntilAnalogNonZero)
+				new ControllerInputPart(provider, AxisType.ANALOG, analogCode, false, true)
 		);
 	}
 
 	@Override
 	public ControllerRumble createRumble() {
-        return DisconnectedRumble.getInstance(); // TODO
+        return new GdxRumble(provider);
 	}
 
 	@Override

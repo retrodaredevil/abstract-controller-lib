@@ -7,9 +7,6 @@ public abstract class SimpleControllerPart implements ControllerPart{
 
 	protected final PartUpdater partUpdater = new PartUpdater();
 	
-	/** Can be accessed after or during the first call to update. */
-	@Deprecated
-	protected ControlConfig config;
 	private ControlConfig _config;
 
 	protected final ControlConfig getConfig(){
@@ -22,7 +19,6 @@ public abstract class SimpleControllerPart implements ControllerPart{
 
 	@Override
 	public final void update(ControlConfig config) {
-		this.config = config;
 		this._config = config;
 		onUpdate();
 		onSecondUpdate();
