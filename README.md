@@ -30,7 +30,8 @@ dependencies {
 
     // also add either of these depending on if you are using libGDX or WPILib.
     compile 'com.github.retrodaredevil.abstract-controller-lib:gdx:<CHOOSE A RELEASE TAG>'
-    compile 'com.github.retrodaredevil.abstract-controller-lib:wpi:<CHOOSE A RELEASE TAG>'
+    // OR
+    compile 'com.github.retrodaredevil.abstract-controller-lib:gdx2:<CHOOSE A RELEASE TAG>'
 }
 ```
 [jitpack.io for using with other build tools](https://jitpack.io)

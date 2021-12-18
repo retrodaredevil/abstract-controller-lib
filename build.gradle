@@ -1,8 +1,10 @@
 buildscript {
+    ext {
+        junit5Version = "5.8.2" // https://junit.org/junit5/
+    }
     repositories {
         mavenLocal()
         mavenCentral()
-        jcenter()
         google()
 
         maven { url "https://plugins.gradle.org/m2" }
@@ -14,7 +16,6 @@ allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
-        jcenter()
         google()
 
         maven { url "https://repo.maven.apache.org/maven2" }
@@ -26,23 +27,36 @@ allprojects {
 
 subprojects {
     apply plugin: 'java'
+    apply plugin: 'maven-publish'
     tasks.withType(JavaCompile) {
     	options.encoding = 'UTF-8'
     }
     dependencies {
-        testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version:'5.3.1'
-        testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version:'5.3.1'
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junit5Version
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junit5Version
     }
     test {
         useJUnitPlatform()
     }
 
     task packageSources(type: Jar) {
-        classifier = 'sources'
+        archiveClassifier.set("sources")
         from sourceSets.main.allSource
     }
     artifacts.archives packageSources
 
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                // thanks https://stackoverflow.com/a/68515859/5434860
+                groupId = "${group}"
+                artifactId = "${project.name}"
+                version = "${version}"
+
+                from project.components.java
+            }
+        }
+    }
 }
 project(":api"){
     apply plugin: 'java-library'
@@ -74,4 +88,9 @@ project(":gdx2"){
         api project(":api")
         api project(":gdx-common")
     }
+}
+
+wrapper {
+    gradleVersion = '7.3.2' // https://gradle.org/releases/
+    distributionType = Wrapper.DistributionType.ALL
 }
