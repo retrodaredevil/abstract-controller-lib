@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        junit5Version = "5.8.2" // https://junit.org/junit5/
+        junit5Version = "5.10.0" // https://junit.org/junit5/
     }
     repositories {
         mavenLocal()
@@ -91,6 +91,6 @@ project(":gdx2"){
 }
 
 wrapper {
-    gradleVersion = '7.3.2' // https://gradle.org/releases/
+    gradleVersion = '8.4' // https://gradle.org/releases/
     distributionType = Wrapper.DistributionType.ALL
 }

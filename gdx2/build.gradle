@@ -1,4 +1,5 @@
 
 dependencies {
-    api "com.badlogicgames.gdx-controllers:gdx-controllers-core:2.2.1"
+    // https://github.com/libgdx/gdx-controllers/releases
+    api "com.badlogicgames.gdx-controllers:gdx-controllers-core:2.2.3"
 }

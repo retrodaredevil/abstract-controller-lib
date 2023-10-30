@@ -1,5 +1,4 @@
 
 dependencies {
-//    api 'com.badlogicgames.gdx:gdx:1.9.13'
     api 'com.badlogicgames.gdx:gdx-controllers:1.9.13'
 }
