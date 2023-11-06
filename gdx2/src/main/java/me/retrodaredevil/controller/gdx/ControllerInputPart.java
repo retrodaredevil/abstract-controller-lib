@@ -52,6 +52,7 @@ public class ControllerInputPart extends AutoCachingInputPart {
 			} else {
 				if (valueRaw < 0) {
 					// TODO think about whether or not we want this to be an exception. People could give us a wrong button mapping and then it would crash
+					// TODO this happens with PS4 controllers, indicating its mapping is incorrect
 					throw new AssertionError("value is negative when the type is not full! This is unexpected on gdx-controllers 2.x!");
 				}
 				value = inverted ? 1 - valueRaw : valueRaw;
